@@ -1,6 +1,6 @@
 <template>
   <div class="login-box ">
-    <h3>忘记密码</h3>
+    <h3 style="-webkit-app-region: drag" >忘记密码</h3>
     <maxmin-btn class="btn-position"></maxmin-btn>
     <form-box
       class="register"
