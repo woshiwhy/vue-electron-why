@@ -1,0 +1,146 @@
+<template>
+  <el-dialog
+    class="center-dialog"
+    title="邮箱绑定"
+    :visible.sync="centerDialogVisible"
+    width="4.21rem"
+    :before-close="close"
+    center>
+    <el-form label-position="top" label-width="80px" :model="formLabelAlign" ref="formLabelAlign" :rules="rules">
+      <el-form-item label="输入邮箱号" prop="email">
+        <el-input v-model="formLabelAlign.email" @keyup.enter.native="confirm('formLabelAlign')" placeholder="请输入邮箱号"></el-input>
+      </el-form-item>
+      <el-form-item class="coed-box" label="验证码" prop="code">
+        <el-col>
+          <el-input v-model="formLabelAlign.code" @keyup.enter.native="confirm('formLabelAlign')" placeholder="请输入验证码"></el-input>
+        </el-col>
+        <el-button class="none-btn el-button--primary" size="medium"
+                   @click="verify" v-if="disabledTrue == 1">{{codeName}}
+        </el-button>
+        <el-button  class="none-btn el-button--primary" size="medium" :loading="true" v-else-if="disabledTrue == 2"></el-button>
+        <el-button class="none-btn el-button--primary" size="medium"
+                   v-else>{{codeName}}
+        </el-button>
+      </el-form-item>
+    </el-form>
+    <span slot="footer" class="dialog-footer">
+      <el-button type="primary" class="affirm-btn" @click="confirm('formLabelAlign')" v-if="btnEmail">确 定</el-button>
+      <el-button type="primary" class="affirm-btn" :loading="true" v-else></el-button>
+      <el-button @click="close" class="hover-btn clospay">取 消</el-button>
+  </span>
+  </el-dialog>
+</template>
+<script>
+  import formMound from '@/components/module/from'
+
+export default {
+    data () {
+      var email = (rule, value, callback) => {
+        const myreg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
+        if (!value) {
+          return callback(new Error('输入邮箱'))
+        } else if (!myreg.test(value)) {
+          return callback(new Error('邮箱格式不正确'))
+        } else {
+          callback()
+        }
+      }
+      var code = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('请输入验证码'))
+        } else {
+          callback()
+        }
+      }
+      return {
+        btnEmail: true,
+        disabledTrue: 1,
+        codeName: '获取验证码',
+        formLabelAlign: {
+          email: '',
+          code: ''
+        },
+        rules: {
+          email: [
+            {validator: email, trigger: 'blur'}
+          ],
+          code: [
+            {validator: code, trigger: 'blur'}
+          ]
+        },
+
+        centerDialogVisible: true
+      }
+  },
+    components: {
+      'form-box': formMound
+    },
+    methods: {
+      confirm (email) {
+        this.$refs[email].validate((valid) => {
+          if (valid) {
+            let data = {
+              email: this.formLabelAlign.email,
+              code: this.formLabelAlign.code
+            }
+            this.btnEmail = false,
+            this.$loginAjax.editname(data).then((res) => {
+              if (res.data.code == 200) {
+                this.$messageTitle('修改邮箱成功', 'success')
+                this.$emit('showEmail', this.formLabelAlign.email)
+                this.$emit('closeEmail', 1)
+                this.btnEmail = true
+                return
+              }
+              this.$messageTitle(res.data.msg, 'error')
+              this.btnEmail = true
+            }).catch((err) => {
+              this.$messageTitle('网络错误，请稍后再试', 'error')
+              this.btnEmail = true
+            })
+          } else {
+            return false
+          }
+        })
+      },
+      // 修改邮箱 组件
+      verify () {
+        this.$refs['formLabelAlign'].validateField('email', (validMessage) => {
+          if (!validMessage) {
+            this.disabledTrue = 2
+            this.$loginAjax.sendEditVerifyCode(this.formLabelAlign.email).then((res) => {
+              if (res.data.code == 200) {
+                this.$messageTitle('验证码发送成功', 'success')
+                this.disabledTrue = 3
+                this.setTime()
+                return
+              }
+              this.$messageTitle(res.data.msg, 'error')
+              this.disabledTrue = 1
+            }).catch((err) => {
+              this.$messageTitle('网络错误，请稍后再试', 'error')
+              this.disabledTrue = 1
+            })
+          }
+        })
+      },
+      setTime () {
+        var time = 59
+        this.codeName = '已发送(' + 60 + ')'
+        var clearTime = setInterval(() => {
+          var new_Time = time--
+          this.codeName = '已发送(' + new_Time + ')'
+          if (time == 0) {
+            this.codeName = '获取验证码'
+            clearTimeout(clearTime)
+            this.disabledTrue = 1
+          }
+        }, 1000)
+      },
+      close () {
+        this.$emit('mailClone', false)
+        this.$emit('closeEmail')
+      }
+    }
+  }
+</script>

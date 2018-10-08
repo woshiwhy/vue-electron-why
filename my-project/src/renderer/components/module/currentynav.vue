@@ -1,0 +1,155 @@
+<template>
+  <div class="soller-box">
+    <i class="el-icon-arrow-left" @click="sollerLeft"></i>
+    <ul class="soller-nav"  ref="sollerBox">
+      <template v-for="(item,index) in currentyList">
+        <li :ref="item.name" @click="navselect(item,index)" :class="{'active':item.active}">
+          {{item.name}}
+        </li>
+      </template>
+    </ul>
+    <i class="el-icon-arrow-right" @click="sollerRight"></i>
+  </div>
+</template>
+<style scoped>
+
+  .active {
+    color: #0098ff !important;
+  }
+</style>
+
+<script>
+  export default {
+    props: ['navType', 'searchVal'], // searchVal搜索框选中的值
+
+    computed: {
+      depth () {
+        return {
+          'site': this.activeCurrenty.siteId, // 站点
+          'event': 'subscribe', // subscribe(订阅)/unsubscribe(取消订阅)
+          'channel': 'depth50', // depth50请求50条
+          'symbol': this.activeCurrenty.uniteSymbol/// 币对
+        }
+      },
+      webSocketType () { // webSocket连接状态，true连接，false断开
+        return this.$store.state.webSocketType
+      },
+      sellPriceType () {
+        return this.$store.state.sopttrading.pricesSet
+      },
+      currentyList () {
+        return this.$store.state.currenty
+      },
+      activeCurrenty () {
+        return this.$store.state.sopttrading.selectCurrenty
+      },
+      activeCurrentyId () {
+        return this.$store.state.sopttrading.selectCurrenty.id
+      },
+      activeBazzer () {
+        return this.$store.state.sopttrading.selectBazzer
+      }
+    },
+    watch: {
+      activeBazzer () {
+        this.$refs.sollerBox.scrollLeft = 0
+      },
+      searchVal (n, o) {
+        this.$refs.sollerBox.scrollLeft = this.$refs[n.name][0].offsetLeft - 20
+      },
+      sellPriceType () { // 可用价格刷新
+        this.balancePost()
+      },
+      activeCurrentyId (n, o) {
+        if (n) { // 监控被选中的币对ID.
+          this.socketPost()
+          this.navActive()
+          for (let v of this.currentyList) { // 判断选中的ID，改变货币列表选中状态
+            if (v.id == n) {
+              this.$set(v, 'active', true)
+              break
+            }
+          }
+        }
+      },
+      webSocketType (n, o) {
+        if (n) { // 重新连接
+          this.webSocket()
+        }
+      }
+    },
+    beforeDestroy () { // 组件销毁前清空值。
+      this.depth.event = 'unsubscribe'
+      this.webSocket()
+  },
+    destroyed () { // 组件销毁完成
+      this.$store.dispatch('selectCurrenty', '')
+  },
+    created () {
+      if (this.activeCurrenty) {
+        this.socketPost()
+      }
+    },
+    methods: {
+      socketPost () {
+        this.webSocket()
+        this.balancePost()
+      },
+      webSocket () { //  市场，货币改变发出请求
+        const webSocketObj = this.$store.state.webSocket
+        if (webSocketObj.readyState == 1) { // 1，链接成功。
+          this.$store.state.webSocket.send(JSON.stringify(this.depth))
+        }
+      },
+      navActive () {
+        for (let v of this.currentyList) {
+          this.$set(v, 'active', false)
+        }
+      },
+      sollerLeft () {
+        this.sollerNumber('left')
+      },
+      sollerRight () {
+        this.sollerNumber('right')
+      },
+      sollerNumber (type) {
+        let sollerBox = this.$refs.sollerBox
+        let sollerWidth = sollerBox.scrollWidth / this.currentyList.length
+        let number = 1
+        let soller = setInterval(() => {
+          number++
+          if (type == 'left') {
+            sollerBox.scrollLeft--
+          } else {
+            sollerBox.scrollLeft++
+          }
+          if (number >= sollerWidth) {
+            clearInterval(soller)
+          }
+        }, 5)
+      },
+      navselect (data, index) { // 存储选中的值
+        this.currentyList[index].active = this.$set(this.currentyList[index], 'active', true)
+        this.$store.dispatch('selectCurrenty', data)
+      },
+      balancePost () {
+        let data_Val = {
+          siteId: this.$store.state.sopttrading.selectBazzer.id,
+          unitSymbol: this.activeCurrenty.uniteSymbol
+        }
+
+        this.$postAxios.balanceAxios(data_Val).then((ref) => {
+          let data_val = ref.data
+          if (data_val.code == 200) {
+            let basicsCurrenty = {
+              buy: data_val.data[this.activeCurrenty.quoteCurrency] || 0, //  卖入计价货币
+              sell: data_val.data[this.activeCurrenty.baseCurrency] || 0// 卖出计价货币
+            }
+            this.$store.dispatch('balance', basicsCurrenty)
+          }
+        }).catch((ref) => {
+        })
+      }
+    }
+  }
+</script>

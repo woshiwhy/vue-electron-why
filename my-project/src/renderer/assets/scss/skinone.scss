@@ -1,0 +1,141 @@
+//skin noe
+.skin-one {
+  $font-color: #c3ccdb; //字体颜色
+  $box-color: #181b2a; //块颜色
+  $table-header: #1b1e2e; //表头颜色
+  $input-color: #4e5b85; //input颜色
+  $btn-color: #0098ff; //蓝色
+  $bor-topBot: rgba(255, 255, 255, 0.06); //
+
+  .title-name, .el-menu--horizontal > .el-menu-item, li, input, .el-table th, .el-table tr, .table-list .el-table__header div, .el-table__empty-block, .moery-title, p, .font-14, label, span, .center-dialog, .infor-box .el-textarea__inner, .dialog-footer，.heg-color, .low-color, .fontclor,.taskh3 div p{
+    color: $font-color;
+  }
+  button span{
+    color: #FFFFff;
+  }
+  .navList-box li:hover, .navList-box .active, .aside-nav > li:hover, .skin-childer-nav > .active, .bor, .tasknav {
+    background-color: $input-color !important;
+    -webkit-transition: all 200ms;
+    -moz-transition: all 200ms;
+    -o-transition: all 200ms;
+    transition: all 200ms;
+
+  }
+  .soller-nav > li:hover {
+    color: #0098ff !important;
+  }
+  #mytitle {
+    background-image: url("../../../static/img/logowitter.png");
+  }
+  .el-card__header {
+    border: none;
+  }
+  .el-card, .el-table, .el-table th, .el-tabs__nav-wrap, .content-list, .el-tabs__item, .infor-page, .hnav, .bsmarket > div {
+    background: $box-color !important;
+  }
+  button {
+    border: none;
+  }
+  input, .el-card {
+    border-color: $input-color;
+    background: $box-color;
+  }
+  input::-webkit-input-placeholder, i, .banckColr, .infor-name, .infor-data, .list-time, .taskh3 div span, .card span,.invitLi li,.friends p,.isato .title {
+    color: $input-color;
+  }
+
+  .skin-childer-nav > li {
+    background: rgba(226, 233, 245, 0.15);
+  }
+  .soller-box .el-menu-item:focus {
+    background: none !important;
+  }
+  .soller-box i {
+    color: $input-color;
+    background: rgba(226, 233, 245, 0.15);
+  }
+  .soller-box i:hover {
+    color: $font-color;
+    background: $input-color;
+  }
+  .el-menu--horizontal .el-menu-item:not(.is-disabled):hover {
+    color: #0098ff !important;
+  }
+  //  表格
+  .skin-bg {
+    background: $box-color;
+  }
+  .el-table::before {
+    height: 0;
+  }
+  .el-table__header div,  .el-dialog__header, .infor-header, .el-table__body-wrapper .el-table__body .el-table__row--striped > td {
+    background: $table-header !important;
+  }
+  .el-table__body .el-table__row td, .el-pager li, .el-pagination .btn-next, .el-pagination .btn-prev {
+    background: $box-color !important;
+  }
+
+  .el-tabs__item {
+    color: $font-color !important;
+    border-top: 3px solid $box-color !important;
+    border-bottom: .02rem $bor-topBot solid !important;
+  }
+  .content-list {
+    border-bottom: .01rem $bor-topBot solid !important;
+  }
+  .el-tabs__nav-wrap::after {
+    background-color: $bor-topBot;
+  }
+  .clospay {
+    background: rgba(255, 255, 255, .4) !important;
+  }
+  .el-tabs__item.is-active, .arbitrageCol,.generate span {
+    color: $btn-color !important;
+  }
+  .infor-box .el-textarea__inner, .border-Ipt {
+    border: 1px solid $input-color;
+    background: $box-color !important;
+  }
+  .red {
+    color: #ee1e3b;
+  }
+  .green {
+    color: #0bbe89;
+  }
+  .carryout {
+    background: #62646e;
+  }
+  .undone {
+    background: $btn-color;
+  }
+  /*自动交易执行按钮*/
+  .execute-btn.is-disabled {
+    background: rgba(255, 255, 255, 0.4) !important;
+    color: #999 !important;
+  }
+  .bottom span {
+    color: #e2e9f5;
+  }
+  .oncopy span{
+    color: #ffffff;
+  }
+  .isato .is-wait{
+    color: #fbfcff;
+  }
+  .generate{
+    border: 1px solid $btn-color;
+    background: none;
+  }
+  .generate:hover,.generate:active,.generate:focus{
+    background: none;
+  }
+  .poster .el-dialog,.poster .el-dialog__header{
+    background: none!important;
+  }
+  .el-dialog--center, .isato .el-dialog__header{
+    background-color: #262a4a !important;
+  }
+  .isato .is-process .el-step__icon, .isato .is-wait .el-step__icon{
+    background: $input-color!important;
+  }
+}

@@ -1,0 +1,536 @@
+
+html, body, heade, section, nav, main, article, section, aside, small, footer, div, ul, li, table, h1, h2, h3, h4, h5, button, input, p {
+  margin: 0;
+  padding: 0;
+  font-size: 0.14rem;
+  box-sizing: border-box;
+}
+
+html, body {
+  -webkit-user-select: none;
+  user-select: none;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: 'Microsoft YaHei';
+}
+
+li {
+  list-style: none;
+}
+ul{
+  background: none!important;
+}
+aside, main {
+  min-height: 100%;
+  overflow: inherit !important;
+}
+
+main {
+  padding: 0 !important;
+  margin-left: 0.1rem;
+
+}
+
+.smll-title {
+  font-size: 0.14rem;
+  color: #333333;
+}
+.soller-nav .el-menu-item:hover{
+  background: none!important;
+}
+.font-14 {
+  font-size: 0.14rem;
+}
+.btn-color{
+  color:#0098ff!important;
+  cursor: pointer;
+}
+.hover-btn:hover{
+  opacity: 0.8;
+}
+section {
+  min-height: 100%;
+  padding: 0.1rem;
+}
+
+.bulid {
+  color: #0098ff;
+}
+
+.red {
+  color: red;
+}
+.green{
+  color:green;
+}
+.form-btn100{
+  margin-top: .32rem!important;
+  margin-bottom: .08rem!important;
+
+}
+.form-btn100 > div {
+  margin-left: 0 !important;
+}
+
+.form-btn100 button {
+  width: 100%;
+  height: 0.4rem;
+  text-align: center;
+  line-height: 0.4rem;
+  font-size: 0.14rem;
+  padding: 0;
+  border-radius: .03rem;
+}
+
+.small-box {
+  position: relative;
+  padding: 0.15rem 0;
+  margin-bottom: 0.1rem;
+  border-radius: 0.02rem;
+}
+
+.content-height {
+  height: -moz-calc(100% - 1.04rem);
+  height: -webkit-calc(100% - 1.04rem);
+  height: calc(100% - 1.04rem);
+  width: 100%;
+  overflow: auto;
+}
+.loding-bg .el-icon-loading{
+  font-size: 0.3rem;
+}
+/*//小标题*/
+.title-name {
+  font-size: 0.16rem;
+  font-weight: bold;
+  color: #333333;
+  padding: 0 0.15rem;
+  margin-bottom: 0.15rem;
+}
+
+.border-style {
+  border: 1px solid #e2e2e2;
+}
+
+/*滚动条样式*/
+::-webkit-scrollbar { /*滚动条整体样式*/
+  width: 4px; /*高宽分别对应横竖滚动条的尺寸*/
+  height: 4px;
+}
+
+::-webkit-scrollbar-thumb { /*滚动条里面小方块*/
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-track { /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.clearfloat:after {
+  display: block;
+  clear: both;
+  content: "";
+  visibility: hidden;
+  height: 0
+}
+
+.clearfloat {
+  zoom: 1
+}
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ellipsis-2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/*表格*/
+.table-list {
+  text-align: center;
+}
+.el-table td, .el-table th.is-leaf {
+  border: none!important;
+}
+.table-list th,.table-list td {
+  padding: 0 !important;
+}
+.table-list .el-table__body  .cell{
+  height: 0.38rem;
+  line-height: 0.38rem;
+  padding: 0 0.05rem;
+}
+.table-list .el-table__header div {
+  color: #ffffff;
+  text-align: center;
+  font-size: 0.14rem;
+  height: 0.38rem;
+  line-height: 0.38rem;
+}
+.bg-table .el-table__header  .cell{
+  height: 0.45rem;
+  line-height: 0.45rem!important;
+}
+.bg-table .el-table__body  .cell{
+  height: 0.45rem;
+  line-height: 0.45rem!important;
+}
+.bg-table th {
+  padding: 0 !important;
+}
+
+.el-table td, .el-table th.is-leaf  {
+  border: none;
+  /*cursor: pointer;*/
+}
+.el-table td .pointer{
+  cursor: pointer;
+}
+.el-table::before {
+  height: 0;
+}
+
+
+/*input40样式*/
+.bind-box input {
+  height: 0.4rem;
+  padding: 0 0.15rem 0 0.1rem;
+}
+
+/*个人中心弹窗*/
+.center-dialog .el-dialog__header {
+  height: 0.45rem;
+  padding: 0;
+  background: #537d9a;
+}
+
+.center-dialog .el-dialog__title {
+  line-height: 0.45rem;
+  color: #ffffff;
+  font-size: 0.16rem;
+}
+
+.center-dialog .el-dialog__close {
+  color: #ffffff !important;
+  line-height: 0.45rem;
+}
+
+.center-dialog .el-dialog__headerbtn {
+  top: 0;
+}
+
+.center-dialog .el-form-item__label {
+  padding: 0 !important;
+  font-size: 0.14rem;
+}
+
+.center-dialog .el-form-item {
+  margin-bottom: 0.05rem;
+}
+
+.center-dialog input {
+  height: 0.38rem;
+}
+
+.center-dialog .el-dialog__body {
+  padding: 0.15rem 0.25rem 0.1rem !important;
+}
+
+.center-dialog .el-dialog__footer {
+  padding: 0.1rem 0.2rem 0.25rem;
+}
+
+.center-dialog .el-dialog__footer button {
+  width: 1.8rem;
+  height: 0.34rem;
+  padding: 0;
+  border-radius: 0.02rem !important;
+}
+/*海报弹窗*/
+.poster .el-dialog{
+  margin-bottom: 0!important;
+  background: none;
+  min-width: 3.5rem!important;
+}
+.poster .el-dialog__header{
+  background: none!important;
+}
+.poster .el-dialog--center .el-dialog__body{
+  text-align: center;
+  padding: 0rem 0.25rem 0rem!important;
+}
+.poster .el-loading-mask{
+  background: none;
+}
+.poster .el-icon-close:before{
+  content:'';
+}
+.coed-box .el-col {
+  width: 2.5rem;
+}
+
+.coed-box .el-col input {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.coed-box button {
+  width: 1.2rem;
+  height: 0.38rem;
+  /*background: #0098ff;*/
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  padding: 0;
+}
+
+/*货币搜索框*/
+.search-box input {
+  height: 0.34rem;
+  border-radius: 0.2rem;
+}
+
+.search-box .el-input__icon {
+  line-height: 0.34rem;
+  font-size: 0.16rem;
+  cursor: pointer;
+}
+
+/*登录框*/
+
+.login-dialog .el-dialog__footer button {
+  width: 170px;
+  height: 34px;
+  padding: 0;
+  border-radius: 2px !important;
+}
+
+.login-dialog .none-btn {
+  margin-left: -5px;
+  height: 38px;
+}
+
+.login-dialog .el-dialog__header {
+  height: 38px;
+  line-height: 38px;
+  padding: 0;
+  background: #1b1e2e;
+}
+.login-dialog .el-dialog__close {
+  color: #ffffff !important;
+  line-height: 38px;
+}
+
+.login-dialog .el-dialog__title {
+  color: #ffffff;
+}
+
+.login-dialog .el-dialog__headerbtn {
+  top: 0;
+}
+
+.forgin-btn {
+  color: #4e5b85;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.title-box {
+  height: 160px;
+  margin-bottom: 20px;
+  background-color: #1a1f36;
+  position: relative;
+}
+
+.btn-position {
+  position: absolute;
+  top: 0.15rem;
+  right: 0rem;
+}
+
+.bule-color {
+  color: #0098ff !important;
+}
+
+.login-box > form {
+  width: 415px;
+  margin: auto
+}
+
+.login-box > form input {
+  background: #222842;
+  border-radius: 0;
+  border: none;
+  height: 30px;
+  color: #ffffff;
+  border-bottom: 1px solid #7f818c;
+}
+
+.login-box .title-name {
+  font-size: 14px;
+  color:#4e5b85;;
+  margin: 0;
+  height: 30px;
+  padding: 0;
+}
+
+.login-box form button {
+  border-color: #0098ff;
+  height: 45px;
+  background-color: #0098ff;
+  border-radius: 2px;
+}
+.login-box .el-form-item {
+  margin-bottom: 0.2rem;
+}
+
+.login-box .el-form-item:nth-child(2) {
+  margin-bottom: 0.1rem;
+}
+
+.login-box {
+  background-color: #222842;
+  box-shadow: 0 0 20px 0 rgba(10, 16, 43, 0.1);
+  border: solid 1px rgba(255, 255, 255, 0.2);
+  box-sizing: border-box;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;;
+  height: 100%;
+}
+
+.bymarket {
+
+}
+/*滑动菜单*/
+.soller-box{
+  position: relative;
+  padding-left: 0.25rem;
+  margin-left: 0.15rem;
+margin-bottom: 0.13rem;
+}
+.soller-box i{
+  cursor: pointer;
+  font-size: 0.18rem;
+  padding: 0.05rem 0;
+  border-radius: 0.02rem;
+  position: absolute;
+  z-index: 999;
+  top:0;
+
+}
+.soller-box .soller-nav{
+  white-space:nowrap;
+  display: inline-block;
+  width:7rem;
+  overflow: hidden;
+}
+.soller-box .el-icon-arrow-left{
+  left:0;
+}
+.soller-box .el-icon-arrow-right{
+  left: 7.5rem;
+}
+.soller-nav>li{
+  border: none;
+  height: 0.25rem!important;
+  line-height:0.25rem!important;
+  color: #909399;
+  font-size:0.14rem!important;
+  padding: 0 0.2rem!important;
+  cursor: pointer;
+  float: inherit!important;
+  display: inline-block;
+}
+.soller-nav>li:hover{
+  color: #303133;
+}
+
+.soller-nav::-webkit-scrollbar{
+  height: 0;
+  width: 0;
+}
+
+.soller-box .el-menu--horizontal{
+  border: none!important;
+}
+.soller-box .el-menu--horizontal>.el-menu-item{
+  border: none!important;
+  height: 0.25rem;
+  line-height: 0.25rem;
+}
+.el-menu--horizontal>.el-menu-item.is-active{
+  border: none;
+}
+.login-box .el-form-item__error{
+  padding-top: 0;
+}
+.verify-Login .el-button{
+  font-size: 13px!important;
+}
+.pull-left .text-center{
+  margin-bottom: 0;
+}
+.spoBot{
+  margin-bottom:.1rem;
+}
+/*任务中心卡片*/
+    .myrecord .el-card__body {
+      width: 100%;
+    }
+
+.isato .el-step__icon-inner {
+  opacity: 0;
+}
+.isatoH .el-step__description{
+  position: absolute;
+  top: 0.12rem;
+  z-index: 999;
+  left: 0.05rem;
+}
+.isato .el-step.is-horizontal .el-step__line{
+  top: 0.18rem;
+}
+.isato .el-step__icon{
+  width: 0.36rem;
+  height: 0.36rem;
+}
+.isato  .is-finish .el-step__icon{
+  background: #1ba1ff!important;
+}
+.isato .el-step__title{
+  font-size: 0.12rem;
+}
+.isato .is-finish, .isato .is-process{
+color:#fbfcff!important;
+}
+.isato .el-dialog{
+  max-width: 4.21rem!important;
+}
+.isato .el-step__icon.is-text{
+  border: none;
+}
+.isato .is-process .el-step__icon, .isato .is-wait .el-step__icon{
+  background: #e6e6e6!important;
+}

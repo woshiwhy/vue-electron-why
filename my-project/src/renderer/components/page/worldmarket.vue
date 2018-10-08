@@ -1,0 +1,230 @@
+<template>
+  <el-container>
+    <div class="market-box skin-bg">
+      <h3 class="title-name">{{$t("headline.market")}}</h3>
+      <div style="position: relative">
+        <nav-box></nav-box>
+        <search-Box class="search-box" @searchData="quoteSearch" @blurData="quoteSearch"></search-Box>
+      </div>
+      <transition name="fade">
+      <el-table class="table-list bg-table chat-table"
+                v-loading="loadingType"
+                element-loading-background="rgba(0, 0, 0, 0)"   :height="reazeHeight"  :data="filtedData" stripe style="min-height:3rem;width: 100%;margin-top: 0.4rem;">
+        <el-table-column :label='$t("tableheder.moneyfor")' prop="flag"></el-table-column>
+        <el-table-column :label='$t("tableheder.timeMin")'>
+          <template slot-scope="scope">
+            <span class="low-color">{{scope.row.data.low}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column :label='$t("tableheder.timeMore")'>
+          <template slot-scope="scope">
+            <span  class="heg-color"> {{scope.row.data.high}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column :label='$t("tableheder.turnover")' prop="data.volume"></el-table-column>
+        <el-table-column :label='$t("tableheder.increase")'>
+          <template slot-scope="scope">
+            <span :class="[scope.row.data.rise>0 ? 'green' : 'red']">
+               <span v-if="scope.row.data.rise >0" class="green">+</span>
+              {{scope.row.data.rise=='none'?$t("tip.tip11"):scope.row.data.rise+'%'}}
+            </span>
+          </template>
+        </el-table-column>
+        <el-table-column :label='$t("tableheder.trendChart")'>
+          <template slot-scope="scope">
+            <marketCharts-box :id="'ceshi'+scope.$index" :newaddVal="scope.row.data.kline"></marketCharts-box>
+          </template>
+        </el-table-column>
+      </el-table>
+      </transition>
+    </div>
+  </el-container>
+</template>
+<style>
+  .chat-table .el-table__body .cell{
+    height: 0.7rem!important;
+    line-height: 0.7rem!important;
+  }
+</style>
+<style scoped>
+  .market-box {
+    width: 100%;
+    padding-top: 0.1rem;
+  }
+  .el-table__empty-block{
+    min-height: 5rem!important;
+  }
+  .search-box {
+    position: absolute;
+    top: -0.2rem;
+    right: 0.2rem;
+    width: 2.23rem;
+    height: 0.34rem;
+  }
+
+  .el-table tr {
+    line-height: .70rem;
+    height: .70rem
+  }
+  .green{
+    margin-right: -0.05rem
+  }
+</style>
+<script>
+  import searchBox from '@/components/module/searchbox'
+import ChilderNav from '@/components/module/wordnav'
+import marketCharts from '@/components/page/market/marketcharts'
+export default {
+    data () {
+      return {
+        loadingType: false,
+        websocketSend: {
+          'site': 'hub',
+          'event': 'subscribe',
+          'channel': 'ticker',
+          'symbol': ''
+        },
+        tableData: [],
+        selectVal: '',
+        filtedVal: [],
+        reazeHeight: '620'
+      }
+    },
+    computed: {
+      navList () {
+        return this.$store.state.bazzer
+      },
+      wsObj () {
+        return this.$store.state.webSocket
+      },
+      webSocketType () { // webSocket连接状态，true连接，false断开
+        return this.$store.state.webSocketType
+      },
+      filtedData () { // 筛选。
+        let DataVal = []
+        let oldTable = this.tableData
+        if (this.selectVal) {
+          for (let i = 0, maxLength = oldTable.length; i < maxLength; i++) {
+            if (oldTable[i].flag == this.selectVal) {
+              DataVal.push(oldTable[i])
+              break
+            }
+          }
+        } else {
+          DataVal = oldTable
+        }
+
+        return DataVal
+      },
+      activeBazzer () {
+        return this.$store.state.world.activeBazzer
+      },
+      tableList () { // websocket接口数据
+        return this.$store.state.world.worldTable
+      }
+    },
+    watch: {
+      tableList (n, o) {
+        this.replaceObj(n)
+      },
+      activeBazzer (n, o) {
+        this.tableData = []
+        this.loadingType = true
+        this.changeWebVal()
+      },
+      webSocketType (n, o) {
+        if (n) { // 重新连接
+          this.getMarket()
+        }
+      }
+
+    },
+    components: {
+      'nav-box': ChilderNav,
+      'search-Box': searchBox,
+      'marketCharts-box': marketCharts
+    },
+    created () {
+      if (this.activeBazzer) {
+        this.changeWebVal()
+      }
+      this.HeightChange()
+  },
+    mounted () {
+      this.documentHeight()
+    },
+    methods: {
+      documentHeight () {
+        let obj = {}
+        window.addEventListener('resize', (ref) => {
+          clearTimeout(obj.throttle)
+          obj.throttle = setTimeout(() => {
+            this.HeightChange()
+          }, 100)
+        })
+      },
+      HeightChange () {
+        let heightWidow = document.documentElement.clientHeight
+        this.reazeHeight = heightWidow - 250
+      },
+      replaceObj (n) {
+        let oldTable = this.tableData
+        let add_Type = true
+        this.loadingType = false
+        if (this.tableData.length == 0) {
+          oldTable.push(n)
+        }
+        for (let i = 0, maxLength = oldTable.length; i < maxLength; i++) {
+          if (oldTable[i].flag == n.flag) {
+            this.tableData[i].data = this.$set(this.tableData[i], 'data', n.data)
+            add_Type = false
+            return
+          }
+        }
+        if (add_Type) {
+          oldTable.push(n)
+        }
+      },
+      currtent (data) { // 根据导航动态加载币对
+        this.$postAxios.currentyAxios(data).then((res) => {
+          const data_Obj = res.data
+          if (data_Obj.code == 200) {
+            this.$store.dispatch('currenty', data_Obj.data)
+            this.activeBazzer.currentyList = data_Obj.data // 添加到交易所里面
+            return
+          }
+          this.$store.dispatch('currenty', '')
+        }).catch((res) => {
+        })
+      },
+      changeWebVal () { //  更改websroket命令；
+        this.getMarket()
+        if (this.activeBazzer.currentyList) {
+          this.$store.dispatch('currenty', this.activeBazzer.currentyList)
+          return
+        }
+        this.currtent({siteId: this.activeBazzer.id})
+      },
+      getMarket () {
+        this.websocketSend.symbol = this.activeBazzer.id
+        this.websocketSend.event = 'subscribe'
+        if (this.wsObj.readyState == 1) { // 1，链接成功。
+          this.wsObj.send(JSON.stringify(this.websocketSend))
+        }
+      },
+      // 国际行情搜索
+      quoteSearch (obj) {
+        let sellect_Current = obj.name
+        this.selectVal = sellect_Current || ''
+      }
+    },
+    beforeDestroy () {
+      // 离开国际行情时取消订阅，
+      this.websocketSend.event = 'unsubscribe'
+      this.wsObj.send(JSON.stringify(this.websocketSend))
+  },
+    destroyed: function () {
+      this.$store.dispatch('activeBazzer', '')
+    }
+  }
+</script>

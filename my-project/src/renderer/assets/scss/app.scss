@@ -1,0 +1,74 @@
+
+  @mixin background-white {
+    background: #ffffff;
+  }
+  @mixin border-radius($normal) {
+    -webkit-border-radius: $normal;
+    -moz-border-radius: $normal;
+    border-radius: $normal;
+  }
+  @mixin content-font($size,$color) {
+    font-size: $size;
+    color: $color;
+  }
+  @mixin btn-red {
+    background: red;
+    color: #ffffff;
+    @include border-radius(4px)
+  }
+  @mixin btn-style($background,$border-radius,$width-size,$height-size) {
+    background: $background;
+    color: #ffffff;
+    width: $width-size;
+    height: $height-size;
+    @include border-radius($border-radius);
+  }
+  @mixin personal-bg {
+    background-image: url("../../../static/img/personal.svg");
+  }
+  @mixin personal-active {
+    background-image: url("../../../static/img/personal_hover.svg");
+  }
+  @mixin home-bg {
+    background-image: url("../../../static/img/home.svg");
+  }
+  @mixin home-active {
+    background-image: url("../../../static/img/home_hover.svg");
+  }
+  @mixin xianhuo-bg {
+    background-image: url("../../../static/img/xhjy.svg");
+  }
+  @mixin xianhuo-active {
+    background-image: url("../../../static/img/xhjy_hover.svg");
+  }
+  @mixin zidong-bg {
+    background-image: url("../../../static/img/zdjy.svg");
+  }
+  @mixin zidong-active {
+    background-image: url("../../../static/img/zdjy_hover.svg");
+  }
+
+  @mixin guoji-bg {
+    background-image: url("../../../static/img/GJHQ.svg");
+  }
+  @mixin guoji-active {
+    background-image: url("../../../static/img/gjhq_hover.svg");
+  }
+  @mixin shouquan-bg {
+    background-image: url("../../../static/img/sqbd.svg");
+  }
+  @mixin shouquan-active {
+    background-image: url("../../../static/img/sqbd_hover.svg");
+  }
+  @mixin zhsz-bg {
+    background-image: url("../../../static/img/zhsz.svg");
+  }
+  @mixin zhsz-active {
+    background-image: url("../../../static/img/zhsz_hover.svg");
+  }
+  @mixin mored-bg {
+    background-image: url("../../../static/img/GD.svg");
+  }
+  @mixin mored-active {
+    background-image: url("../../../static/img/gd_hover.svg");
+  }

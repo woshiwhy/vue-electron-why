@@ -1,0 +1,220 @@
+<template>
+  <el-container style="height: 100%">
+      <div class="bind-box skin-bg">
+          <div class="header-title">
+            <span class=" title-name">{{$t("tip.tip12")}}</span>
+          </div>
+        <el-table class="table-list  lg-table bg-table" :data="seachData" stripe style="width: 100%">
+          <el-table-column :label='$t("tableheder.bazaar")'>
+            <template slot-scope="scope">
+            <div slot="reference" class="bazzer-name">
+              <img :src="scope.row.src" class="logo-small">
+              {{scope.row.siteName}}
+            </div>
+            </template>
+          </el-table-column>
+          <el-table-column :label='$t("tableheder.key")'>
+          <template slot-scope="scope">
+          <div slot="reference">
+           <span v-if="scope.row.id">{{scope.row.apiKey}}</span>
+           <span v-else class="banckColr">{{$t("tip.tip13")}}</span>
+          </div>
+          </template>
+          </el-table-column>
+          <el-table-column :label='$t("tableheder.theKey")'>
+            <template slot-scope="scope">
+              <div slot="reference">
+                <span v-if="scope.row.id">{{scope.row.secretKey}}</span>
+                <span v-else class="banckColr">{{$t("tip.tip14")}}</span>
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column :label='$t("tableheder.operation")'>
+            <template slot-scope="scope">
+              <i class="el-icon-edit set-btn change-btn" @click="handleOk(scope.row)"></i>
+              <i class="el-icon-delete set-btn" :class="{'disabled-btn': !scope.row.id}" disabled="!scope.row.id"
+                 @click="handledele(scope.$index, scope.row)"></i>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+    <layer-box v-if="centerDialogVisible" :width="'3rem'" @close="close" @confirm="deleBtn" :content="deleContent"></layer-box>
+    <layerWright-box v-if="wirghtApk" :width="'4.5rem'" @close="close" @confirm="close" :changeObj="changeObj"></layerWright-box>
+  </el-container>
+</template>
+<style>
+.lg-table .el-table__body  .cell {
+  height: 0.7rem!important;
+  line-height: 0.7rem!important;
+}
+  .disabled-btn{
+    color: #4e5b85!important;
+    cursor: not-allowed!important;
+  }
+</style>
+<style lang="scss" rel="stylesheet/scss" scoped>
+  @import "../../assets/scss/app";
+  .bind-box{
+    width: 100%;
+  }
+  .logo-small{
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 0.08rem;
+    width: 0.24rem;
+    height: 0.24rem;
+  }
+  .bazzer-name{
+    min-width: 0.8rem;
+    display:inline-block;
+    text-align: left!important;
+  }
+  .header-title{
+    padding: 0.15rem 0 0.2rem 0;
+  }
+  .bind-box .set-btn{
+    font-size: 0.18rem;
+    color: #0098ff;
+    cursor: pointer;
+
+  }
+  .bind-box .change-btn{
+   margin-right: 0.1rem;
+  }
+</style>
+<script>
+  import layerBox from '@/components/module/layer'
+import layerWright from '@/components/module/layerinput'
+export default {
+    data () {
+      return {
+        seachData: [],
+        delectObj: '', // 删除数据的下标
+        centerDialogVisible: false,
+        wirghtApk: false,
+        deleContent: '清空密匙,该交易所将不可交易，是否删除？',
+        changeObj: '',
+        cancelRunType: false, // 是否停止自动策略
+        webVal: {
+          'site': 'hub',
+          'event': '',
+          'channel': 'depth_monitor',
+          'symbol': ''
+        }
+      }
+    },
+    computed: {
+      playPlan () { // 正在执行的策略
+        return this.$store.state.auto.playPlan
+      },
+      wsObj () {
+        return this.$store.state.webSocket
+      }
+    },
+    components: {
+      'layer-box': layerBox,
+      'layerWright-box': layerWright
+    },
+    created () {
+      if (this.$store.state.bindApi.length) {
+        this.seachData = this.$store.state.bindApi
+        return
+      }
+      this.postApi()
+  },
+    methods: {
+      postApi () {
+        this.$postAxios.apiAxios().then((res) => {
+          let data_Val = res.data
+          if (data_Val.code == 200) {
+            for (let v of data_Val.data) {
+              const bazzer_Name = v.siteId
+              switch (bazzer_Name) {
+                case 'zb':
+                  this.$set(v, 'src', './static/img/bazzer/zb.png')
+                  break
+                case 'huobi':
+                  this.$set(v, 'src', './static/img/bazzer/huobi.png')
+                  break
+                case 'hitbtc':
+                  this.$set(v, 'src', './static/img/bazzer/hitbtc.png')
+                  break
+                case 'okex':
+                  this.$set(v, 'src', './static/img/bazzer/okex.png')
+                  break
+              }
+            }
+            this.$store.dispatch('bindApi', data_Val.data)
+            this.seachData = data_Val.data
+          }
+        }).catch((res) => {})
+      },
+      cancelRun () { // 取消自动交易
+        this.$postAxios.cancelPlan(this.playPlan.id).then((res) => {
+          if (res.data.code == 200) {
+            this.webVal.symbol = this.playPlan.monitorId
+            this.webVal.event = 'unsubscribe'
+            if (this.wsObj.readyState == 1) { // 1，链接成功。
+              this.wsObj.send(JSON.stringify(this.webVal))
+            }
+            this.$store.dispatch('playPlan', '') // 清空正在执行的策略
+            this.deleObj()
+            return
+          }
+          this.$messageTitle('删除失败，稍后重试', 'error')
+        }).catch((err) => {
+          this.$messageTitle('网络错误，请稍后再试', 'error')
+        })
+      },
+      handledele (index, item) { // 删除
+        if (!item.id) { // 如果没有ID，则是没有数据禁止删除
+          return
+        }
+        const bazzer_Name = item.siteName // 当前要删除的交易所；
+        const ask_Bazzer = this.playPlan.askSite// 卖出交易所；
+        const bidSite_Bazzer = this.playPlan.bidSite// 买入交易所；
+        if (bazzer_Name == ask_Bazzer || bazzer_Name == bidSite_Bazzer) { //  判断当前交易所是否有执行的自动交易；
+          this.deleContent = '当前交易所，正在执行自动交易，如若删除将停止自动交易，并且该交易所不能执行任何交易，是否继续执行？'
+          this.cancelRunType = true
+        } else {
+          this.deleContent = '清空密匙,该交易所将不可交易，是否删除？'
+          this.cancelRunType = false
+        }
+
+        this.centerDialogVisible = true
+        this.delectObj = index
+      },
+      deleBtn () {
+        if (this.cancelRunType) { // 删除的交易正在自动交易，执行取消自动交易接口
+          this.cancelRun()
+          return
+        }
+
+        this.deleObj()// 没有直接删除
+      },
+      deleObj () {
+        let deleData = this.seachData[this.delectObj] // 获取当前删除对象
+        this.$postAxios.unbindAxios(deleData.siteId).then((ref) => {
+          if (ref.data.code == 200) {
+            this.$messageTitle('解绑成功', 'success')
+            this.$store.dispatch('bindApi', [])
+            deleData.id = ''
+            return
+          }
+          this.$messageTitle(ref.data.msg || '解绑失败', 'error')
+        }).catch((ref) => {
+          this.$messageTitle('网络错误，请稍后重试', 'error')
+        })
+        this.close()
+      },
+      close () {
+        this.centerDialogVisible = false
+        this.wirghtApk = false
+      },
+      handleOk (item) { // 确认
+        this.changeObj = item // 传递当前编辑的对象。
+        this.wirghtApk = true
+      }
+    }
+  }
+  </script>

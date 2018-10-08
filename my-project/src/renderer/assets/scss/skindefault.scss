@@ -1,0 +1,98 @@
+$font-color: #354b5a;
+$table-header: #4c7591;
+$box-color: #ffffff;
+$nav-bg: #163f5c;
+$task-col:#999999;
+//skin default
+.default-skin {
+  .skin-bg, .skin-bg .el-tabs__nav-scroll, .content-list,.isato .el-dialog__header { //块背景颜色
+    background: $box-color;
+  }
+  #mytitle {
+    background-image: url("../../../static/img/logowitter.png");
+  }
+  .title-name, .skin-bg, .el-table {
+    color: $font-color;
+  }
+  .navList-box li:hover, .navList-box .active, .aside-nav > li:hover {
+    color: $box-color;
+    background-color: $nav-bg;
+    -webkit-transition: all 200ms;
+    -moz-transition: all 200ms;
+    -o-transition: all 200ms;
+    transition: all 200ms;
+  }
+  .table-list .el-table__header div { //表头颜色
+    background: $table-header;
+  }
+  .table-list > .el-table__body-wrapper .el-table__body .el-table__row--striped > td, .el-tabs__header {
+    background: #f5f9fc;
+  }
+  .table-list .el-table__body .el-table__row:hover td {
+    background: #fafdff !important;
+  }
+  .skin-childer-nav > .active, .tasknav {
+    background: $nav-bg;
+    color: $box-color;
+  }
+  .skin-childer-nav > li {
+    background: #f2f6f9;
+    color: $task-col;
+  }
+  .soller-box i {
+    color: $box-color;
+    background: $table-header;
+  }
+  .list-time {
+    color: $task-col;
+    border-bottom: 1px solid #f2f6f9;
+  }
+  .el-tabs__item {
+    background: none;
+    border-bottom: .03rem #e4e7ed solid;
+  }
+  .infor-header {
+    background: #537d9a;
+  }
+  .red {
+    color: #ee1e3b;
+  }
+  .green {
+    color: #0bbe89;
+  }
+  .arbitrageCol {
+    color: #0098ff !important;
+  }
+  .undone {
+    background: #0098ff;
+    color:#e2e9f5;
+  }
+  .carryout {
+    background: #f2f6f9;
+    color: $task-col;
+  }
+.el-card,.border-Ipt{
+  border: 1px solid #dcdfe6
+}
+
+  .bor{
+    background: #3f6a87;
+    color: $box-color;
+  }
+
+  .taskh3 span,.invitLi,.friends p,.card>span{
+    color: $task-col;
+  }
+.friends span, .isato .el-dialog__title{
+  color: $font-color!important;
+}
+  .isato .el-step__icon{
+  background: #e6e6e6;
+  }
+  .isato .is-wait{
+    color: #fbfcff!important;
+  }
+  .banckColr,.isato .el-step__title, .isato .el-icon-close,.isato .el-step__descriptio{
+    color: #C0C4CC!important;
+  }
+}
