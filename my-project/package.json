@@ -20,7 +20,7 @@
   "build": {
     "productName": "Bitbus",
     "appId": "wo.shi.why",
-    "copyright":"why",
+    "copyright": "why",
     "directories": {
       "output": "build"
     },
