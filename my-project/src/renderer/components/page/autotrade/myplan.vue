@@ -47,7 +47,7 @@
         <template slot-scope="scope">
           <div slot="reference">
             <span v-if="scope.row.status==1" style="color: red">{{$t("btnname.execute ")}}</span>
-            <span v-else style="color: rgb(153, 153, 153)">{{$t("btnname.unExecute ")}}</span>
+            <span v-else class="myUnexecute">{{$t("btnname.unExecute ")}}</span>
           </div>
         </template>
       </el-table-column>
