@@ -261,8 +261,11 @@
   .changlab{
     margin: -10px 0 0 0;
   }
-  .login-box .el-input__inner:focus,.login-box .el-form-item.is-success .el-input__inner{
+  .login-box .el-input__inner:focus{
     border-color: #0098ff !important;
+  }
+  .login-box .el-form-item.is-success .el-input__inner{
+    border-color: #7f818c !important;
   }
   .login-box .el-dialog__title{
       line-height: 0.45px;
