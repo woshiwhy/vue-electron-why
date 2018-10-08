@@ -261,6 +261,16 @@
   .changlab{
     margin: -10px 0 0 0;
   }
+  .login-box .el-input__inner:focus,.login-box .el-form-item.is-success .el-input__inner{
+    border-color: #7f818c;
+  }
+  .login-box .el-dialog__title{
+      line-height: 0.45px;
+    font-size: 16px;
+  }
+  .verify-Login .el-button{
+    line-height: 0;
+  }
   @media screen and (max-width: 454px) {
     .verifyBtu {
       top: .5rem !important;

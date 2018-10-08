@@ -28,18 +28,21 @@
     padding: 10px 15px 0;
   }
 
-  .login-box .register-btn {
+ /* .login-box .register-btn {
     margin-top: 10px;
     border-color: #fa3a20;
     height: 45px;
     background-color: #fa3a20;
     border-radius: 2px;
-  }
+  }*/
 
-  .register {
-    color: red;
+  /*.register {*/
+    /*color: red;*/
+  /*}*/
+  .register .el-button:focus,.register .el-button:hover{
+    background-color: #52a7ff!important;
+    border-color: #c6e2ff;
   }
-
   .verify-input {
     position: relative;
   }

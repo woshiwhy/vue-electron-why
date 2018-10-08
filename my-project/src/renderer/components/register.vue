@@ -30,15 +30,15 @@
 
 .login-box .register-btn {
   margin-top: 10px;
-  border-color: #fa3a20;
+  /*border-color: #fa3a20;*/
   height: 45px;
-  background-color: #fa3a20;
+  /*background-color: #fa3a20;*/
   border-radius: 2px;
 }
 
-.register {
-  color: red;
-}
+/*.register {*/
+  /*color: red;*/
+/*}*/
 
 .verify-inputfrom {
   position: relative;
