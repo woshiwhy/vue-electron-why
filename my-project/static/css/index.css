@@ -534,7 +534,7 @@ color:#fbfcff!important;
 .isato .is-process .el-step__icon, .isato .is-wait .el-step__icon{
   background: #e6e6e6!important;
 }
-/*输入框*/
+/*输入框输入正确*/
 .el-form-item.is-success .el-input__inner,.el-form-item.is-success .el-textarea__inner{
   border-color: #7f818c !important;
 }
