@@ -1,20 +1,8 @@
 <template>
   <div style="height: 3rem">
     <el-table class="table-list bg-table tabpx"  :data="tableData" stripe style="width: 100%">
-      <el-table-column :label='$t("tableheder.planName")' prop="strategyName">
-        <template slot-scope="scope">
-          <div slot="reference">
-            <span>{{scope.row.name}}</span>
-          </div>
-        </template>
-      </el-table-column>
-      <el-table-column :label='$t("tableheder.moneyfor")' prop="currency">
-        <template slot-scope="scope">
-          <div slot="reference">
-            <span>{{scope.row.symbol}}</span>
-          </div>
-        </template>
-      </el-table-column>
+      <el-table-column :label='$t("tableheder.planName")' prop="name"></el-table-column>
+      <el-table-column :label='$t("tableheder.moneyfor")' prop="symbol"></el-table-column>
       <el-table-column :label='$t("tableheder.bazaar")' prop="bazzer" min-width="120">
         <template slot-scope="scope">
           <div slot="reference">
@@ -29,13 +17,6 @@
           </div>
         </template>
       </el-table-column>
-      <!--<el-table-column label="扫描频率" prop="frequency">-->
-      <!--<template slot-scope="scope">-->
-      <!--<div slot="reference">-->
-      <!--<span>{{scope.row.scanRate}}</span>-->
-      <!--</div>-->
-      <!--</template>-->
-      <!--</el-table-column>-->
       <el-table-column :label='$t("tableheder.Trigger")' prop="more">
         <template slot-scope="scope">
           <div slot="reference">

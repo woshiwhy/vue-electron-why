@@ -1,36 +1,11 @@
 <template>
   <div style="height: 3rem">
-    <el-table class="table-list bg-table" :data="tableData"  stripe style="width: 100%">
-      <el-table-column :label='$t("tableheder.planName")' prop="name">
-        <template slot-scope="scope">
-          <div slot="reference">
-            <span>{{scope.row.strategyName}}</span>
-          </div>
-        </template>
-      </el-table-column>
-      <el-table-column :label='$t("tableheder.beginTime")' prop="name"  :show-overflow-tooltip="true">
-        <template slot-scope="scope">
-          <div slot="reference">
-            <span>{{scope.row.createTime}}</span>
-          </div>
-        </template>
-      </el-table-column>
-      <el-table-column :label='$t("tableheder.endTime")' prop="name"  :show-overflow-tooltip="true">
-        <template slot-scope="scope">
-          <div slot="reference">
-            <span>{{scope.row.endTime}}</span>
-          </div>
-        </template>
-      </el-table-column>
-      <el-table-column :label='$t("tableheder.moneyfor")' prop="number">
-        <template slot-scope="scope">
-          <div slot="reference">
-            <span >{{scope.row.symbolName}}</span>
-          </div>
-        </template>
-      </el-table-column>
-
-      <el-table-column :label='$t("tableheder.profit")'  prop="name"  :show-overflow-tooltip="true">
+    <el-table class="table-list bg-table" :data="tableData"  stripe style="width:100%">
+      <el-table-column :label='$t("tableheder.planName")' prop="strategyName"></el-table-column>
+      <el-table-column :label='$t("tableheder.beginTime")' prop="createTime"  show-overflow-tooltip></el-table-column>
+      <el-table-column :label='$t("tableheder.endTime")' prop="endTime"   show-overflow-tooltip></el-table-column>
+      <el-table-column :label='$t("tableheder.moneyfor")' prop="symbolName"></el-table-column>
+      <el-table-column :label='$t("tableheder.profit")'  prop="name"  show-overflow-tooltip>
         <template slot-scope="scope">
           <div slot="reference">
             <span style="color:#0fc45b;">{{scope.row.profit|| 0}}</span>
