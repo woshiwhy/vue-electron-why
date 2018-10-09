@@ -1,12 +1,13 @@
 <template>
+  <!--成交历史-->
   <div class="clearfloat">
     <div class="pull-left deep-table" >
       <h3 class="title-name">{{$t("headline.buyHistory")}}</h3>
-      <tablelist-box :loadingType="loadingType" :tableVal="tableData.buy.slice(0, 12)" :tableName="tableName"></tablelist-box>
+      <tablelist-box :loadingType="loadingType" :type="'one'" :tableVal="tableData.buy.slice(0, 12)" :tableName="tableName"></tablelist-box>
     </div>
     <div class="pull-right deep-table">
       <h3 class="title-name">{{$t("headline.sellHistory")}}</h3>
-      <tablelist-box :loadingType="loadingType" :tableVal="tableData.sell.slice(0, 12)" :tableName="tableNameOne"></tablelist-box>
+      <tablelist-box :loadingType="loadingType" :type="'two'" :tableVal="tableData.sell.slice(0, 12)" :tableName="tableNameOne"></tablelist-box>
     </div>
   </div>
 </template>
@@ -19,7 +20,7 @@
   }
 </style>
 <script>
-  import TableList from '@/components/module/putuptable'
+  import TableList from '@/components/module/historytable'
 export default {
     data () {
       return {
@@ -35,7 +36,7 @@ export default {
     },
     computed: {
       tableName () { // 挂单表头
-        return [{name: this.$t('tableheder.number'), val: 'id'},
+        return [
           {name: this.$t('tableheder.time'), val: 'time'},
           {name: this.$t('tableheder.price'), val: 'price'},
           {name: this.$t('tableheder.turnover'), val: 'amount'}]
@@ -45,8 +46,6 @@ export default {
           {name: this.$t('tableheder.turnover'), val: 'amount'},
           {name: this.$t('tableheder.price'), val: 'price'},
           {name: this.$t('tableheder.time'), val: 'time'},
-          {name: this.$t('tableheder.number'), val: 'id'}
-
         ]
       },
       tableData () {
