@@ -10,14 +10,20 @@
       </ul>
     </div>
     <div class="pull-right maxmin-box">
-      <langSelt-Box  @langchat="langchat"></langSelt-Box>
-      <span class="hoverbtn setClr-btn" @click="setClrBtn"></span>
+      <el-dropdown trigger="click" @command="handleCommand">
+      <span class="el-dropdown-link hoverbtn setClr-btn"></span>
+        <el-dropdown-menu slot="dropdown" style=" -webkit-app-region: no-drag;">
+          <el-dropdown-item command="theme">主题设置</el-dropdown-item>
+          <el-dropdown-item command="lang">语言设置</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+
       <span class="hoverbtn min-btn" @click="maxMin(1)"></span>
       <span class="hoverbtn max-btn" @click="maxMin(2)" v-if="smallType"></span>
       <span class="hoverbtn back-btn" @click="maxMin(3)" v-else></span>
       <span class="hoverbtn close-btn" @click="maxMin(4)"></span>
     </div>
-    <setClr-Box :setClrBox="setClrBox"  @closeBox="closeBox"></setClr-Box>
+    <setClr-Box v-if="setClrBox" @langchat="langchat"  @closeBox="closeBox" :boxObj="boxObj"></setClr-Box>
   </div>
 </template>
 <style lang="scss" rel="stylesheet/scss">
@@ -221,17 +227,17 @@
 
 <script type="text/javascript">
   import setClr from '@/components/module/setClr'
-  import langSelt from '@/components/module/language'
-  import en from 'element-ui/lib/locale/lang/en'// 英文
-  import cn from 'element-ui/lib/locale/lang/zh-CN'// 中文
   export default {
     props: ['destroy'], // resizable禁止缩放
     components: {
-      'setClr-Box': setClr,
-      'langSelt-Box': langSelt
+      'setClr-Box': setClr
     },
     data () {
       return {
+          boxObj:{
+            title:'设置',
+              radioArry:[],
+          },
         languageType: 'cn',
         smallType: true,
         setClrBox: false,
@@ -357,29 +363,56 @@
       this.$store.dispatch('navType', sessionStorage.getItem('navType') || 0)
     },
     methods: {
+        handleCommand(type){
+            this.boxObj.type=type;
+            switch (type){
+                case 'theme':
+                    this.boxObj.title='主题设置';
+                    this.boxObj.radioArry=[
+                        {
+                            name:"白色",
+                            val:0
+                        },
+                        {
+                            name:'黑色',
+                            val:1
+                        }
+                    ];
+                   break
+                case 'lang':
+                    this.boxObj.title='语言选择';
+                    this.boxObj.radioArry=[
+                        {
+                            name:this.$t('lang.cng'),
+                            val:'cn'
+                        },
+                        {
+                            name:this.$t('lang.eng'),
+                            val:"en"
+                        }
+                    ];
+                    break
+
+            }
+            this.setClrBox = true
+        },
       langchat (language) {
         if (language == 'en') {
-          this.$locale.use(en)
-          this.$i18n.locale = 'en'
-          this.languageType = 'cn'
+          this.$i18n.locale = 'en';
+          this.languageType = 'en';
           return
         }
-        this.languageType = 'en'
-        this.$locale.use(cn)
+        this.languageType = 'en';
         this.$i18n.locale = 'cn'
       },
-      // 打开弹出框
-      setClrBtn () {
-        this.setClrBox = true
-      },
       skinChange (type) {
-        let Obj = document.getElementById('change-skin')
+        let Obj = document.getElementById('change-skin');
         if (type == 1) { // 1是黑色
-          Obj.classList.remove('default-skin')
-          Obj.classList.add('skin-one')
+          Obj.classList.remove('default-skin');
+          Obj.classList.add('skin-one');
           return
         }
-        Obj.classList.remove('skin-one')
+        Obj.classList.remove('skin-one');
         Obj.classList.add('default-skin')
       },
       // 关闭弹出框
@@ -387,19 +420,19 @@
         this.setClrBox = false
       },
       navClick (href, index) {
-        this.$router.push(href)
+        this.$router.push(href);
         this.$store.dispatch('navType', index)
       },
       navChange (Obj) {
         for (let val of Obj) {
           val.type = false
         }
-        Obj[this.navType22].type = true
+        Obj[this.navType22].type = true;
         return Obj
       },
       maxMin (type) { // 1是最小，2是全屏，3是还原，4是关闭
         if (window.require) {
-          const ipc = window.require('electron').ipcRenderer
+          const ipc = window.require('electron').ipcRenderer;
           if (type == 2) {
             this.smallType = false
           } else if (type == 3) {

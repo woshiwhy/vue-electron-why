@@ -12,12 +12,12 @@
     </template>
     <el-form-item class="lable-rem">
      <div class="font-14 pull-left pull-heg">
-        交易额：<span>{{sumCalculate||0}}</span>
+       {{ $t('tableheder.turnover')}}：<span>{{sumCalculate||0}}</span>
      </div>
     </el-form-item>
     <el-form-item class="lable-rem">
       <div class="font-14 pull-left pull-heg">
-        可使用：<span @click="addNumber(basisCurrent)" style="cursor: pointer;">{{basisCurrent}}</span>
+       {{ $t('tableheder.usable1')}}：<span @click="addNumber(basisCurrent)" style="cursor: pointer;">{{basisCurrent}}</span>
       </div>
     </el-form-item>
     <el-form-item class="text-center">

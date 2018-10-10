@@ -1,15 +1,14 @@
 <template>
   <el-dialog
-    title="主题设置"
+    :title="boxObj.title"
     :visible.sync="setClrBox"
     :before-close="handleClose"
     width="4.21rem"
     class="center-dialog"
     center>
     <p class="setingBg">
-      <el-radio-group v-model="skinType">
-        <el-radio :label="0">白色</el-radio>
-        <el-radio :label="1">黑色</el-radio>
+      <el-radio-group v-model="skinType" >
+        <el-radio v-for="(item,index) in boxObj.radioArry" :key="index" :label="item.val">{{item.name}}</el-radio>
       </el-radio-group>
     </p>
     <span slot="footer" class="dialog-footer">
@@ -19,27 +18,40 @@
 </template>
 <script>
   export default {
-    props: ['setClrBox'],
+      props:['boxObj'],
     data () {
       return {
-        skinType: 1
+          skinType: 1,
+          setClrBox:true
       }
   },
-    computed: {
-      radioType () {
-        let typeNumber = Number(localStorage.getItem('skinType') || 1)
-        return typeNumber
-      }
-    },
-    mounted () {
-      this.skinType = this.radioType
-      this.$store.dispatch('skinType', this.radioType)
-    },
+      mounted (){
+          let boxType=this.boxObj.type;
+          let typeNumber='';
+          switch (boxType){
+              case 'theme':
+                  typeNumber = Number(localStorage.getItem('skinType') || 1);
+                  this.$store.dispatch('skinType', typeNumber);
+                  break;
+              case 'lang':
+                  typeNumber = localStorage.getItem('languageType') || 'cn';
+                  break;
+          }
+          console.log(typeNumber)
+          this.skinType = typeNumber
+      },
     methods: {
       confirm () {
-        this.$store.dispatch('skinType', this.skinType)
-        localStorage.setItem('skinType', this.skinType)
-        this.handleClose()
+          if(this.boxObj.type=='theme'){
+              this.$store.dispatch('skinType', this.skinType)
+              localStorage.setItem('skinType', this.skinType)
+          }
+          else {
+              localStorage.setItem('languageType', this.skinType)
+              this.$emit('langchat', this.skinType)
+          }
+
+          this.handleClose()
       },
       handleClose () {
         this.$emit('closeBox')
@@ -48,6 +60,12 @@
   }
 </script>
 <style scoped>
+  ul{
+    background: #ffffff!important;
+  }
+
+</style>
+<style >
   .setingBg{
     text-align: center;
   }

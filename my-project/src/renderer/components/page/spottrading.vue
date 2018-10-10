@@ -86,7 +86,6 @@
 <script>
   import SetBourse from '@/components/module/setbourse'
 import TableList from '@/components/module/tablelist'// 深度表格
-import { Loading, Message } from 'element-ui'
   import AsstTable from '@/components/module/assettable'// 账户资产表格
 import formMound from '@/components/module/byfrom'
 import spottradMain from '@/components/page/spottrading/main'
