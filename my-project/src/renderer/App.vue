@@ -9,7 +9,12 @@
                 :fullscreen="true">
             <maxmin-btn class="btn-position"></maxmin-btn>
             <div class="visit-box">{{visit}}版本</div>
-            <div style="color:#4e5b85;font-size: 14px;margin-bottom: 5px">更新中...</div>
+            <div class="up-list" >
+                <ul>
+                    <li v-for="(item,index) in upList" :key="index">{{index+1}}. {{item}}</li>
+                </ul>
+            </div>
+            <div  style="color:#4e5b85;font-size: 14px;margin-bottom: 5px">更新中...</div>
             <el-progress  :stroke-width="7" color="#67c23a"  :percentage="percentage" ></el-progress>
         </el-dialog>
         </transition>
@@ -27,7 +32,8 @@
     data() {
       return {
         visit:'最新',
-        dialogVisible: false,
+          upList:['图形加载速度优化，bug修复'],
+        dialogVisible: true,
         percentage:0,
       }
     },
@@ -39,27 +45,22 @@
         if(message==='updateavailable'){ //有更新
           this.dialogVisible=true;
           this.visit=data.version;
-          remote.getCurrentWindow().setSize(420,210)
+          this.upList=data.mesage;
+          remote.getCurrentWindow().setSize(447,370)
         }
         if(message==='downloadProgress'){//下载中
           this.percentage=data.percent.toFixed(1);
         }
       });
-    },
-    created () {
-//      ;
-
     }
   }
 </script>
 <style lang="scss" rel="stylesheet/scss">
     @import "./assets/scss/app.scss";
     .visit-box{
-        position: absolute;
-        width: 100%;
-        padding-right: 10px;
+        position: relative;
         text-align: center;
-        top:51px;
+        top:-55px;
         font-size: 13px;
         color: #fefeff ;
     }
@@ -72,7 +73,21 @@
         background-size: 100%;
     }
     .downClass>.el-dialog__body{
-        padding:25px 10px 0 10px!important;
+        padding:0 25px !important;
+    }
+    .downClass .up-list{
+        height: 140px;
+        overflow: auto;
+        margin: 24px 0;
+
+    }
+    .downClass .up-list li{
+        font-size: 14px;
+        color: #cad0db;
+        margin-bottom: 32px;
+    }
+    .downClass .up-list li:last-child{
+        margin: 0!important;
     }
     .downClass .el-progress__text{
         font-size:12px!important;
