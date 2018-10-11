@@ -33,7 +33,7 @@
       return {
         visit:'最新',
           upList:['图形加载速度优化，bug修复'],
-        dialogVisible: true,
+        dialogVisible: false,
         percentage:0,
       }
     },
