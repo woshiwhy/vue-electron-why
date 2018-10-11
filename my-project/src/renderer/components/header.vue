@@ -34,9 +34,6 @@
     top:-0.08rem;
     line-height: 0.25rem;
   }
-  .help-btn a{
-    text-decoration: none;
-  }
   #mytitle {
     width: 100%;
     height: 1.04rem;
