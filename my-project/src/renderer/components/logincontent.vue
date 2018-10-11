@@ -63,8 +63,8 @@ export default {
       this.$store.state.webSocket.close()//  关闭通信.
   },
     created () {
-      this.websocket()
-      this.autoPlan()
+      this.websocket();
+      this.autoPlan();
       this.bazzer()// 存储交易市场
   },
     methods: {

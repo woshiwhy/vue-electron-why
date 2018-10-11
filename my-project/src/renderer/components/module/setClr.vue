@@ -37,7 +37,6 @@
                   typeNumber = localStorage.getItem('languageType') || 'cn';
                   break;
           }
-          console.log(typeNumber)
           this.skinType = typeNumber
       },
     methods: {

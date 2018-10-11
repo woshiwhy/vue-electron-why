@@ -106,8 +106,8 @@ export default {
       },
       // 绘制图表
       drawChart () {
-        let chart = echarts.init(document.getElementById(this.id))
-        let chartSkin = this.skinType == 0 ? this.defaultSkin : this.skinOne
+        let chart = echarts.init(document.getElementById(this.id));
+        let chartSkin = this.skinType == 0 ? this.defaultSkin : this.skinOne;
         this.chartsObj = chart
         if (chart == undefined) {
           console.error(`echarts init dom id ${this.id} failed`)
