@@ -10,6 +10,7 @@
       </ul>
     </div>
     <div class="pull-right maxmin-box">
+      <span @click="helpBtn()" class="hoverbtn help-btn">帮助</span>
       <el-dropdown trigger="click" @command="handleCommand">
       <span class="el-dropdown-link hoverbtn setClr-btn"></span>
         <el-dropdown-menu slot="dropdown" style=" -webkit-app-region: no-drag;">
@@ -17,7 +18,6 @@
           <el-dropdown-item command="lang">语言设置</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-
       <span class="hoverbtn min-btn" @click="maxMin(1)"></span>
       <span class="hoverbtn max-btn" @click="maxMin(2)" v-if="smallType"></span>
       <span class="hoverbtn back-btn" @click="maxMin(3)" v-else></span>
@@ -28,7 +28,15 @@
 </template>
 <style lang="scss" rel="stylesheet/scss">
   @import "../assets/scss/app";
-
+  .help-btn{
+    position: relative;
+    width: 0.3rem!important;
+    top:-0.08rem;
+    line-height: 0.25rem;
+  }
+  .help-btn a{
+    text-decoration: none;
+  }
   #mytitle {
     width: 100%;
     height: 1.04rem;
@@ -440,7 +448,13 @@
           }
           ipc.send('maxmin', type)
         }
-      }
+      },
+        helpBtn(){ //帮助中心
+                if (window.require) {
+                    const {shell} = window.require('electron').remote
+                    shell.openExternal('http://bitbus.club/web/page/help.html')
+                }
+        }
     }
   }
 </script>
