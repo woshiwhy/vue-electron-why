@@ -1,10 +1,10 @@
 <template>
   <div class="small-box skin-bg">
     <h3 class="title-name">{{$t("headline.query")}}</h3>
-    <div class="rapid-search">
-      <search-Box v-if="searchShow" :type="'bazzer'" class="rapid-box" @searchData="searchGain"></search-Box>
-      <i v-else class="el-icon-search" @click="openSearch"></i>
-    </div>
+    <!--<div class="rapid-search">-->
+      <!--<search-Box v-if="searchShow" :type="'bazzer'" class="rapid-box" @searchData="searchGain"></search-Box>-->
+      <!--<i v-else class="el-icon-search" @click="openSearch"></i>-->
+    <!--</div>-->
     <currencyName-box :currency="bazzerList" :type="'1'"></currencyName-box>
   </div>
 </template>
@@ -42,7 +42,7 @@ export default {
       }
     },
     components: {
-      'search-Box': searchBox,
+//      'search-Box': searchBox,
       'currencyName-box': CurrencyName
     },
     computed: {

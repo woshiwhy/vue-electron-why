@@ -40,11 +40,6 @@
     </div>
     <h3 class="title-name" style="padding: 0;margin-top: .3rem;">{{$t("headline.planset")}}</h3>
     <div style="margin: 0 auto;">
-      <!--<div class="exchange-set">-->
-      <!--<label>扫描频率:</label>-->
-      <!--<el-input-number v-model="setStrateg.scanRate" :precision="0" :step="1" :controls=false :min="1"></el-input-number>-->
-      <!--<span class="smll-title">秒/次（最小1秒）</span>-->
-      <!--</div>-->
       <div class="exchange-set">
         <label>{{$t("tip.balance")}}:</label>
         <span class="smll-title">{{$t("tip.tip3")}}:</span>

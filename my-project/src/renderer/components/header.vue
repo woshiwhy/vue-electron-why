@@ -246,7 +246,6 @@
             title:'设置',
               radioArry:[],
           },
-        languageType: 'cn',
         smallType: true,
         setClrBox: false,
         navList: [
@@ -363,11 +362,12 @@
         this.skinChange(n) // 改变皮肤
       }
     },
-    created () { //  初始化检查默认语言设置
-      let language = localStorage.getItem('languageType')
-      this.langchat(language)
-    },
     mounted () {
+        let language = localStorage.getItem('languageType');
+        let typeNumber = Number(localStorage.getItem('skinType') || 1);
+        this.$store.dispatch('skinType',typeNumber);
+        this.skinChange(typeNumber)
+        this.langchat(language);
       this.$store.dispatch('navType', sessionStorage.getItem('navType') || 0)
     },
     methods: {
@@ -407,10 +407,8 @@
       langchat (language) {
         if (language == 'en') {
           this.$i18n.locale = 'en';
-          this.languageType = 'en';
           return
         }
-        this.languageType = 'en';
         this.$i18n.locale = 'cn'
       },
       skinChange (type) {
