@@ -33,6 +33,9 @@
     width: 0.3rem!important;
     top:-0.08rem;
     line-height: 0.25rem;
+    cursor:default;
+    padding-left:0.02rem;
+    padding-right:0.02rem;
   }
   #mytitle {
     width: 100%;
