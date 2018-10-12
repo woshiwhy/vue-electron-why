@@ -317,7 +317,7 @@
             balanceData(updateFlag) {
                 let data = {
                     "updateFlag": updateFlag,
-                    'siteId': this.activeBazzer.id
+                    'siteId': this.activeBazzer.sysMark
                 }
                 this.$postAxios.balance(data).then((res) => {
                     if (res.data.code == 200) {
