@@ -317,8 +317,7 @@
             balanceData(updateFlag) {
                 let data = {
                     "updateFlag": updateFlag,
-                    // 'siteId': this.activeBazzer.id
-                    'siteId': 'okex'
+                    'siteId': this.activeBazzer.id
                 }
                 this.$postAxios.balance(data).then((res) => {
                     if (res.data.code == 200) {
