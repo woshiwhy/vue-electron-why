@@ -151,7 +151,7 @@ let postObj = { // 币对推荐接口
   // 自动交易盈利统计
   profitStatistics: (data) => $axios({
     method: 'post',
-    url: '/strategyExeRecord/findProfitByWord',
+    url: '/userOrder/findProfitByWord',
     data: data
   }),
 
@@ -170,7 +170,7 @@ let postObj = { // 币对推荐接口
   // 自动交易系统推荐方案
   plan: (data) => $axios({
     method: 'post',
-    url: '/plan/selectPage',
+    url: '/depthMonitor/selectPage',
     data: data
   }),
 

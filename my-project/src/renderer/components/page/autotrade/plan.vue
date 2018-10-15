@@ -88,7 +88,7 @@ export default {
         }
         this.$postAxios.plan(data).then((res) => {
           if (res.data.code == 200) {
-            this.tableData = res.data.data.records
+            this.tableData = res.data.data.records;
             this.total = res.data.data.total
           }
         }).catch((err) => {

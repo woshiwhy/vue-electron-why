@@ -132,9 +132,7 @@
         loadingType: false,
         postData: {
             eq:{type:'today'},
-            page:{
-                size: 7
-            },
+            size: 7
 
 
         }

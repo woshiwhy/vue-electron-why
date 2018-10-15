@@ -123,7 +123,7 @@
           siteId: this.selectBazzer.id,
           period: this.selectVal,
           size: '100',
-          symbol: this.selectCurrenty.symbol
+          symbol: this.selectCurrenty.uniteSymbol
         }
         this.$postAxios.chartAxios(data_Val).then((res) => {
           const val_Data = res.data

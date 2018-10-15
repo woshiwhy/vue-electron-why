@@ -16,9 +16,7 @@ export default {
         searchShow: false,
           dataPost:{
               eq:{type:''},
-              page:{
-                  size:6
-              }
+              size:6
           }
       }
     },
