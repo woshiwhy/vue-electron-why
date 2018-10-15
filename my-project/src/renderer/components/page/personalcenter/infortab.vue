@@ -208,7 +208,7 @@
         data() {
             return {
                 pageIndex: 1,//默认第一页
-                pageSize: 5,//默认每页大小
+                pageSize: 10,//默认每页大小
                 unBind: false,
                 pwdPage: false, // 密码修改弹窗
                 mailPage: false, // 邮箱修改弹窗
@@ -244,7 +244,13 @@
             },
             total() {
                 return this.tables.length
-            }
+            },
+            navBazzer () { // 获取用户资产
+                return this.$store.state.sopttrading.selectBazzer
+            },
+            bazzerList(){ //市场
+                return this.$store.state.bazzer;
+            },
         },
         mounted() {
             if (this.activeBazzer) {
@@ -319,10 +325,19 @@
                     "updateFlag": updateFlag,
                     'siteId': this.activeBazzer.sysMark
                 }
+                if(updateFlag != true && this.activeBazzer.blanceList){ //如果资产存在就不请求
+                    this.tableData = this.activeBazzer.blanceList
+                    return
+                }
                 this.$postAxios.balance(data).then((res) => {
                     if (res.data.code == 200) {
                         this.unBind = false// 没绑定API
                         this.tableData = res.data.data
+                        for(let v of this.bazzerList){
+                            if(v.sysMark==data.siteId){
+                                v.blanceList = res.data.data;//存储个人资产；
+                            }
+                        }
                         return
                     }
                     if (res.data.code == 318) {
@@ -331,6 +346,9 @@
                     }
                     if(!updateFlag){
                         this.tableData = []
+                    }
+                    if(!updateFlag){
+                        this.$store.dispatch('myBalance', [])
                     }
                     this.$messageTitle(res.data.msg,)
                 }).catch((err) => {
