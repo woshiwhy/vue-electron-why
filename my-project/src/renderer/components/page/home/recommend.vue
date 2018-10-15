@@ -13,7 +13,13 @@
 export default {
     data () {
       return {
-        searchShow: false
+        searchShow: false,
+          dataPost:{
+              eq:{type:''},
+              page:{
+                  size:6
+              }
+          }
       }
     },
     components: {
@@ -25,18 +31,32 @@ export default {
       }
     },
     created () {
-      if (this.recommendCurrent.length == 0) {
-        this.currenty()
+      if (!this.recommendCurrent.innovate) {
+
+          this.innovate()
       }
+        if (!this.recommendCurrent.potential ) {
+            this.potential()
+        }
     },
     methods: {
-      currenty () {
-        this.$postAxios.recommendCurrenty({size: '6'}).then((res) => {
-          const data_Obj = res.data
+        innovate(){
+            this.dataPost.eq.type='0003-0001';//创新推荐
+            this.currenty('innovate');
+        },
+        potential(){
+            this.dataPost.eq.type='0003-0002';//潜力 推荐
+            this.currenty('potential');
+        },
+      currenty (type) {
+        this.$postAxios.recommendCurrenty(this.dataPost).then((res) => {
+          const data_Obj = res.data;
           if (data_Obj.code == 200) {
             // 创新推荐innovate
             // 潜力推荐potential
-            this.$store.dispatch('recommendCurrent', data_Obj.data)
+               this.recommendCurrent[type]=data_Obj.data.records;
+
+            this.$store.dispatch('recommendCurrent', this.recommendCurrent)
           }
         }).catch((res) => {
         })

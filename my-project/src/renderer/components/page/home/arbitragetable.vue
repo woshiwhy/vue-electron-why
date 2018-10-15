@@ -131,8 +131,12 @@
         },
         loadingType: false,
         postData: {
-          word: 'today',
-          size: 7
+            eq:{type:'today'},
+            page:{
+                size: 7
+            },
+
+
         }
       }
     },
@@ -165,20 +169,20 @@
     },
     methods: {
       postAjax () {
-        this.loadingType = true
+        this.loadingType = true;
         this.$postAxios.rankingList(this.postData).then((ref) => {
-          const dataVal = ref.data
-          this.loadingType = false
+          const dataVal = ref.data;
+          this.loadingType = false;
           if (dataVal.code == 200) {
-            this.tableLIst[this.postData.word] = dataVal.data
-            this.tableData = dataVal.data
+            this.tableLIst[this.postData.word] = dataVal.data.records
+            this.tableData = dataVal.data.records
             return
           }
-          this.tableData = []
+          this.tableData = [];
           this.$messageTitle(dataVal.msg, 'error')
         }).catch((err) => {
-          this.tableData = []
-          this.loadingType = false
+          this.tableData = [];
+          this.loadingType = false;
           this.$messageTitle('网络错误，请稍后重试', 'error')
         })
       },
@@ -186,7 +190,7 @@
         for (let v of this.tableNav) {
           v.active = false
         }
-        this.postData.word = id
+        this.postData.eq.type= id
         this.tableNav[index].active = true
         if (this.tableLIst[id].length) { //  如果有值就不请求
           this.tableData = this.tableLIst[id]
@@ -195,7 +199,7 @@
         this.postAjax()
       },
       morerList (data, number) { //  false更多
-        this.postData.size = number
+        this.postData.page.size = number
         this.tableLIst = {
           today: [],
           week: [],

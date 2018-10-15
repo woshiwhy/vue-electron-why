@@ -1,9 +1,9 @@
 <template>
   <div style="min-height: 0.8rem">
     <ul class="currency-nav aside-nav" v-if="type==2">
-      <template v-for="(item,index) in currency">
+      <template v-for="(item,index) in currencyList">
         <li  @click="searchGain(item)">
-          {{ item.name}}
+          {{ item.uniteSymbol}}
         </li>
       </template>
     </ul>
@@ -49,7 +49,10 @@ export default {
     computed: {
       bazzerList () {
         return this.$store.state.bazzer
-      }
+      },
+        currencyList(){
+          return this.currency
+        }
     },
     methods: {
       searchGain (data) { // 搜索选择的值
@@ -59,9 +62,8 @@ export default {
             this.$store.dispatch('navType', '3')
             break
           case '2':
-
             for (let v of this.bazzerList) {
-              if (v.id == 'huobi') { // 推荐默认跳huobi交易所
+              if (v.sysMark == 'huobi') { // 推荐默认跳huobi交易所
                 this.$store.dispatch('selectBazzer', v)// 存储选中市场
                 this.$store.dispatch('selectCurrenty', data)
                 break

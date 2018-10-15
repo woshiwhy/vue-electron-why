@@ -6,7 +6,10 @@
 const state={
   homeMore:true,//套利排行榜更多开关
   interest:[],//套利数据
-  recommendCurrent:[]//推荐币种
+  recommendCurrent:{
+      innovate:'',
+      potential:''
+  }//推荐币种
 };
 const  mutations= {
   recommendCurrent(state, msg){

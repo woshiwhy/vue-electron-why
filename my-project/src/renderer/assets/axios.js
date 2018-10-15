@@ -73,10 +73,10 @@ function endLoading () { // 关闭loding
   loading.close()
 }
 
-let postObj = {
+let postObj = { // 币对推荐接口
   recommendCurrenty: (data) => $axios({
     method: 'post',
-    url: '/recommend/sysmol',
+    url: '/siteSymbol/page',
     data: data
   }),
   // 更新资产
@@ -105,12 +105,6 @@ let postObj = {
     url: '/site/all',
     data: data
   }),
-  // 货币种类接口
-  currentyAxios: (data) => $axios({
-    method: 'post',
-    url: '/site/getSymbol',
-    data: data
-  }),
   // 账号资产
   balance: (data) => $axios({
     method: 'post',
@@ -120,13 +114,7 @@ let postObj = {
   // 套利排行榜
   rankingList: (data) => $axios({
     method: 'post',
-    url: '/sysProfit/findByWord',
-    data: data
-  }),
-  // 货币可用余额
-  balanceAxios: (data) => $axios({
-    method: 'post',
-    url: '/userAccount/getSymbolBalance',
+    url: '/profitStatistics/page',
     data: data
   }),
   //  现货交易K线图
