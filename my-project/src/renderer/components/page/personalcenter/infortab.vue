@@ -329,7 +329,10 @@
                         this.unBind = true// 没绑定API
                         return
                     }
-                    this.tableData = []
+                    if(!updateFlag){
+                        this.tableData = []
+                    }
+                    this.$messageTitle(res.data.msg,)
                 }).catch((err) => {
                     this.tableData = []
                     this.$messageTitle('网络错误', 'error')
