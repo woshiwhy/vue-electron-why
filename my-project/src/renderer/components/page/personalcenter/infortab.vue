@@ -325,13 +325,15 @@
                     "updateFlag": updateFlag,
                     'siteId': this.activeBazzer.sysMark
                 }
-                if(updateFlag != true && this.activeBazzer.blanceList){ //如果资产存在就不请求
-                    this.tableData = this.activeBazzer.blanceList
-                    return
+                if(updateFlag != true && this.activeBazzer.blanceList){ //如果资产存在并且用户不更新就不用请求
+                        this.unBind = false;
+                        this.tableData = this.activeBazzer.blanceList
+                        return
                 }
                 this.$postAxios.balance(data).then((res) => {
                     if (res.data.code == 200) {
                         this.unBind = false// 没绑定API
+                        console.log(res.data.data)
                         this.tableData = res.data.data
                         for(let v of this.bazzerList){
                             if(v.sysMark==data.siteId){
