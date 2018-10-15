@@ -18,6 +18,7 @@ const $axios = axios.create({
   baseURL: axiosUrl,
   timeout: 10000,
   headers: {
+
     Authorization: 'Bearer ' + "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmOWQ3M2U3OTkxNDQ0MDk5ODY5NWJjZTI2YmQ3ZTY3YiIsInVzZXJfbmFtZSI6IjYzNDM1NzU3MkBxcS5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiZjRjYWZhNjUtZGU1ZS00MDA1LWE5NDctYzc3ZDU5MjU3OTQ3IiwiY2xpZW50X2lkIjoid2ViQXBwIiwic2NvcGUiOlsiYWxsIl19.l9SDlRfaXjMq_qCWklTRMW3gL8snXOYBAGOSzQPOyjw"
   }
 })
