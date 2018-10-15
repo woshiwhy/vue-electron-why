@@ -3,7 +3,7 @@
     <i class="el-icon-arrow-left" @click="sollerLeft"></i>
     <ul class="soller-nav"  ref="sollerBox">
       <template v-for="(item,index) in currentyList">
-        <li :ref="item.name" @click="navselect(item,index)" :class="{'active':item.active}">
+        <li :ref="item.uniteSymbol" @click="navselect(item,index)" :class="{'active':item.active}">
           {{item.uniteSymbol}}
         </li>
       </template>
@@ -49,10 +49,10 @@
     },
     watch: {
       activeBazzer () {
-        this.$refs.sollerBox.scrollLeft = 0
+        this.$refs.sollerBox.scrollLeft = 0;
       },
       searchVal (n, o) {
-        this.$refs.sollerBox.scrollLeft = this.$refs[n.name][0].offsetLeft - 20
+        this.$refs.sollerBox.scrollLeft = this.$refs[n.uniteSymbol][0].offsetLeft - 20
       },
       sellPriceType () { // 可用价格刷新
         this.balancePost()
@@ -76,7 +76,7 @@
       }
     },
     beforeDestroy () { // 组件销毁前清空值。
-      this.depth.event = 'unsubscribe'
+      this.depth.event = 'unsubscribe';
       this.webSocket()
   },
     destroyed () { // 组件销毁完成
@@ -84,8 +84,12 @@
   },
     created () {
       if (this.activeCurrenty) {
-        this.socketPost()
+        this.socketPost();
+
       }
+    },
+    mounted(){  //快捷跳转，导航定位
+        this.$refs.sollerBox.scrollLeft = this.$refs[this.activeCurrenty.uniteSymbol][0].offsetLeft - 20
     },
     methods: {
       socketPost () {

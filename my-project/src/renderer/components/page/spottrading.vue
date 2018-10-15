@@ -216,20 +216,20 @@
             let currenty_Obj = this.navBazzer.sysMark;
             if (currenty_Obj) {
                 this.currenty();// 动态加载货币
-//                this.balancePost({siteId: currenty_Obj});// 个人资产
+               this.balancePost({siteId: currenty_Obj});// 个人资产
             }
         },
         methods: {
             currentySelect (data_Obj) {
                 let currenty_Obj = this.$store.state.sopttrading.selectCurrenty;
                 if (!currenty_Obj) { // 如果没选择,默认第一个选中
-                    this.$set(data_Obj[0], 'active', true)
+                    this.$set(data_Obj[0], 'active', true);
                     this.$store.dispatch('selectCurrenty', data_Obj[0])
                 } else {
                     for (let v of data_Obj) { // 判断选中的ID，改变货币列表选中状态
                         this.$set(v, 'active', false)
-                        if (v.id == currenty_Obj.id) {
-                            this.$set(v, 'active', true)
+                        if (v.uniteSymbol == currenty_Obj.uniteSymbol) {
+                            this.$set(v, 'active', true);
                         }
                     }
                 }

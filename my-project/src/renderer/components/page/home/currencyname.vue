@@ -63,9 +63,9 @@ export default {
             break
           case '2':
             for (let v of this.bazzerList) {
-              if (v.sysMark == 'huobi') { // 推荐默认跳huobi交易所
-                this.$store.dispatch('selectBazzer', v)// 存储选中市场
-                this.$store.dispatch('selectCurrenty', data)
+              if (v.id == data.siteId) { // 先查看推荐的交易所。
+                this.$store.dispatch('selectBazzer', v);// 存储选中市场
+                this.$store.dispatch('selectCurrenty', data);
                 break
               }
             }
