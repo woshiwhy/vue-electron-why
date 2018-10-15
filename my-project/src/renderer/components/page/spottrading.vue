@@ -5,9 +5,9 @@
                 <h3 class="title-name">{{$t("headline.platformset")}}</h3>
                 <setbourse-box style="padding-left: 0.15rem"></setbourse-box>
             </div>
-            <div class="small-box skin-bg" style="min-height: 3.05rem">
+            <div class="small-box skin-bg" style="min-height: 3.05rem" v-loading="loading2" element-loading-background="rgba(0, 0, 0, 0)">
                 <h3 class="title-name">{{$t("headline.balance")}}</h3>
-                <span v-if="$store.state.sopttrading.myBalance.length" class=" btn-color update-btn"
+                <span v-if="$store.state.sopttrading.myBalance" class=" btn-color update-btn"
                       @click="updateClick">{{$t("btnname.update")}}</span>
                 <asset-box :bindType="unBind"></asset-box>
             </div>
@@ -97,6 +97,7 @@
     export default {
         data () {
             return {
+                loading2:false,
                 unBind: false,
                 register: {// 买入
                     price: '',
@@ -256,15 +257,16 @@
             },
             // 个人资产
             balancePost (data) {
-                console.log(this.navBazzer)
-                if(this.navBazzer.blanceList){  // 有个人资产了就不申请了
+                if(this.navBazzer.blanceList && !data.updateFlag){  // 有个人资产了就不申请了
                     this.unBind = false;// 绑定API// ；
                     this.currentyBalance(this.navBazzer.blanceList);
                     this.$store.dispatch('myBalance', this.navBazzer.blanceList.slice(0, 5));
                     return
                 }
+                    this.loading2=true;
                 this.$postAxios.balance(data).then((res) => {
                     const data_Obj = res.data;
+                    this.loading2=false;
                     if (data_Obj.code == 200) {
                         this.unBind = false;// 绑定API
                         this.currentyBalance(data_Obj.data);
@@ -280,6 +282,7 @@
                         return
                     }
                     if (data_Obj.code == 318) {
+                        this.$store.dispatch('myBalance', '')
                         this.unBind = true;// 没绑定API
                         return
                     }
@@ -290,7 +293,10 @@
 
                 }).catch((res) => {
                     this.$messageTitle("网络错误稍后重试", 'error');
-                    this.$store.dispatch('myBalance', [])
+                    this.loading2=false;
+                    if(!data.updateFlag){
+                        this.$store.dispatch('myBalance', [])
+                    }
                 })
             },
 

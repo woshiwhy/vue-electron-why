@@ -114,8 +114,10 @@ export default {
       // 自动交易策略记录
       myplanClick (page) {
         let data = {
-          'current': page,
-          'size': 5
+          page:{
+              'current': page,
+              'size': 5
+          }
         }
         this.$postAxios.myplan(data).then((res) => {
           if (res.data.code == 200) {

@@ -132,9 +132,9 @@
         loadingType: false,
         postData: {
             eq:{type:'today'},
-            size: 7
-
-
+            page:{
+                size: 7
+            }
         }
       }
     },
@@ -172,8 +172,8 @@
           const dataVal = ref.data;
           this.loadingType = false;
           if (dataVal.code == 200) {
-            this.tableLIst[this.postData.word] = dataVal.data.records
-            this.tableData = dataVal.data.records
+            this.tableLIst[this.postData.word] = dataVal.data.records;
+            this.tableData = dataVal.data.records;
             return
           }
           this.tableData = [];

@@ -83,9 +83,11 @@ export default {
     methods: {
       planClick (page) {
         let data = {
-          'current': page,
-          'size': 9
-        }
+            page:{
+                current: page,
+                size:9
+            }
+        };
         this.$postAxios.plan(data).then((res) => {
           if (res.data.code == 200) {
             this.tableData = res.data.data.records;

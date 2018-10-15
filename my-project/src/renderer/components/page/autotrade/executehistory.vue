@@ -44,12 +44,14 @@
       // 自动交易执行记录
       executionRecord (page) {
         let data = {
-          'current': page,
-          'size': 5
+          page:{
+              'current': page,
+              'size': 5
+          }
         }
         this.$postAxios.executionRecord(data).then((res) => {
           if (res.data.code == 200) {
-            this.tableData = res.data.data.records
+            this.tableData = res.data.data.records;
             this.total = res.data.data.total
           }
         }).catch((err) => {
