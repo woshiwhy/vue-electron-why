@@ -33,7 +33,7 @@
                     <h3 class="title-name hnav spoBot">{{$t("headline.market")}}</h3>
                     <div class="bsmarket" style="padding-left: 0.1rem;display: flex">
                         <nav-box style="margin-bottom:.15rem;"></nav-box>
-                        <span @click="updateAssets(true)" v-if="!unBind" class="up-assets">更新资产</span>
+                        <span @click="updateAssets(true)"  v-if="!unBind" class="up-assets">更新资产</span>
                     </div>
                     <!-- 个人中心表格 -->
                     <!--没有绑定-->
