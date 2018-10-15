@@ -50,7 +50,7 @@ export default {
     },
     methods: {
       searchData (data) {
-        this.searchVal = data
+        this.searchVal = data;
         this.$store.dispatch('selectCurrenty', data)
       }
     }

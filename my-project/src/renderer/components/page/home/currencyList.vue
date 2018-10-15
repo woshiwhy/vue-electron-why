@@ -49,7 +49,7 @@ export default {
       bazzerList () {
         let bazzer_List = this.$store.state.bazzer
         for (let v of bazzer_List) {
-          const bazzer_Name = v.id
+          const bazzer_Name = v.sysMark
           // 图片logo写死
           switch (bazzer_Name) {
             case 'zb':

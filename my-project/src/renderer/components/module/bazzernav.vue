@@ -30,7 +30,7 @@
     beforeDestroy () { // 组件销毁前清空值。
       this.$store.dispatch('selectBazzer', '')
   },
-    created () {
+    mounted () {
       if (this.bazzerList.length != 0) {
         this.defaultActive()
       }

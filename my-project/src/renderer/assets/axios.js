@@ -11,14 +11,14 @@ const webSocketOBj = {
   url: 'ws://api.bitbus.club:10000/hub', // webSocket对象地址
   OutTime: 60000// 心跳
 }
-// const axiosUrl='http://192.168.2.88:10000/hubrest';//舒服
-const axiosUrl = 'http://api.bitbus.club:10000/hubrest'// 服务器
+ const axiosUrl='http://192.168.2.57:10030';//舒服
+//const axiosUrl = 'http://api.bitbus.club:10000/hubrest'// 服务器
 
 const $axios = axios.create({
   baseURL: axiosUrl,
   timeout: 10000,
   headers: {
-    Authorization: 'Bearer ' + localStorage.getItem('userToken')
+    Authorization: 'Bearer ' + "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmOWQ3M2U3OTkxNDQ0MDk5ODY5NWJjZTI2YmQ3ZTY3YiIsInVzZXJfbmFtZSI6IjYzNDM1NzU3MkBxcS5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiZjRjYWZhNjUtZGU1ZS00MDA1LWE5NDctYzc3ZDU5MjU3OTQ3IiwiY2xpZW50X2lkIjoid2ViQXBwIiwic2NvcGUiOlsiYWxsIl19.l9SDlRfaXjMq_qCWklTRMW3gL8snXOYBAGOSzQPOyjw"
   }
 })
 let loading
@@ -85,11 +85,6 @@ let postObj = {
     data: data,
     loding: true
   }),
-  // 正在执行的策略
-  autoPlanInfor: (data) => $axios({
-    method: 'get',
-    url: '/userStrategy/getExecute'
-  }),
   // 执行策略
   playPlan: (data) => $axios({
     method: 'post',
@@ -105,8 +100,8 @@ let postObj = {
   }),
   // 市场种类接口
   bazzerAxios: (data) => $axios({
-    method: 'post',
-    url: '/site/getAllSite',
+    method: 'get',
+    url: '/site/all',
     data: data
   }),
   // 货币种类接口

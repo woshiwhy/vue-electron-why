@@ -43,9 +43,6 @@
       activeCurrenty () {
         return this.$store.state.sopttrading.selectCurrenty
       },
-      activeCurrentyId () {
-        return this.$store.state.sopttrading.selectCurrenty.id
-      },
       activeBazzer () {
         return this.$store.state.sopttrading.selectBazzer
       }
@@ -60,13 +57,13 @@
       sellPriceType () { // 可用价格刷新
         this.balancePost()
       },
-      activeCurrentyId (n, o) {
+        activeCurrenty (n, o) {
         if (n) { // 监控被选中的币对ID.
-          this.socketPost()
-          this.navActive()
+          this.socketPost();
+          this.navActive();
           for (let v of this.currentyList) { // 判断选中的ID，改变货币列表选中状态
-            if (v.id == n) {
-              this.$set(v, 'active', true)
+            if (v.id == n.id) {
+              this.$set(v, 'active', true);
               break
             }
           }
@@ -133,22 +130,11 @@
         this.$store.dispatch('selectCurrenty', data)
       },
       balancePost () {
-        let data_Val = {
-          siteId: this.$store.state.sopttrading.selectBazzer.id,
-          unitSymbol: this.activeCurrenty.uniteSymbol
-        }
-
-        this.$postAxios.balanceAxios(data_Val).then((ref) => {
-          let data_val = ref.data
-          if (data_val.code == 200) {
-            let basicsCurrenty = {
-              buy: data_val.data[this.activeCurrenty.quoteCurrency] || 0, //  卖入计价货币
-              sell: data_val.data[this.activeCurrenty.baseCurrency] || 0// 卖出计价货币
-            }
-            this.$store.dispatch('balance', basicsCurrenty)
-          }
-        }).catch((ref) => {
-        })
+          let basicsCurrenty = {
+               buy:this.activeCurrenty.quoteBalance || 0, //  卖入计价货币
+              sell:this.activeCurrenty.baseBalance || 0// 卖出计价货币
+          };
+         this.$store.dispatch('balance', basicsCurrenty)
       }
     }
   }

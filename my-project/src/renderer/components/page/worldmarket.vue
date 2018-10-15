@@ -185,17 +185,8 @@ export default {
           oldTable.push(n)
         }
       },
-      currtent (data) { // 根据导航动态加载币对
-        this.$postAxios.currentyAxios(data).then((res) => {
-          const data_Obj = res.data
-          if (data_Obj.code == 200) {
-            this.$store.dispatch('currenty', data_Obj.data)
-            this.activeBazzer.currentyList = data_Obj.data // 添加到交易所里面
-            return
-          }
-          this.$store.dispatch('currenty', '')
-        }).catch((res) => {
-        })
+      currtent () { // 根据导航动态加载币对
+          this.$store.dispatch('currenty', this.activeBazzer.symbolList)
       },
       changeWebVal () { //  更改websroket命令；
         this.getMarket()
@@ -203,7 +194,7 @@ export default {
           this.$store.dispatch('currenty', this.activeBazzer.currentyList)
           return
         }
-        this.currtent({siteId: this.activeBazzer.id})
+        this.currtent()
       },
       getMarket () {
         this.websocketSend.symbol = this.activeBazzer.id

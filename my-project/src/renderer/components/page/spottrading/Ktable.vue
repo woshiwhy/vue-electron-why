@@ -78,7 +78,7 @@
         return this.$store.state.sopttrading.selectBazzer
       },
       selectTab () {
-        let klineParams = this.$store.state.sopttrading.selectBazzer.klineParams
+        let klineParams = this.$store.state.sopttrading.selectBazzer.klineParams;
         if (klineParams) {
           const sele_Obj = JSON.parse(klineParams)
           this.selectVal = sele_Obj[3].value || sele_Obj[0].value

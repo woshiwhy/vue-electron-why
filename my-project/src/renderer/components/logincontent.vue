@@ -64,7 +64,6 @@ export default {
   },
     created () {
       this.websocket();
-      this.autoPlan();
       this.bazzer()// 存储交易市场
   },
     methods: {
@@ -155,29 +154,12 @@ export default {
           }, 5000)
           console.log('连接已关闭...')
         }
-      //        // 路由跳转时结束websocket链接
-      //        this.$router.afterEach(function () {
-      //          ws.close()
-      //        })
       },
       heartSend () { // 心跳发送
         this.timOBj = setTimeout(() => {
           this.heartSend()
           this.$store.state.webSocket.send('{ "event":"ping"}')
         }, webSocketOBj.OutTime)
-      },
-      autoPlan () { // 正在执行的策略
-        const user_Id = JSON.parse(localStorage.getItem('userInfor')).id
-        this.$postAxios.autoPlanInfor(user_Id).then((res) => {
-          let data_Val = res.data
-          if (data_Val.code == 200 && data_Val.data) { // 有值发送自动交易命令
-            this.webAuto.symbol = data_Val.data.monitorId
-            //              data_Val.data.pricePercent*100;
-            this.$store.dispatch('playPlan', data_Val.data)
-            this.$store.state.webSocket.send(JSON.stringify(this.webAuto))
-          }
-        }).catch((err) => {
-        })
       }
     }
   }
