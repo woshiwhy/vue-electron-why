@@ -89,7 +89,10 @@
       }
     },
     mounted(){  //快捷跳转，导航定位
-        this.$refs.sollerBox.scrollLeft = this.$refs[this.activeCurrenty.uniteSymbol][0].offsetLeft - 20
+   if(this.activeCurrenty){
+       this.$refs.sollerBox.scrollLeft = this.$refs[this.activeCurrenty.uniteSymbol][0].offsetLeft - 20
+   }
+
     },
     methods: {
       socketPost () {
