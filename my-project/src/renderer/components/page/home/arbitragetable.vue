@@ -197,7 +197,7 @@
         this.postAjax()
       },
       morerList (data, number) { //  false更多
-        this.postData.page.size = number
+        this.postData.size = number
         this.tableLIst = {
           today: [],
           week: [],

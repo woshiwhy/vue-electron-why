@@ -256,7 +256,9 @@
             },
             // 个人资产
             balancePost (data) {
-                if(this.navBazzer.blanceList){  // 有个人资产了就不申请了；
+                console.log(this.navBazzer)
+                if(this.navBazzer.blanceList){  // 有个人资产了就不申请了
+                    this.unBind = false;// 绑定API// ；
                     this.currentyBalance(this.navBazzer.blanceList);
                     this.$store.dispatch('myBalance', this.navBazzer.blanceList.slice(0, 5));
                     return
