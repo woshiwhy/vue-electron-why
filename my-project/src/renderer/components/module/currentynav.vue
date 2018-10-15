@@ -4,7 +4,7 @@
     <ul class="soller-nav"  ref="sollerBox">
       <template v-for="(item,index) in currentyList">
         <li :ref="item.name" @click="navselect(item,index)" :class="{'active':item.active}">
-          {{item.name}}
+          {{item.uniteSymbol}}
         </li>
       </template>
     </ul>
