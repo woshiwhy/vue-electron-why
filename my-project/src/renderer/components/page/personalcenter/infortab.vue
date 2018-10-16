@@ -329,7 +329,7 @@
             balanceData(updateFlag) {
                 let data = {
                     "updateFlag": updateFlag,
-                    'siteId': this.activeBazzer.sysMark
+                    'siteId': this.activeBazzer.id
                 }
                 if(updateFlag != true && this.activeBazzer.blanceList){ //如果资产存在并且用户不更新就不用请求
                         this.unBind = false;
@@ -341,7 +341,7 @@
                         this.unBind = false// 没绑定API
                         this.tableData = res.data.data
                         for(let v of this.bazzerList){
-                            if(v.sysMark==data.siteId){
+                            if(v.id==data.siteId){
                                 v.blanceList = res.data.data;//存储个人资产；
                             }
                         }
@@ -357,7 +357,7 @@
                     if(!updateFlag){
                         this.$store.dispatch('myBalance', [])
                     }
-                    this.$messageTitle(res.data.msg,)
+                    this.$messageTitle(res.data.msg,'error')
                 }).catch((err) => {
                     this.tableData = []
                     this.$messageTitle('网络错误', 'error')
