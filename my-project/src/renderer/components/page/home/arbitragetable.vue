@@ -27,19 +27,13 @@
         :label="$t('tableheder.profit')">
       </el-table-column>
       <el-table-column
-        :label="$t('tableheder.buybazaar')">
-        <template slot-scope="scope">
-          <span class="arbitrageCol">{{scope.row.askSite}} </span>
-        </template>
-      </el-table-column>
-      <el-table-column
         prop="symbol"
         :label="$t('tableheder.moneyfor')">
       </el-table-column>
       <el-table-column
-        :label="$t('tableheder.sellbazaar')">
+        :label="$t('tableheder.bazaar')">
         <template slot-scope="scope">
-          <span class="arbitrageCol">{{scope.row.bidSite}} </span>
+          <span class="arbitrageCol">{{scope.row.bidSite}} , {{scope.row.askSite}} </span>
         </template>
       </el-table-column>
       <el-table-column
@@ -188,36 +182,35 @@
         for (let v of this.tableNav) {
           v.active = false
         }
-        this.postData.eq.type= id
-        this.tableNav[index].active = true
+        this.postData.eq.type= id;
+        this.tableNav[index].active = true;
         if (this.tableLIst[id].length) { //  如果有值就不请求
-          this.tableData = this.tableLIst[id]
+          this.tableData = this.tableLIst[id];
           return
         }
         this.postAjax()
       },
       morerList (data, number) { //  false更多
-        this.postData.size = number
+        this.postData.size = number;
         this.tableLIst = {
           today: [],
           week: [],
           month: []
-        }
-        this.postAjax()
-        this.$refs.arbitragebox.classList.add('fadbox')
-        this.$store.dispatch('homeMore', data)
+        };
+        this.postAjax();
+        this.$refs.arbitragebox.classList.add('fadbox');
+        this.$store.dispatch('homeMore', data);
         setTimeout(() => { // 动画过度完删除Class
           this.$refs.arbitragebox.classList.remove('fadbox')
         },
         1000
-        )
-  
+        );
         if (!data) {
-          this.$refs.arbitragebox.setAttribute('style', 'min-height:100%')
-          this.maxHeight = this.$refs.arbitragebox.clientHeight - 87
+          this.$refs.arbitragebox.setAttribute('style', 'min-height:100%');
+          this.maxHeight = this.$refs.arbitragebox.clientHeight - 87;
           return
         }
-        this.maxHeight = 500
+        this.maxHeight = 500;
         this.$refs.arbitragebox.setAttribute('style', 'min-height:4.3rem')
       }
     }

@@ -12,27 +12,21 @@
         :label='$t("tableheder.moneyfor")'>
         <template slot-scope="scope">
           <div slot="reference">
+            <img class="hot-bg" v-if="scope.row.type" src="../../../../../static/img/hot.png">
             {{scope.row.symbol}}
           </div>
         </template>
       </el-table-column>
-      <el-table-column :label='$t("tableheder.buybazaar")'>
+      <el-table-column :label='$t("tableheder.bazaar")'>
         <template slot-scope="scope">
           <div slot="reference">
-            <span style="color:#0098ff;" class='bymarket'>{{scope.row.askSite}}</span>
-          </div>
-        </template>
-      </el-table-column>
-      <el-table-column :label='$t("tableheder.sellbazaar")'>
-        <template slot-scope="scope">
-          <div slot="reference">
-            <span style="color:#0098ff;" class='bymarket'>{{scope.row.bidSite}}</span>
+            <span style="color:#0098ff;" class='bymarket'>{{scope.row.askSite}} , {{scope.row.bidSite}}</span>
           </div>
         </template>
       </el-table-column>
        <el-table-column :label='$t("tableheder.addUp")'>
          <template slot-scope="scope">
-           <div slot="reference" class="gree">
+           <div slot="reference">
              {{scope.row.lr}}
            </div>
          </template>
@@ -61,6 +55,14 @@
     <payment-box v-if="ispaid" @confirm="confirm" @close="close" :title='title' :money='money'></payment-box>
   </div>
 </template>
+<style>
+  .hot-bg{
+    position: relative;
+    top:0.05rem;
+    width: 0.15rem;
+    margin-right: 0.05rem;
+  }
+</style>
 <script>
   import paymentBox from '@/components/module/Payment'
 export default {

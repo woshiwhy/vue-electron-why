@@ -182,7 +182,6 @@
   }
 </style>
 <script>
-  import exchange from '@/components/page/autotrade/exchangeselect'
 import layerBox from '@/components/module/layer'
 export default {
     data () {
@@ -261,7 +260,6 @@ export default {
     },
     components: {
       'layer-box': layerBox,
-      'exchange-box': exchange
     },
     methods: {
       close () { // 新建情况表
@@ -346,7 +344,7 @@ export default {
       },
       // 取消执行
       cancelRun () {
-        this.$postAxios.cancelPlan(this.setStrateg.id).then((res) => {
+        this.$postAxios.cancelPlan({strategyId:this.setStrateg.id}).then((res) => {
           if (res.data.code == 200) {
             this.webVal.symbol = this.setStrateg.monitorId;
             this.webVal.event = 'unsubscribe';
@@ -416,9 +414,14 @@ export default {
       },
       // 可供选择的策略方案
       selectPlan () {
-        this.$postAxios.blurryplan({}).then((res) => {
+          let data = {
+              page:{
+                  size:9999
+              }
+          };
+        this.$postAxios.plan(data).then((res) => {
           if (res.data.code == 200) {
-            this.$store.dispatch('myplan', res.data.data)
+            this.$store.dispatch('myplan', res.data.data.records)
           }
         }).catch((err) => {
         })

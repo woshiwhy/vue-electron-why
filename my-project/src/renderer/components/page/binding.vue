@@ -94,7 +94,6 @@ export default {
         wirghtApk: false,
         deleContent: '清空密匙,该交易所将不可交易，是否删除？',
         changeObj: '',
-        cancelRunType: false, // 是否停止自动策略
         webVal: {
           'site': 'hub',
           'event': '',
@@ -128,19 +127,19 @@ export default {
           let data_Val = res.data
           if (data_Val.code == 200) {
             for (let v of data_Val.data) {
-              const bazzer_Name = v.siteId
+              const bazzer_Name = v.siteId;
               switch (bazzer_Name) {
-                case 'zb':
-                  this.$set(v, 'src', './static/img/bazzer/zb.png')
-                  break
-                case 'huobi':
-                  this.$set(v, 'src', './static/img/bazzer/huobi.png')
-                  break
-                case 'hitbtc':
-                  this.$set(v, 'src', './static/img/bazzer/hitbtc.png')
-                  break
-                case 'okex':
-                  this.$set(v, 'src', './static/img/bazzer/okex.png')
+                case '3':
+                  this.$set(v, 'src', './static/img/bazzer/zb.png');
+                  break;
+                case '2':
+                  this.$set(v, 'src', './static/img/bazzer/huobi.png');
+                  break;
+                case '4':
+                  this.$set(v, 'src', './static/img/bazzer/hitbtc.png');
+                  break;
+                case '1':
+                  this.$set(v, 'src', './static/img/bazzer/okex.png');
                   break
               }
             }
@@ -149,56 +148,20 @@ export default {
           }
         }).catch((res) => {})
       },
-      cancelRun () { // 取消自动交易
-        this.$postAxios.cancelPlan(this.playPlan.id).then((res) => {
-          if (res.data.code == 200) {
-            this.webVal.symbol = this.playPlan.monitorId
-            this.webVal.event = 'unsubscribe'
-            if (this.wsObj.readyState == 1) { // 1，链接成功。
-              this.wsObj.send(JSON.stringify(this.webVal))
-            }
-            this.$store.dispatch('playPlan', '') // 清空正在执行的策略
-            this.deleObj()
-            return
-          }
-          this.$messageTitle('删除失败，稍后重试', 'error')
-        }).catch((err) => {
-          this.$messageTitle('网络错误，请稍后再试', 'error')
-        })
-      },
       handledele (index, item) { // 删除
         if (!item.id) { // 如果没有ID，则是没有数据禁止删除
           return
         }
-        const bazzer_Name = item.siteName // 当前要删除的交易所；
-        const ask_Bazzer = this.playPlan.askSite// 卖出交易所；
-        const bidSite_Bazzer = this.playPlan.bidSite// 买入交易所；
-        if (bazzer_Name == ask_Bazzer || bazzer_Name == bidSite_Bazzer) { //  判断当前交易所是否有执行的自动交易；
-          this.deleContent = '当前交易所，正在执行自动交易，如若删除将停止自动交易，并且该交易所不能执行任何交易，是否继续执行？'
-          this.cancelRunType = true
-        } else {
-          this.deleContent = '清空密匙,该交易所将不可交易，是否删除？'
-          this.cancelRunType = false
-        }
-
-        this.centerDialogVisible = true
+        this.centerDialogVisible = true;
         this.delectObj = index
       },
-      deleBtn () {
-        if (this.cancelRunType) { // 删除的交易正在自动交易，执行取消自动交易接口
-          this.cancelRun()
-          return
-        }
-
-        this.deleObj()// 没有直接删除
-      },
-      deleObj () {
-        let deleData = this.seachData[this.delectObj] // 获取当前删除对象
+        deleBtn () {
+        let deleData = this.seachData[this.delectObj]; // 获取当前删除对象
         this.$postAxios.unbindAxios(deleData.siteId).then((ref) => {
           if (ref.data.code == 200) {
-            this.$messageTitle('解绑成功', 'success')
-            this.$store.dispatch('bindApi', [])
-            deleData.id = ''
+            this.$messageTitle('解绑成功', 'success');
+            this.$store.dispatch('bindApi', []);
+            deleData.id = '';
             return
           }
           this.$messageTitle(ref.data.msg || '解绑失败', 'error')
@@ -208,7 +171,7 @@ export default {
         this.close()
       },
       close () {
-        this.centerDialogVisible = false
+        this.centerDialogVisible = false;
         this.wirghtApk = false
       },
       handleOk (item) { // 确认

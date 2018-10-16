@@ -11,17 +11,17 @@ const webSocketOBj = {
   url: 'ws://api.bitbus.club:10000/hub', // webSocket对象地址
   OutTime: 60000// 心跳
 }
- const axiosUrl='http://47.75.110.132:10003';//舒服
+ //const axiosUrl='http://47.75.110.132:10003';//舒服
+ const axiosUrl='http://192.168.2.57:10003';//舒服
 //const axiosUrl = 'http://api.bitbus.club:10000/hubrest'// 服务器
 
 const $axios = axios.create({
   baseURL: axiosUrl,
   timeout: 10000,
   headers: {
-      //Authorization: 'Bearer ' + "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmOWQ3M2U3OTkxNDQ0MDk5ODY5NWJjZTI2YmQ3ZTY3YiIsInVzZXJfbmFtZSI6IjYzNDM1NzU3MkBxcS5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiZjRjYWZhNjUtZGU1ZS00MDA1LWE5NDctYzc3ZDU5MjU3OTQ3IiwiY2xpZW50X2lkIjoid2ViQXBwIiwic2NvcGUiOlsiYWxsIl19.l9SDlRfaXjMq_qCWklTRMW3gL8snXOYBAGOSzQPOyjw"
       Authorization: 'Bearer ' + localStorage.getItem('userToken')
   }
-})
+});
 let loading;
 let needLoadingRequestCount = 0;
 
@@ -88,8 +88,9 @@ let postObj = { // 币对推荐接口
   }),
   // 取消策略
   cancelPlan: (data) => $axios({
-    method: 'get',
-    url: '/userStrategy/stop/' + data,
+    method: 'post',
+    url: '/userStrategy/stop',
+      data:data,
     loding: true
   }),
   // 市场种类接口
@@ -169,7 +170,7 @@ let postObj = { // 币对推荐接口
   // 自动交易保存策略信息
   saveStrategy: (data) => $axios({
     method: 'post',
-    url: '/userStrategy/save',
+    url: '/userStrategy/saveOrUpdate',
     data: data,
     loding: true
   }),
@@ -177,12 +178,6 @@ let postObj = { // 币对推荐接口
   ImplemenStrategy: (data) => $axios({
     method: 'post',
     url: '/autoTrades/createOrder',
-    data: data
-  }),
-  // 自动交易系统方案
-  blurryplan: (data) => $axios({
-    method: 'get',
-    url: '/plan/query',
     data: data
   }),
   // 删除我的方案
@@ -200,19 +195,19 @@ let postObj = { // 币对推荐接口
   }),
   // 获取绑定的密匙
   apiAxios: () => $axios({
-    method: 'post',
+    method: 'get',
     url: '/userSite/query'
   }),
   // 用户授权绑定
   bindAxios: (data) => $axios({
     method: 'post',
-    url: '/userSite/authBind',
+    url: '/userSite/bind',
     data: data,
     loding: true
   }),
   // 解除授权绑定
   unbindAxios: (data) => $axios({
-    method: 'post',
+    method: 'get',
     url: '/userSite/unbind/' + data,
     loding: true
   })

@@ -14,19 +14,13 @@
         :label="$t('tableheder.profit')">
       </el-table-column>
       <el-table-column
-        :label="$t('tableheder.buybazaar')">
-        <template slot-scope="scope">
-          <span class="arbitrageCol">{{scope.row.askSite}} </span>
-        </template>
-      </el-table-column>
-      <el-table-column
         prop="symbol"
         :label="$t('tableheder.moneyfor')">
       </el-table-column>
       <el-table-column
-        :label="$t('tableheder.sellbazaar')">
+        :label="$t('tableheder.bazaar')">
         <template slot-scope="scope">
-          <span class="arbitrageCol">{{scope.row.bidSite}} </span>
+          <span class="arbitrageCol">{{scope.row.bidSite}} , {{scope.row.askSite}} </span>
         </template>
       </el-table-column>
         <el-table-column
@@ -46,12 +40,12 @@
     },
     computed: {
       navBazzer () {
-        let tableData = this.$store.state.home.interest
+        let tableData = this.$store.state.home.interest;
         if (!tableData.length) {
-          this.loadingType = true
+          this.loadingType = true;
           return
         }
-        this.loadingType = false
+        this.loadingType = false;
         return tableData
       }
     },
