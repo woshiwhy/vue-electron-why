@@ -47,22 +47,22 @@ export default {
     },
     computed: {
       bazzerList () {
-        let bazzer_List = this.$store.state.bazzer
+        let bazzer_List = this.$store.state.bazzer;
         for (let v of bazzer_List) {
           const bazzer_Name = v.sysMark
           // 图片logo写死
           switch (bazzer_Name) {
             case 'zb':
-              this.$set(v, 'src', './static/img/bazzer/zb.png')
+              this.$set(v, 'src', './static/img/bazzer/zb.png');
               break
             case 'huobi':
-              this.$set(v, 'src', './static/img/bazzer/huobi.png')
+              this.$set(v, 'src', './static/img/bazzer/huobi.png');
               break
             case 'hitbtc':
-              this.$set(v, 'src', './static/img/bazzer/hitbtc.png')
+              this.$set(v, 'src', './static/img/bazzer/hitbtc.png');
               break
             case 'okex':
-              this.$set(v, 'src', './static/img/bazzer/okex.png')
+              this.$set(v, 'src', './static/img/bazzer/okex.png');
               break
           }
         }
@@ -72,36 +72,24 @@ export default {
     },
     watch: {
       bazzerList (n, o) {
-        this.bazzer = n
-        this.storageList()
+        this.bazzer = n;
       }
     },
-    created () {
-      this.storageList()
-  },
     methods: {
-      storageList () {
-        let valueLocal = localStorage.getItem('bazzerList')
-        if (valueLocal == null && this.bazzerList.length != 0) { // 如果没有存储，AJAX请求
-          localStorage.setItem('bazzerList', JSON.stringify(this.bazzer))
-          return
-        }
-        this.bazzer = JSON.parse(valueLocal) // 有就取存储的值
-      },
       searchGain (data) { // 搜索选择的值
-        let bazzer_List = []
-        this.$router.push({name: 'worldmarket', query: {bazzerObj: data}})// 给国际市场发送选择的货币
-        this.$store.dispatch('navType', '3')
-        for (let valName of this.bazzer) {
-          bazzer_List.push(valName) // 浅拷贝，
-          if (valName.name == data.name) { // 如果列表已经有了就不进行操作
-            return
-          }
-        }
-        this.bazzer_List.pop()// 删除货币列表最后一个货币
-        this.bazzer_List.unshift(data)// 删除货币列表最后一个货币
-        this.bazzer = bazzer_List
-        localStorage.setItem('bazzerList', JSON.stringify(bazzer_List))// 存储
+//        let bazzer_List = []
+        this.$router.push({name: 'worldmarket', query: {bazzerObj: data}});// 给国际市场发送选择的货币
+        this.$store.dispatch('navType', '3');
+//        for (let valName of this.bazzer) {
+//          bazzer_List.push(valName) // 浅拷贝，
+//          if (valName.name == data.name) { // 如果列表已经有了就不进行操作
+//            return
+//          }
+//        }
+//        this.bazzer_List.pop()// 删除货币列表最后一个货币
+//        this.bazzer_List.unshift(data)// 删除货币列表最后一个货币
+//        this.bazzer = bazzer_List
+//        localStorage.setItem('bazzerList', JSON.stringify(bazzer_List))// 存储
       },
       openSearch () { // 打开搜索框
         this.searchShow = true

@@ -81,7 +81,7 @@
         let klineParams = this.$store.state.sopttrading.selectBazzer.klineParams;
         if (klineParams) {
           const sele_Obj = JSON.parse(klineParams)
-          this.selectVal = sele_Obj[3].value || sele_Obj[0].value
+          this.selectVal = sele_Obj[3].value || sele_Obj[0].value;
           return sele_Obj
         }
         return []
@@ -116,9 +116,9 @@
         this.chartPost()
       },
       chartPost () {
-        this.loading2 = true
-        this.chartData = []
-        this.postNumber++
+        this.loading2 = true;
+        this.chartData = [];
+        this.postNumber++;
         const data_Val = {
           siteId: this.selectBazzer.id,
           period: this.selectVal,
@@ -126,22 +126,21 @@
           symbol: this.selectCurrenty.uniteSymbol
         }
         this.$postAxios.chartAxios(data_Val).then((res) => {
-          const val_Data = res.data
+          const val_Data = res.data;
           if (val_Data.code == 200) {
-            this.chartData = val_Data.data
-            this.postNumber = 0
-            this.loading2 = false
+            this.chartData = val_Data.data;
+            this.postNumber = 0;
+            this.loading2 = false;
             return
           }
           if (this.postNumber <= 3) {
             setTimeout(() => {
               this.chartPost()
-            }, 1500)
-
+            }, 1500);
             return
           }
-          this.postNumber = 0
-          this.loading2 = false
+          this.postNumber = 0;
+          this.loading2 = false;
           this.$messageTitle(val_Data.msg, 'error')
         }).catch((err) => {
           this.$messageTitle('链接超时，请稍后重试', 'error')

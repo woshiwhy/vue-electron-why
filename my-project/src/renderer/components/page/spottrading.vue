@@ -165,14 +165,14 @@
                 return this.$store.state.sopttrading.selectCurrenty
             },
             buyBasis () { // 买入计价货币
-                let name = ''
+                let name = '';
                 if (this.navCurrenty.quoteCurrency) {
                     name = this.navCurrenty.quoteCurrency + '/' + this.moneyNumber.buy
                 }
                 return name
             },
             sellBasis () { // 卖出计价货币
-                let name = ''
+                let name = '';
                 if (this.navCurrenty.baseCurrency) {
                     name = this.navCurrenty.baseCurrency + '/' + this.moneyNumber.sell
                 }
@@ -181,7 +181,7 @@
         },
         watch: {// 交易市场改变，货币改变清空表单。
             navBazzer (n, o) {
-                const Bazzer_SiteId = n.sysMark;
+                const Bazzer_SiteId = n.id;
               if(typeof(Bazzer_SiteId)!="undefined"){
                   this.$store.dispatch('selectCurrenty', '');
                   this.currenty();// 动态加载货币
@@ -196,7 +196,7 @@
                 this.$refs.child2.handleParentClick();// 传递给子组件删除
             },
             sellPriceType () {
-                this.balancePost({siteId: this.navBazzer.sysMark});// 个人资产
+                this.balancePost({siteId: this.navBazzer.id});// 个人资产
             }
         },
         components: {
@@ -214,7 +214,7 @@
             this.$store.dispatch('currenty', '');
         },
         created () {
-            let currenty_Obj = this.navBazzer.sysMark;
+            let currenty_Obj = this.navBazzer.id;
             if (currenty_Obj) {
                 this.currenty();// 动态加载货币
                this.balancePost({siteId: currenty_Obj});// 个人资产
@@ -271,7 +271,7 @@
                         this.unBind = false;// 绑定API
                         this.currentyBalance(data_Obj.data);
                         for(let v of this.bazzerList){
-                            if(v.sysMark==data.siteId){
+                            if(v.id==data.siteId){
                                 v.blanceList=data_Obj.data;//存储个人资产；
                             }
                         }
@@ -333,7 +333,7 @@
                 })
             },
             updateClick () { // 更新资产
-                this.balancePost({siteId: this.navBazzer.sysMark,updateFlag:true})
+                this.balancePost({siteId: this.navBazzer.id,updateFlag:true})
             }
         }
     }

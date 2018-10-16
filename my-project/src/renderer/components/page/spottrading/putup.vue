@@ -27,7 +27,7 @@ export default {
         ]
       },
       selectCurrenty () {
-        return this.$store.state.sopttrading.selectCurrenty // 选中的货币
+        return this.$store.state.sopttrading.selectCurrenty;// 选中的货币
       },
       tableListAdd () { // 现货交易卖买是否成功，增加到表格
         return this.$store.state.sopttrading.tableList
@@ -50,32 +50,32 @@ export default {
     },
     methods: {
       tablePost () {
-        this.loadingType = true
+        this.loadingType = true;
         let data = {
           siteId: this.$store.state.sopttrading.selectBazzer.id,
           symbol: this.selectCurrenty.symbol
-        }
+        };
         this.$postAxios.entryOrders(data).then((ref) => {
-          let dataVal = ref.data
-          this.loadingType = false
+          let dataVal = ref.data;
+          this.loadingType = false;
           if (dataVal.code == 200) {
-            this.tableVal = dataVal.data.unfilled.concat(dataVal.data.filled)
+            this.tableVal = dataVal.data;
             return
           }
-          this.$messageTitle(dataVal.msg, 'error')
+          this.$messageTitle(dataVal.msg, 'error');
           this.tableVal = []
         }).catch((ref) => {
-          this.loadingType = false
-          this.$messageTitle('网络错误，请稍后重试', 'error')
+          this.loadingType = false;
+          this.$messageTitle('网络错误，请稍后重试', 'error');
           this.tableVal = []
         })
       },
       operation (scope) { // 撤单
         this.$postAxios.cancellations(scope.row).then((ref) => {
           if (ref.data.code == 200) {
-            this.$store.dispatch('pricesSet', !this.$store.state.sopttrading.pricesSet)
-            this.$messageTitle('撤单成功', 'success')
-            this.tableVal[scope.$index].status = 4 // 撤销成功将数据状态改成4,：已撤单
+            this.$store.dispatch('pricesSet', !this.$store.state.sopttrading.pricesSet);
+            this.$messageTitle('撤单成功', 'success');
+            this.tableVal[scope.$index].status = 4;// 撤销成功将数据状态改成4,：已撤单
             return
           }
           this.$messageTitle('撤单失败', 'error')

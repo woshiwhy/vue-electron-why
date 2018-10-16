@@ -22,7 +22,7 @@
        @select="handleSelect"
         @blur="handleBlur"
        suffix-icon="el-icon-search"
-       value-key="name"
+       value-key="uniteSymbol"
      >
      </el-autocomplete>
    </div>
@@ -64,15 +64,15 @@
         this.state1 = ''
       },
       selectCurrenty (n, o) { //
-        if (n.name != this.state1) {
+        if (n.uniteSymbol != this.state1) {
           this.state1 = ''
         }
       }
     },
     methods: {
       querySearch (queryString, cb) {
-        let restaurants = this.seachData.val
-        let results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants
+        let restaurants = this.seachData.val;
+        let results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
         // 调用 callback 返回建议列表的数据
         cb(results)
       },

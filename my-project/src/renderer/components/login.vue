@@ -145,20 +145,20 @@ export default {
       },
       skipPage: function () {
         let routeData = this.$router.resolve({name: 'logincontent'});
-        window.open(routeData.href, '_blank')
+        window.open(routeData.href, '_blank');
         if (window.require) {
 
-          const winObj = remote.getCurrentWindow()// 获取当前焦点窗口
-          ipcRenderer.send('clerar-appTray', 2) // 只有主页面才会创建托盘图标
+          const winObj = remote.getCurrentWindow();// 获取当前焦点窗口
+          ipcRenderer.send('clerar-appTray', 2); // 只有主页面才会创建托盘图标
           winObj.close()
         }
       },
       longIn () {
         if (!this.register.code) {
-          this.$messageTitle('验证码不能为空', 'error')
+          this.$messageTitle('验证码不能为空', 'error');
           return false
         }
-        this.disabledCrfim = true
+        this.disabledCrfim = true;
         let data = {
           'username': this.register.account,
           'password': this.$md5(this.register.pwd),
@@ -166,22 +166,22 @@ export default {
           'code': this.register.code
         }
         this.$loginAjax.loginForCode(data).then((res) => {
-          let data_Val = res.data
+          let data_Val = res.data;
           if (data_Val.code == 200) {
-            localStorage.setItem('userInfor', JSON.stringify(data_Val.data))// 存储用户个人信息
-            localStorage.setItem('userToken', data_Val.data.accessToken)// 存储token
-            localStorage.setItem('username', this.register.account)// 存储用户账号
-            this.$messageTitle('登录成功', 'success')
-            this.disableBtn = true
-            this.disabledCrfim = false
-            this.skipPage()
+            localStorage.setItem('userInfor', JSON.stringify(data_Val.data));// 存储用户个人信息
+            localStorage.setItem('userToken', data_Val.data.accessToken);// 存储token
+            localStorage.setItem('username', this.register.account);// 存储用户账号
+            this.$messageTitle('登录成功', 'success');
+            this.disableBtn = true;
+            this.disabledCrfim = false;
+            this.skipPage();
             return
           }
-          this.$messageTitle(data_Val.msg, 'error')
+          this.$messageTitle(data_Val.msg, 'error');
           this.disabledCrfim = false
         }).catch((err) => {
-          this.$messageTitle('网络错误，请稍后再试', 'error')
-          this.disableBtn = true
+          this.$messageTitle('网络错误，请稍后再试', 'error');
+          this.disableBtn = true;
           this.disabledCrfim = false
         })
       },
@@ -193,16 +193,16 @@ export default {
           'password': this.$md5(this.register.pwd),
           'username': this.register.account
         }
-        this.disableBtn = false
+        this.disableBtn = false;
         this.$loginAjax.loginAxios(data).then((res) => {
           if (res.data.code == 200) {
-            this.centerDialogVisible = true
+            this.centerDialogVisible = true;
             return
           }
-          this.$messageTitle(res.data.msg, 'error')
+          this.$messageTitle(res.data.msg, 'error');
           this.disableBtn = true
         }).catch((err) => {
-          this.$messageTitle('网络错误，请稍后再试', 'error')
+          this.$messageTitle('网络错误，请稍后再试', 'error');
           this.disableBtn = true
         })
       },
@@ -211,37 +211,37 @@ export default {
       },
       setTime () {
         var time = 60
-        this.disableType = true
+        this.disableType = true;
         var clearTime = setInterval(() => {
-          var new_Time = time--
-          this.codeName = '已发送(' + new_Time + ')'
+          var new_Time = time--;
+          this.codeName = '已发送(' + new_Time + ')';
           if (time == 0) {
-            this.codeName = '获取验证码'
-            this.disableType = false
-            this.disabled = false
+            this.codeName = '获取验证码';
+            this.disableType = false;
+            this.disabled = false;
             clearTimeout(clearTime)
           }
         }, 1000)
       },
       verify () {
-        this.disabledLoding = false
+        this.disabledLoding = false;
         this.$loginAjax.sendLoginVerifyCode(this.register.account).then((res) => {
           if (res.data.code == 200) {
-            this.$messageTitle('发送成功，请查收', 'success')
-            this.disabledLoding = true
-            this.disabled = true
-            this.setTime()
+            this.$messageTitle('发送成功，请查收', 'success');
+            this.disabledLoding = true;
+            this.disabled = true;
+            this.setTime();
             return
           }
-          this.$messageTitle(res.data.msg, 'error')
+          this.$messageTitle(res.data.msg, 'error');
           this.disabledLoding = true
         }).catch((err) => {
-          this.$messageTitle('网络错误，请稍后再试', 'error')
+          this.$messageTitle('网络错误，请稍后再试', 'error');
           this.disabledLoding = true
         })
       },
       closeBtn () { // 关闭验证弹框
-        this.centerDialogVisible = false
+        this.centerDialogVisible = false;
         this.disableBtn = true
       }
     }

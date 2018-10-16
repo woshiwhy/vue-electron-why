@@ -96,7 +96,7 @@ export default {
     },
     methods: {
       navClick (href, index) {
-        this.$store.dispatch('navType', index + 1)
+        this.$store.dispatch('navType', index + 1);
         this.$router.push(href)
       }
     }

@@ -75,17 +75,17 @@ export default {
     },
     methods: {
       historyPost () {
-        this.loadingType = true
+        this.loadingType = true;
         let data = {
           'siteId': this.activeBazzerId,
           'size': 0,
           'symbol': this.activeCurrenty.symbol
-        }
+        };
         this.$postAxios.historicalSum(data).then((ref) => {
-          let dataVal = ref.data
+          let dataVal = ref.data;
           if (dataVal.code == 200) {
-            this.loadingType = false
-            this.tableVal = dataVal.data
+            this.loadingType = false;
+            this.tableVal = dataVal.data;
             return
           }
           this.tableVal = {
@@ -93,7 +93,7 @@ export default {
             sell: []
           }
         }).catch((err) => {
-          this.loadingType = false
+          this.loadingType = false;
           this.tableVal = {
             buy: [],
             sell: []
