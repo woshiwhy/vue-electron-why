@@ -339,7 +339,8 @@
                 this.$postAxios.balance(data).then((res) => {
                     if (res.data.code == 200) {
                         this.unBind = false// 没绑定API
-                        this.tableData = res.data.data
+                        this.tableData = res.data.data;
+                        this.$messageTitle(res.data.msg,'success')
                         for(let v of this.bazzerList){
                             if(v.id==data.siteId){
                                 v.blanceList = res.data.data;//存储个人资产；

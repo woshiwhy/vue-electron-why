@@ -325,7 +325,7 @@
       },
       //对基本任务完成度排序:
       sortByKey(array, key) {
-          if(array.length != 0){
+          if(array.length != 0){ //如果基本任务为空，就不排序
               return array.sort(function (a, b) {
                   var x = a[key];
                   var y = b[key];
