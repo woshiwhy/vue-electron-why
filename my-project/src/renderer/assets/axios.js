@@ -34,7 +34,7 @@ $axios.interceptors.request.use(config => {
 }, (error) => {
   endLoading();
   return Promise.reject(error)
-})
+});
 
 // // 响应拦截器
 $axios.interceptors.response.use((response) => {
@@ -43,7 +43,7 @@ $axios.interceptors.response.use((response) => {
 }, (error) => {
   tryHideFullScreenLoading();
   return Promise.reject(error)
-})
+});
 
 export function showFullScreenLoading () {
   if (needLoadingRequestCount === 0) {
