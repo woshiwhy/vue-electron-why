@@ -404,9 +404,9 @@
                 })
             }
         },
-        beforeDestroy (){
-            this.$store.dispatch('userTasks','')
-            this.$store.dispatch('integral','')
-        },
+        // beforeDestroy (){
+        //     this.$store.dispatch('userTasks','')
+        //     this.$store.dispatch('integral','')
+        // },
     }
 </script>
