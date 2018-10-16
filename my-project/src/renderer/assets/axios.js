@@ -10,6 +10,7 @@ const webSocketOBj = {
   // url:'ws://192.168.2.88:10000/hub',//webSocket对象地址
   url: 'ws://api.bitbus.club:10000/hub', // webSocket对象地址
   OutTime: 60000// 心跳
+
 };
  const axiosUrl='http://47.75.110.132:10003';//舒服
 //const axiosUrl='http://192.168.2.57:10003';//舒服
