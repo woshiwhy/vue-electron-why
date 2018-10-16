@@ -4,15 +4,15 @@
 import axios from 'axios'
 import { Loading } from 'element-ui'
 
-const axiosLogin = 'http://api.bitbus.club:10000/upms'// 登录注册接口
+const axiosLogin = 'http://api.bitbus.club:10000/upms';// 登录注册接口
 // const axiosLogin='http://192.168.2.88:10000/upms';//登录注册接口
 const webSocketOBj = {
   // url:'ws://192.168.2.88:10000/hub',//webSocket对象地址
   url: 'ws://api.bitbus.club:10000/hub', // webSocket对象地址
   OutTime: 60000// 心跳
-}
- //const axiosUrl='http://47.75.110.132:10003';//舒服
- const axiosUrl='http://192.168.2.57:10003';//舒服
+};
+ const axiosUrl='http://47.75.110.132:10003';//舒服
+//const axiosUrl='http://192.168.2.57:10003';//舒服
 //const axiosUrl = 'http://api.bitbus.club:10000/hubrest'// 服务器
 
 const $axios = axios.create({
@@ -174,17 +174,11 @@ let postObj = { // 币对推荐接口
     data: data,
     loding: true
   }),
-  // 自动交易接口
-  ImplemenStrategy: (data) => $axios({
-    method: 'post',
-    url: '/autoTrades/createOrder',
-    data: data
-  }),
+
   // 删除我的方案
   delMyplan: (data) => $axios({
-    method: 'post',
-    url: '/userStrategy/delete',
-    data: data,
+    method: 'get',
+    url: '/userStrategy/delete/'+data,
     loding: true
   }),
   // 国际行情

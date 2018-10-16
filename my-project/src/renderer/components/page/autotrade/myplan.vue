@@ -121,7 +121,7 @@ export default {
         }
         this.$postAxios.myplan(data).then((res) => {
           if (res.data.code == 200) {
-            this.tableData = res.data.data.records
+            this.tableData = res.data.data.records;
             this.total = res.data.data.total
           }
         }).catch((err) => {
@@ -129,13 +129,13 @@ export default {
         })
       },
       handledele (index, item) { // 删除
-        this.layerContent = this.$t('tip.tip5')
+        this.layerContent = this.$t('tip.tip5');
         if (item.status) { //  True当前方法正在执行。
-          this.layerContent = this.$t('tip.tip6')
-          this.webVal.symbol = item.monitorId
-          this.$store.dispatch('playPlan', '') // 清空正在执行的策略
+          this.layerContent = this.$t('tip.tip6');
+          this.webVal.symbol = item.monitorId;
+          this.$store.dispatch('playPlan', ''); // 清空正在执行的策略
         };
-        this.centerDialogVisible = true
+        this.centerDialogVisible = true;
         this.deleVal.item = item
         this.deleVal.index = index
       },
@@ -143,17 +143,17 @@ export default {
         this.centerDialogVisible = false
       },
       deleBtn () {
-        this.centerDialogVisible = false
-        this.$postAxios.delMyplan({id: this.deleVal.item.id}).then((res) => {
+        this.centerDialogVisible = false;
+        this.$postAxios.delMyplan(this.deleVal.item.id).then((res) => {
           if (res.data.code == 200) {
             if (this.deleVal.item.status) { // 如果正在执行，取消订阅。
               if (this.wsObj.readyState == 1) { // 1，链接成功。
                 this.wsObj.send(JSON.stringify(this.webVal))
               }
             }
-            this.$store.dispatch('delePlan', this.deleVal.item.id)
-            this.$store.dispatch('fromClear', !this.$store.state.auto.fromClear)
-            this.tableData.splice(this.deleVal.index, 1)
+            this.$store.dispatch('delePlan', this.deleVal.item.id);
+            this.$store.dispatch('fromClear', !this.$store.state.auto.fromClear);
+            this.tableData.splice(this.deleVal.index, 1);
             if (this.tableData.length == 0) {
               this.myplanClick(1)
             }
@@ -172,7 +172,7 @@ export default {
         this.myplanClick(val)
       },
       clearVal () {
-        this.$store.dispatch('playPlan', '') // 清空正在执行的策略
+        this.$store.dispatch('playPlan', ''); // 清空正在执行的策略
       }
     }
   }
