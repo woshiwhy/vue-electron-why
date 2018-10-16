@@ -3,7 +3,7 @@
  */
   //  自动交易
 const state={
-    myplan:[],// 可供选择的策略方案
+    myplan:'',// 可供选择的策略方案
     changePlan:'',//当前修改的策略
     seaveType:true,//刷新方案表格
     playPlan:'',//正在执行的策略

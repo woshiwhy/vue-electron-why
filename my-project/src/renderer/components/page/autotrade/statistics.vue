@@ -186,13 +186,12 @@
     methods: {
       // 自动交易盈利统计
       tableVal () {
-        let data = {}
-        this.$postAxios.profitStatistics(data).then((res) => {
+        this.$postAxios.profitStatistics().then((res) => {
           if (res.data.code == 200) {
-            this.today = res.data.data.today
-            this.week = res.data.data.week
-            this.month = res.data.data.month
-            this.all = res.data.data.all
+            this.today = res.data.data.today;
+            this.week = res.data.data.week;
+            this.month = res.data.data.month;
+            this.all = res.data.data.all;
           }
         }).catch((err) => {
           this.$messageTitle('网络错误，请稍后重试', 'error')

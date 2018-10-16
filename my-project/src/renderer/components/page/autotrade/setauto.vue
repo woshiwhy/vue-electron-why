@@ -213,7 +213,9 @@ export default {
       }
   },
     created () {
-      this.selectPlan()
+        if(!this.myPlan){ //  没有系统策略缓存，就请求。
+            this.selectPlan()
+        }
     },
     computed: {
       playPlan () { // 正在执行的策略
@@ -234,9 +236,9 @@ export default {
     },
     watch: {
       changePlan (n, o) { // 当前选中的策略
-        const type_Run = n.status //  是否正在执行
+        const type_Run = n.status; //  是否正在执行
         if (n.name) { // 推荐方案没有名字，需要保持设置
-          this.disableType = false// 执行策略按钮可用
+          this.disableType = false;// 执行策略按钮可用
         } else {
           this.disableType = true
         }
@@ -244,14 +246,14 @@ export default {
           this.setStrateg[v] = n[v] || ''
         }
         if (type_Run == 1) { // 1正在执行
-          this.loadingType = false
+          this.loadingType = false;
           return
         }
         this.loadingType = true
       },
       fromClear () {
-        const delePlanId = this.$store.state.auto.delePlan
-        const changePlanId = this.changePlan.id
+        const delePlanId = this.$store.state.auto.delePlan;
+        const changePlanId = this.changePlan.id;
         if (delePlanId == changePlanId) { //  当前删除的策略和修改的策略ID相同，清空表单
           this.close()
         }
@@ -263,75 +265,75 @@ export default {
     },
     methods: {
       close () { // 新建情况表
-        this.disableType = true
-        this.loadingType = true
-        const save_Data = this.setStrateg
+        this.disableType = true;
+        this.loadingType = true;
+        const save_Data = this.setStrateg;
         for (let v in save_Data) {
           save_Data[v] = ''
         }
       },
       // 保存策略
       save () {
-        const save_Data = this.setStrateg
+        const save_Data = this.setStrateg;
         const postDat = {}
         for (let v in save_Data) {
-          let required_Name = save_Data[v]
+          let required_Name = save_Data[v];
           postDat[v] = save_Data[v]
           switch (v) {
             case 'name':
               if (!required_Name) {
-                this.$messageTitle('请输入方案名', 'error')
+                this.$messageTitle('请输入方案名', 'error');
                 return
               }
               break
             case 'monitorId':
               if (!required_Name) {
-                this.$messageTitle('请选择策略', 'error')
+                this.$messageTitle('请选择策略', 'error');
                 return
               }
               break
             case 'pricePercent':
               if (!required_Name) {
-                this.$messageTitle('请输入触发利差比', 'error')
+                this.$messageTitle('请输入触发利差比', 'error');
                 return
               }
               break
             case 'singleMaxPercent':
               if (!required_Name) {
-                this.$messageTitle('请输入单手最大交易量', 'error')
+                this.$messageTitle('请输入单手最大交易量', 'error');
                 return
               }
               break
             case 'singleMinPercent':
               if (!required_Name) {
-                this.$messageTitle('请输入单手最小交易量', 'error')
+                this.$messageTitle('请输入单手最小交易量', 'error');
                 return
               }
               break
             case 'balancePercent':
               if (!required_Name) {
-                this.$messageTitle('请输入交易平衡', 'error')
+                this.$messageTitle('请输入交易平衡', 'error');
                 return
               }
               break
           }
         }
         let savaData = {}
-        savaData.id = postDat.id
-        savaData.balancePercent = postDat.balancePercent
-        savaData.monitorId = postDat.monitorId
-        savaData.name = postDat.name
-        savaData.pricePercent = postDat.pricePercent
-        savaData.singleMaxPercent = postDat.singleMaxPercent
-        savaData.singleMinPercent = postDat.singleMinPercent
-        savaData.desc = postDat.desc
+        savaData.id = postDat.id;
+        savaData.balancePercent = postDat.balancePercent;
+        savaData.monitorId = postDat.monitorId;
+        savaData.name = postDat.name;
+        savaData.pricePercent = postDat.pricePercent;
+        savaData.singleMaxPercent = postDat.singleMaxPercent;
+        savaData.singleMinPercent = postDat.singleMinPercent;
+        savaData.desc = postDat.desc;
         this.$postAxios.saveStrategy(savaData).then((res) => {
           if (res.data.code == 200) {
-            savaData.id = res.data.data// 保存新建返回的策略ID；
+            savaData.id = res.data.data;// 保存新建返回的策略ID；
             this.refreshTable()// 刷新表格
-            this.$messageTitle('设置保存成功', 'success')
-            this.$store.dispatch('changePlan', savaData)
-            this.disableType = false
+            this.$messageTitle('设置保存成功', 'success');
+            this.$store.dispatch('changePlan', savaData);
+            this.disableType = false;
             return
           }
           this.$messageTitle(res.data.msg, 'error')
@@ -346,16 +348,16 @@ export default {
       cancelRun () {
         this.$postAxios.cancelPlan(this.setStrateg.id).then((res) => {
           if (res.data.code == 200) {
-            this.webVal.symbol = this.setStrateg.monitorId
-            this.webVal.event = 'unsubscribe'
+            this.webVal.symbol = this.setStrateg.monitorId;
+            this.webVal.event = 'unsubscribe';
             if (this.wsObj.readyState == 1) { // 1，链接成功。
               this.wsObj.send(JSON.stringify(this.webVal))
             }
-            this.loadingType = true
-            this.disableType = false
-            this.$store.dispatch('playPlan', '') // 清空正在执行的策略
-            this.refreshTable()
-            this.$messageTitle('取消成功', 'success')
+            this.loadingType = true;
+            this.disableType = false;
+            this.$store.dispatch('playPlan', '');// 清空正在执行的策略
+            this.refreshTable();
+            this.$messageTitle('取消成功', 'success');
             return
           }
           this.$messageTitle(res.data.msg, 'error')
@@ -365,16 +367,16 @@ export default {
       },
       //  执行策略
       carriedOut () {
-        const auto_Id = this.playPlan.monitorId// 自动交易方案Id;
+        const auto_Id = this.playPlan.monitorId;// 自动交易方案Id;
         if (auto_Id) { // 如果有值，证明已经有方案执行。
-          this.centerDialogVisible = true
+          this.centerDialogVisible = true;
           return
         }
         this.runPlay()
       },
       // 有策略执行先取消/订阅
       deleBtn () {
-        const auto_Id = this.playPlan.monitorId// 自动交易方案Id;
+        const auto_Id = this.playPlan.monitorId;// 自动交易方案Id;
         if (this.wsObj.readyState == 1) { // 1，链接成功。
           if (auto_Id) { // 如果有值，证明已经有方案执行。需要先取消webstorker；
             this.webVal.symbol = auto_Id
@@ -382,7 +384,7 @@ export default {
             this.wsObj.send(JSON.stringify(this.webVal))
           }
 
-          this.webVal.symbol = this.setStrateg.monitorId
+          this.webVal.symbol = this.setStrateg.monitorId;
           this.webVal.event = 'subscribe'
           this.wsObj.send(JSON.stringify(this.webVal))
         }
@@ -390,18 +392,18 @@ export default {
         for (let v in this.setStrateg) { // 浅拷贝，不然 this.setStrateg值修改会自动改变存储的值
           plan[v] = this.setStrateg[v]
         }
-        this.$store.dispatch('playPlan', plan)// 存储当前执行的策略
+        this.$store.dispatch('playPlan', plan);// 存储当前执行的策略
       },
       runPlay () { // 执行策略接口
         this.centerDialogVisible = false
         this.$postAxios.playPlan({strategyId: this.setStrateg.id, strategyName: this.setStrateg.name}).then((res) => {
           if (res.data.code == 200) {
-            this.deleBtn()
-            this.refreshTable()
+            this.deleBtn();
+            this.refreshTable();
 
-            this.loadingType = false
+            this.loadingType = false;
 
-            this.$messageTitle('执行成功', 'success')
+            this.$messageTitle('执行成功', 'success');
             return
           }
           this.$messageTitle(res.data.msg, 'error')
@@ -422,8 +424,8 @@ export default {
         })
       },
       querySearch (queryString, cb) {
-        let restaurants = this.myPlan
-        let results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants
+        let restaurants = this.myPlan;
+        let results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
         // 调用 callback 返回建议列表的数据
         cb(results)
       },
@@ -433,7 +435,7 @@ export default {
         }
       },
       handleSelect (item) {
-        this.setStrateg.monitorId = item.id // 只需要当前策略ID;
+        this.setStrateg.monitorId = item.id;// 只需要当前策略ID;
       }
     }
   }

@@ -2,7 +2,7 @@
  * Created by Administrator on 2018/6/13.
  */
 import axios from 'axios'
-import { Loading, Message } from 'element-ui'
+import { Loading } from 'element-ui'
 
 const axiosLogin = 'http://api.bitbus.club:10000/upms'// 登录注册接口
 // const axiosLogin='http://192.168.2.88:10000/upms';//登录注册接口
@@ -18,29 +18,30 @@ const $axios = axios.create({
   baseURL: axiosUrl,
   timeout: 10000,
   headers: {
-    Authorization: 'Bearer ' + "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmOWQ3M2U3OTkxNDQ0MDk5ODY5NWJjZTI2YmQ3ZTY3YiIsInVzZXJfbmFtZSI6IjYzNDM1NzU3MkBxcS5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiZjRjYWZhNjUtZGU1ZS00MDA1LWE5NDctYzc3ZDU5MjU3OTQ3IiwiY2xpZW50X2lkIjoid2ViQXBwIiwic2NvcGUiOlsiYWxsIl19.l9SDlRfaXjMq_qCWklTRMW3gL8snXOYBAGOSzQPOyjw"
+     Authorization: 'Bearer ' + "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJmOWQ3M2U3OTkxNDQ0MDk5ODY5NWJjZTI2YmQ3ZTY3YiIsInVzZXJfbmFtZSI6IjYzNDM1NzU3MkBxcS5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiZjRjYWZhNjUtZGU1ZS00MDA1LWE5NDctYzc3ZDU5MjU3OTQ3IiwiY2xpZW50X2lkIjoid2ViQXBwIiwic2NvcGUiOlsiYWxsIl19.l9SDlRfaXjMq_qCWklTRMW3gL8snXOYBAGOSzQPOyjw"
+      // Authorization: 'Bearer ' + localStorage.getItem('userToken')
   }
 })
-let loading
-let needLoadingRequestCount = 0
+let loading;
+let needLoadingRequestCount = 0;
 
 // 请求拦截；
 $axios.interceptors.request.use(config => {
   if (config.loding) {
-    showFullScreenLoading() // 开启loding
+    showFullScreenLoading();// 开启loding
   }
   return config
 }, (error) => {
-  endLoading()
+  endLoading();
   return Promise.reject(error)
 })
 
 // // 响应拦截器
 $axios.interceptors.response.use((response) => {
-  tryHideFullScreenLoading()
+  tryHideFullScreenLoading();
   return response
 }, (error) => {
-  tryHideFullScreenLoading()
+  tryHideFullScreenLoading();
   return Promise.reject(error)
 })
 
@@ -52,8 +53,8 @@ export function showFullScreenLoading () {
 }
 
 export function tryHideFullScreenLoading () {
-  if (needLoadingRequestCount <= 0) return
-  needLoadingRequestCount--
+  if (needLoadingRequestCount <= 0) return;
+  needLoadingRequestCount--;
   if (needLoadingRequestCount === 0) {
     endLoading()
   }
@@ -77,13 +78,6 @@ let postObj = { // 币对推荐接口
     method: 'post',
     url: '/siteSymbol/page',
     data: data
-  }),
-  // 更新资产
-  updateBalance: (data) => $axios({
-    method: 'post',
-    url: '/userAccount/checkSymbolBalance',
-    data: data,
-    loding: true
   }),
   // 执行策略
   playPlan: (data) => $axios({
@@ -148,10 +142,9 @@ let postObj = { // 币对推荐接口
     data: data
   }),
   // 自动交易盈利统计
-  profitStatistics: (data) => $axios({
+  profitStatistics: () => $axios({
     method: 'post',
     url: '/userOrder/findProfitByWord',
-    data: data
   }),
 
   // 自动交易执行记录
@@ -186,7 +179,7 @@ let postObj = { // 币对推荐接口
     url: '/autoTrades/createOrder',
     data: data
   }),
-  // 自动交易系统推荐方案
+  // 自动交易系统方案
   blurryplan: (data) => $axios({
     method: 'get',
     url: '/plan/query',
@@ -223,13 +216,6 @@ let postObj = { // 币对推荐接口
     url: '/userSite/unbind/' + data,
     loding: true
   })
-}
+};
 
-// 登出接口
-let logout = (data) => $axios({
-  method: 'post',
-  url: '/user/logout',
-  data: data
-})
-
-export {logout, webSocketOBj, axiosLogin, postObj}
+export { webSocketOBj, axiosLogin, postObj}

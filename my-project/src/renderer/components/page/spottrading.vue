@@ -207,11 +207,11 @@
             'main-box': spottradMain
         },
         beforeDestroy () { // 组件销毁前清空值。
-            this.$store.dispatch('buyPrice', '')
-            this.$store.dispatch('sellPrice', '')
-            this.$store.dispatch('lineVal', '')
-            this.$store.dispatch('depthChart', '')
-            this.$store.dispatch('currenty', '')
+            this.$store.dispatch('buyPrice', '');
+            this.$store.dispatch('sellPrice', '');
+            this.$store.dispatch('lineVal', '');
+            this.$store.dispatch('depthChart', '');
+            this.$store.dispatch('currenty', '');
         },
         created () {
             let currenty_Obj = this.navBazzer.sysMark;
@@ -228,7 +228,7 @@
                     this.$store.dispatch('selectCurrenty', data_Obj[0])
                 } else {
                     for (let v of data_Obj) { // 判断选中的ID，改变货币列表选中状态
-                        this.$set(v, 'active', false)
+                        this.$set(v, 'active', false);
                         if (v.uniteSymbol == currenty_Obj.uniteSymbol) {
                             this.$set(v, 'active', true);
                         }
@@ -282,7 +282,7 @@
                         return
                     }
                     if (data_Obj.code == 318) {
-                        this.$store.dispatch('myBalance', '')
+                        this.$store.dispatch('myBalance', '');
                         this.unBind = true;// 没绑定API
                         return
                     }
@@ -302,29 +302,29 @@
 
             // 买卖完毕以后，币的可使用数量变化
             buySubmint (data) {
-                data.type = 'buy'
+                data.type = 'buy';
                 this.transactionPost(data)
             },
             sellSubmint (data) {
-                data.type = 'sell'
+                data.type = 'sell';
                 this.transactionPost(data)
             },
             transactionPost (data) {
-                data.siteId = this.navBazzer.id
-                data.symbol = this.navCurrenty.symbol
-                const table_List = JSON.parse(JSON.stringify(data))
+                data.siteId = this.navBazzer.id;
+                data.symbol = this.navCurrenty.symbol;
+                const table_List = JSON.parse(JSON.stringify(data));
                 this.$postAxios.transaction(data).then((ref) => {
                     if (ref.data.code == 200) {
-                        table_List.orderId = ref.data.data
-                        table_List.fieldAmount = '0'
-                        table_List.status = '0'
-                        table_List.time = this.$moment(new Date()).format('YYYY/MM/DD HH:mm:ss')
+                        table_List.orderId = ref.data.data;
+                        table_List.fieldAmount = '0';
+                        table_List.status = '0';
+                        table_List.time = this.$moment(new Date()).format('YYYY/MM/DD HH:mm:ss');
                         this.$store.dispatch('tableList', table_List)// 添加到挂单表格；
-                        this.$store.dispatch('dealType', !this.$store.state.sopttrading.dealType)// 挂单表格刷新
-                        this.$store.dispatch('pricesSet', !this.$store.state.sopttrading.pricesSet)// 可用价格刷新
-                        this.$refs.child1.handleParentClick()
-                        this.$refs.child2.handleParentClick()
-                        this.$messageTitle('挂单成功', 'success')
+                        this.$store.dispatch('dealType', !this.$store.state.sopttrading.dealType);// 挂单表格刷新
+                        this.$store.dispatch('pricesSet', !this.$store.state.sopttrading.pricesSet);// 可用价格刷新
+                        this.$refs.child1.handleParentClick();
+                        this.$refs.child2.handleParentClick();
+                        this.$messageTitle('挂单成功', 'success');
                         return
                     }
                     this.$messageTitle(ref.data.msg, 'error')

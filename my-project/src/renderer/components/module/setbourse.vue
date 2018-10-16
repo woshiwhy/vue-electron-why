@@ -1,6 +1,6 @@
 <template>
   <div class="select-box">
-    <el-select v-model="bourse" value-key="id" @change="changeClick" filterable :placeholder='$t("placeholder.bazzerName")'>
+    <el-select v-model="bourse" value-key="id"  filterable :placeholder='$t("placeholder.bazzerName")'>
       <el-option
         mini
         v-for="(item,index) in seachData"
@@ -65,12 +65,9 @@
       this.bourse = JSON.parse(localStorage.getItem('defaultMarket'))
     },
     methods: {
-      changeClick (data) {
-      //          console.log(this.bourse);
-      //          console.log(data)
-      },
       setTerrace () {
-        this.$messageTitle('默认平台设置成功', 'success')
+        this.$messageTitle('默认平台设置成功', 'success');
+        this.bourse.blanceList='';//清空存储的交易所的个人资产，防止重新登录后重新拿去，防止数据不准确
         localStorage.setItem('defaultMarket', JSON.stringify(this.bourse))
       }
     }
