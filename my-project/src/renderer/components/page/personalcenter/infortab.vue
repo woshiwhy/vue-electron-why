@@ -81,7 +81,7 @@
             </el-tab-pane>
             <el-tab-pane :label='$t("task.task")' name="task">
                 <!-- 任务中心模块 -->
-                <task-Box :taskData="taskData" :basicData="basicData" :qrCode="qrCode" :imgUrl="imgUrl"></task-Box>
+                <task-Box :qrCode="qrCode" :imgUrl="imgUrl"></task-Box>
             </el-tab-pane>
         </el-tabs>
         <pwd-box @pwdClone="pwdClone" v-if="pwdPage"></pwd-box>
@@ -217,8 +217,8 @@
                 tableData: [],
                 infortabIdx: '',
                 userFrom: {},
-                taskData: {}, // 任务中心数据
-                basicData: [], // 基本任务
+                // taskData: {}, // 任务中心数据
+                // basicData: [], // 基本任务
                 qrCode: '', // 二维码链接
                 imgUrl: '', // 下载二维码
                 username: localStorage.getItem('username')
@@ -251,6 +251,12 @@
             bazzerList(){ //市场
                 return this.$store.state.bazzer;
             },
+            basicData(){ //基本任务
+                return this.$store.state.userTasks;
+            },
+            taskData(){ //用户积分
+                return this.$store.state.integral;
+            }
         },
         mounted() {
             if (this.activeBazzer) {
@@ -270,7 +276,7 @@
             },
             tables () {
                 this.pageIndex = 1
-            }
+            },
         },
         methods: {
             tabPane() {
@@ -333,7 +339,6 @@
                 this.$postAxios.balance(data).then((res) => {
                     if (res.data.code == 200) {
                         this.unBind = false// 没绑定API
-                        console.log(res.data.data)
                         this.tableData = res.data.data
                         for(let v of this.bazzerList){
                             if(v.sysMark==data.siteId){
@@ -371,17 +376,23 @@
             },
             // 基本任务
             basicTasks() {
+                if(this.basicData.length !=0){
+                    return
+                }
                 this.$loginAjax.basicTasks({}).then((res) => {
                     if (res.data.code == 200) {
-                        this.basicData = res.data.data
+                        this.$store.dispatch('userTasks',res.data.data)
                     }
                 })
             },
             // 获取用户积分
             userIntegral() {
+                if(this.taskData.myIntegral){
+                    return
+                }
                 this.$loginAjax.userIntegral({}).then((res) => {
                     if (res.data.code == 200) {
-                        this.taskData = res.data.data
+                        this.$store.dispatch('integral',res.data.data)
                         this.qrCode = res.config.baseURL
                         this.imgUrl = res.config.baseURL + '/qrCode/create?' + 'content=' + this.taskData.inviteUrl
                         return
@@ -391,6 +402,10 @@
                     this.$messageTitle('网络错误，请稍后再试', 'error')
                 })
             }
-        }
+        },
+        beforeDestroy (){
+            this.$store.dispatch('userTasks','')
+            this.$store.dispatch('integral','')
+        },
     }
 </script>

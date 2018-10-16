@@ -260,7 +260,7 @@
       'PhoneMound-box': PhoneMound,
       'singIn-box': singIn
     },
-    props: ['taskData', 'basicData', 'qrCode', 'imgUrl'],
+    props: [ 'qrCode', 'imgUrl'],
     data() {
       return {
         imgVal: '',
@@ -274,7 +274,13 @@
       }
     },
     computed: {
-      sortBasic: function () {
+        basicData(){ //基本任务
+            return this.$store.state.userTasks;
+        },
+        taskData(){ //用户积分
+            return this.$store.state.integral;
+        },
+      sortBasic() {
         return this.sortByKey(this.basicData, 'status');
       },
       ivintData() {
@@ -319,13 +325,14 @@
       },
       //对基本任务完成度排序:
       sortByKey(array, key) {
-        return array.sort(function (a, b) {
-          var x = a[key];
-          var y = b[key];
-          return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-        });
-      }
-      ,
+          if(array.length != 0){
+              return array.sort(function (a, b) {
+                  var x = a[key];
+                  var y = b[key];
+                  return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+              });
+          }
+      },
       onCopy() {
         let input = document.getElementById("text");
         input.value = this.taskData.inviteUrl; // 修改文本框的内容

@@ -23,6 +23,8 @@ const store = new Vuex.Store({
       gender: '',
       profile: '',
     },//用户信息
+    userTasks:[],//用户基本任务
+    integral:{},//用户积分
     webSocket: '',//webSocket对象
     bazzer: [],//市场
     currenty: [],//货币
@@ -38,6 +40,12 @@ const store = new Vuex.Store({
     },
     usersInfor(state, msg){
       state.usersInfor = msg;
+    },
+      userTasks(state, msg){
+      state.userTasks = msg;
+    },
+      integral(state, msg){
+      state.integral = msg;
     },
     webSocketType(state, msg){
       state.webSocketType = msg;
@@ -66,6 +74,12 @@ const store = new Vuex.Store({
     },
     usersInfor(context, payload) {
       context.commit('usersInfor', payload)
+    },
+      userTasks(context, payload) {
+      context.commit('userTasks', payload)
+    },
+      integral(context, payload) {
+      context.commit('integral', payload)
     },
     webSocketType(context, payload) {
       context.commit('webSocketType', payload)
