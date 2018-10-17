@@ -1,6 +1,6 @@
 <template>
   <div style="height: 3rem">
-    <el-table class="table-list bg-table tabpx"  :data="tableData" stripe style="width: 100%">
+    <el-table class="table-list bg-table tabpx" min-height="300"  :data="tableData" stripe style="width: 100%">
       <el-table-column :label='$t("tableheder.planName")' prop="name"></el-table-column>
       <el-table-column :label='$t("tableheder.moneyfor")' prop="symbol"></el-table-column>
       <el-table-column :label='$t("tableheder.bazaar")' prop="bazzer" min-width="120">
@@ -42,7 +42,7 @@
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <div style="text-align:center;margin-top:.035rem;margin-bottom: -0.13rem;" v-if="total>5">
+    <div style="text-align:center;margin-top:.035rem;margin-bottom: -0.13rem;" >
       <el-pagination
         :page-size="5"
         :pager-count="5"
@@ -82,13 +82,7 @@ export default {
           index: ''
         },
         page: 1,
-        total: 1,
-        webVal: {
-          'site': 'hub',
-          'event': 'unsubscribe',
-          'channel': 'depth_monitor',
-          'symbol': ''
-        }
+        total: 1
       }
     },
     components: {
@@ -97,9 +91,6 @@ export default {
     computed: {
       seaveType () { // 监听方案是保存或执行，刷新表格
         return this.$store.state.auto.seaveType
-      },
-      wsObj () {
-        return this.$store.state.webSocket
       }
     },
     watch: {
@@ -118,7 +109,7 @@ export default {
               'current': page,
               'size': 5
           }
-        }
+        };
         this.$postAxios.myplan(data).then((res) => {
           if (res.data.code == 200) {
             this.tableData = res.data.data.records;
@@ -132,11 +123,9 @@ export default {
         this.layerContent = this.$t('tip.tip5');
         if (item.status) { //  True当前方法正在执行。
           this.layerContent = this.$t('tip.tip6');
-          this.webVal.symbol = item.monitorId;
-          this.$store.dispatch('playPlan', ''); // 清空正在执行的策略
         };
         this.centerDialogVisible = true;
-        this.deleVal.item = item
+        this.deleVal.item = item;
         this.deleVal.index = index
       },
       close () {
@@ -146,16 +135,13 @@ export default {
         this.centerDialogVisible = false;
         this.$postAxios.delMyplan(this.deleVal.item.id).then((res) => {
           if (res.data.code == 200) {
-            if (this.deleVal.item.status) { // 如果正在执行，取消订阅。
-              if (this.wsObj.readyState == 1) { // 1，链接成功。
-                this.wsObj.send(JSON.stringify(this.webVal))
-              }
-            }
+            this.total=this.total-1;
             this.$store.dispatch('delePlan', this.deleVal.item.id);
             this.$store.dispatch('fromClear', !this.$store.state.auto.fromClear);
             this.tableData.splice(this.deleVal.index, 1);
             if (this.tableData.length == 0) {
-              this.myplanClick(1)
+              this.myplanClick(1);
+              this.page=1;
             }
             this.$messageTitle(this.$t('tip.tip7'), 'success')
           }
@@ -168,11 +154,8 @@ export default {
       },
       // 分页
       currentChange (val) {
-        this.page = val
+        this.page = val;
         this.myplanClick(val)
-      },
-      clearVal () {
-        this.$store.dispatch('playPlan', ''); // 清空正在执行的策略
       }
     }
   }

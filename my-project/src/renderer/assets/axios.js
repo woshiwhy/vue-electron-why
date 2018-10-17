@@ -180,7 +180,6 @@ let postObj = { // 币对推荐接口
   delMyplan: (data) => $axios({
     method: 'get',
     url: '/userStrategy/delete/'+data,
-    loding: true
   }),
   // 国际行情
   International: (data) => $axios({

@@ -56,15 +56,20 @@
     },
     watch: {
       seachData () {
-        setTimeout(() => {
-          this.bourse = JSON.parse(localStorage.getItem('defaultMarket'))
-        }, 500)
+          this.bazzerName(localStorage.getItem('defaultMarket'))
       }
     },
     mounted () {
-      this.bourse = JSON.parse(localStorage.getItem('defaultMarket'))
+        this.bazzerName(localStorage.getItem('defaultMarket'))
     },
     methods: {
+        bazzerName(local_Obj){
+            for(let v of this.seachData){
+                if(v.id==local_Obj){
+                    this.bourse =v
+                }
+            }
+        },
       setTerrace () {
         this.$messageTitle('默认平台设置成功', 'success');
         this.bourse.blanceList='';//清空存储的交易所的个人资产，防止重新登录后重新拿去，防止数据不准确

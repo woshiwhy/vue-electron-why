@@ -56,7 +56,7 @@
     </div>
     <div style="text-align: center;">
       <transition name="fade">
-      <el-button size="medium" class="auto-btn hover-btn execute-btn"  v-if="loadingType" @click="carriedOut()"
+      <el-button size="medium" class="auto-btn hover-btn execute-btn"  v-if="loadingType" @click="runPlay()"
                  :disabled="disableType">
         {{$t("btnname.runPlan")}}
       </el-button>
@@ -65,10 +65,6 @@
       </el-button>
       </transition>
     </div>
-    <transition name="fade">
-    <layer-box v-if="centerDialogVisible" :width="'3rem'" @close="closeLaye" @confirm="runPlay"
-               :content='$t("tip.tip4")'></layer-box>
-    </transition>
   </div>
 
 
@@ -182,18 +178,10 @@
   }
 </style>
 <script>
-import layerBox from '@/components/module/layer'
 export default {
     data () {
       return {
-        centerDialogVisible: false,
         loadingType: true, // true执行策略，false取消策略
-        webVal: {
-          'site': 'hub',
-          'event': '',
-          'channel': 'depth_monitor',
-          'symbol': ''
-        },
         disableType: true, //
         setStrateg: {
           id: '',
@@ -258,9 +246,6 @@ export default {
         }
       }
     },
-    components: {
-      'layer-box': layerBox,
-    },
     methods: {
       close () { // 新建情况表
         this.disableType = true;
@@ -273,41 +258,41 @@ export default {
       // 保存策略
       save () {
         const save_Data = this.setStrateg;
-        const postDat = {}
+        const postDat = {};
         for (let v in save_Data) {
           let required_Name = save_Data[v];
-          postDat[v] = save_Data[v]
+          postDat[v] = save_Data[v];
           switch (v) {
             case 'name':
               if (!required_Name) {
                 this.$messageTitle('请输入方案名', 'error');
                 return
               }
-              break
+              break;
             case 'monitorId':
               if (!required_Name) {
                 this.$messageTitle('请选择策略', 'error');
                 return
               }
-              break
+              break;
             case 'pricePercent':
               if (!required_Name) {
                 this.$messageTitle('请输入触发利差比', 'error');
                 return
               }
-              break
+              break;
             case 'singleMaxPercent':
               if (!required_Name) {
                 this.$messageTitle('请输入单手最大交易量', 'error');
                 return
               }
-              break
+              break;
             case 'singleMinPercent':
               if (!required_Name) {
                 this.$messageTitle('请输入单手最小交易量', 'error');
                 return
               }
-              break
+              break;
             case 'balancePercent':
               if (!required_Name) {
                 this.$messageTitle('请输入交易平衡', 'error');
@@ -316,7 +301,7 @@ export default {
               break
           }
         }
-        let savaData = {}
+        let savaData = {};
         savaData.id = postDat.id;
         savaData.balancePercent = postDat.balancePercent;
         savaData.monitorId = postDat.monitorId;
@@ -327,8 +312,11 @@ export default {
         savaData.desc = postDat.desc;
         this.$postAxios.saveStrategy(savaData).then((res) => {
           if (res.data.code == 200) {
-            savaData.id = res.data.data;// 保存新建返回的策略ID；
-            this.refreshTable()// 刷新表格
+              if(res.data.data){
+                  savaData.id = res.data.data;// 保存新建返回的策略ID；
+              }
+
+            this.refreshTable();// 刷新表格
             this.$messageTitle('设置保存成功', 'success');
             this.$store.dispatch('changePlan', savaData);
             this.disableType = false;
@@ -340,17 +328,12 @@ export default {
         })
       },
       refreshTable () { // 刷新方案表格
-        this.$store.dispatch('seaveType', !this.$store.state.auto.seaveType)// 刷新表格
+        this.$store.dispatch('seaveType', !this.$store.state.auto.seaveType);// 刷新表格
       },
       // 取消执行
       cancelRun () {
         this.$postAxios.cancelPlan({strategyId:this.setStrateg.id}).then((res) => {
           if (res.data.code == 200) {
-            this.webVal.symbol = this.setStrateg.monitorId;
-            this.webVal.event = 'unsubscribe';
-            if (this.wsObj.readyState == 1) { // 1，链接成功。
-              this.wsObj.send(JSON.stringify(this.webVal))
-            }
             this.loadingType = true;
             this.disableType = false;
             this.$store.dispatch('playPlan', '');// 清空正在执行的策略
@@ -363,54 +346,29 @@ export default {
           this.$messageTitle('网络错误，请稍后再试', 'error')
         })
       },
-      //  执行策略
-      carriedOut () {
-        const auto_Id = this.playPlan.monitorId;// 自动交易方案Id;
-        if (auto_Id) { // 如果有值，证明已经有方案执行。
-          this.centerDialogVisible = true;
-          return
-        }
-        this.runPlay()
-      },
-      // 有策略执行先取消/订阅
-      deleBtn () {
-        const auto_Id = this.playPlan.monitorId;// 自动交易方案Id;
-        if (this.wsObj.readyState == 1) { // 1，链接成功。
-          if (auto_Id) { // 如果有值，证明已经有方案执行。需要先取消webstorker；
-            this.webVal.symbol = auto_Id
-            this.webVal.event = 'unsubscribe'
-            this.wsObj.send(JSON.stringify(this.webVal))
-          }
 
-          this.webVal.symbol = this.setStrateg.monitorId;
-          this.webVal.event = 'subscribe'
-          this.wsObj.send(JSON.stringify(this.webVal))
-        }
-        let plan = {}
+      deleBtn () {
+        let plan = {};
         for (let v in this.setStrateg) { // 浅拷贝，不然 this.setStrateg值修改会自动改变存储的值
           plan[v] = this.setStrateg[v]
         }
         this.$store.dispatch('playPlan', plan);// 存储当前执行的策略
       },
       runPlay () { // 执行策略接口
-        this.centerDialogVisible = false
         this.$postAxios.playPlan({strategyId: this.setStrateg.id, strategyName: this.setStrateg.name}).then((res) => {
+
           if (res.data.code == 200) {
+              this.loadingType = false;
             this.deleBtn();
             this.refreshTable();
-
-            this.loadingType = false;
-
             this.$messageTitle('执行成功', 'success');
             return
           }
           this.$messageTitle(res.data.msg, 'error')
         }).catch((err) => {
-          this.$messageTitle('网络错误，请稍后再试', 'error')
+            this.loadingType = false;
+          this.$messageTitle('网络错误1，请稍后再试', 'error')
         })
-      },
-      closeLaye () {
-        this.centerDialogVisible = false
       },
       // 可供选择的策略方案
       selectPlan () {

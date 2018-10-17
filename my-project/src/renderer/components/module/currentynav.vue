@@ -133,7 +133,6 @@
         this.$store.dispatch('selectCurrenty', data)
       },
       balancePost () {
-          console.log(this.activeCurrenty)
           let basicsCurrenty = {
                buy:this.activeCurrenty.quoteBalance || 0, //  卖入计价货币
                sell:this.activeCurrenty.baseBalance || 0// 卖出计价货币
