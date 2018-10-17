@@ -71,24 +71,24 @@
     props: ['fromVal', 'fromListch', 'btnName', 'priceVal', 'basisCurrent', 'type'], // price买入卖出价格,basisCurrent=当前计价货币余额
     data () {
       var price = (rule, value, callback) => {
-        const myreg = /^\d+(?=\.{0,1}\d+$|$)/
+        const myreg = /^\d+(?=\.{0,1}\d+$|$)/;
         if (!value) {
-          this.$messageTitle('请输入价格', 'error')
+          this.$messageTitle('请输入价格', 'error');
           return callback(new Error())
         } else if (!myreg.test(value)) {
-          this.$messageTitle('请输入正确的价格', 'error')
+          this.$messageTitle('请输入正确的价格', 'error');
           return callback(new Error())
         } else {
           callback()
         }
       }
   var amount = (rule, value, callback) => {
-        const myreg = /^\d+(?=\.{0,1}\d+$|$)/
+        const myreg = /^\d+(?=\.{0,1}\d+$|$)/;
         if (!value) {
-          this.$messageTitle('请输入数量', 'error')
+          this.$messageTitle('请输入数量', 'error');
           return callback(new Error())
         } else if (!myreg.test(value)) {
-          this.$messageTitle('请输入正确的数量', 'error')
+          this.$messageTitle('请输入正确的数量', 'error');
           return callback(new Error())
         } else {
           callback()
@@ -110,11 +110,11 @@
 
     computed: {
       sumCalculate () { // 计算总价格
-        let number = this.ruleForm.amount
-        let price = this.ruleForm.price
-        let allNumber = number * price
+        let number = this.ruleForm.amount;
+        let price = this.ruleForm.price;
+        let allNumber = number * price;
         let pricePrecision = parseInt(this.$store.state.sopttrading.selectCurrenty.pricePrecision) + 2// 精度(防止，0.000000001位数不够。)
-        let number_Place = allNumber.toString().indexOf('.')
+        let number_Place = allNumber.toString().indexOf('.');
         if (number_Place != -1) {
           allNumber = allNumber.toString().substring(0, pricePrecision)
         }
@@ -131,46 +131,46 @@
     watch: {
       byPrice (newValue, oldValue) {
         if (newValue) {
-          this.ruleForm.price = newValue.price// 买人价格,卖出价格
+          this.ruleForm.price = newValue.price;// 买人价格,卖出价格
           this.ruleForm.amount = ''
         }
       }
     },
     methods: {
       addNumber (number) {
-        let all_Number = number.split('/')[1]
+        let all_Number = number.split('/')[1];
         if (this.type == 'sell' && all_Number != 0) { //  卖就点击获取币的全部数量
-          this.ruleForm.amount = all_Number
+          this.ruleForm.amount = all_Number;
           this.numberWright({ name: 'amount'})
         }
         if (this.type == 'buy' && all_Number != 0) { //  获得可买的最大数量
-          this.ruleForm.amount = String(all_Number / this.ruleForm.price)
+          this.ruleForm.amount = String(all_Number / this.ruleForm.price);
           this.numberWright({ name: 'amount'})
         }
       },
       handleParentClick () { // 清空表单
-        this.$refs.ruleForm.resetFields()
-        this.$store.dispatch('buyPrice', '')
+        this.$refs.ruleForm.resetFields();
+        this.$store.dispatch('buyPrice', '');
         this.$store.dispatch('sellPrice', '')
       },
       numberWright (data) {
         // pricePrecision amountPrecision量精度
         let precision = ''
         if (data.name == 'price') { // 设置价格精度
-          precision = parseInt(this.$store.state.sopttrading.selectCurrenty.pricePrecision) + 1 // 精度控制
+          precision = parseInt(this.$store.state.sopttrading.selectCurrenty.pricePrecision) + 1;// 精度控制
         } else {
-          precision = parseInt(this.$store.state.sopttrading.selectCurrenty.amountPrecision) + 1 // 精度控制
+          precision = parseInt(this.$store.state.sopttrading.selectCurrenty.amountPrecision) + 1;// 精度控制
         }
-        this.ruleForm[data.name] = this.ruleForm[data.name].replace(/[^(\d+\.?\d+)]/g, '')
+        this.ruleForm[data.name] = this.ruleForm[data.name].replace(/[^(\d+\.?\d+)]/g, '');
         let number_Place = this.ruleForm[data.name].indexOf('.')
         if (precision == 1 && number_Place != -1) {
-          this.ruleForm[data.name] = this.ruleForm[data.name].substring(0, number_Place).toString()
+          this.ruleForm[data.name] = this.ruleForm[data.name].substring(0, number_Place).toString();
           return
         }
         if (number_Place != -1) {
-          let number_new = this.ruleForm[data.name].substring(0, number_Place).toString()
-          let decimals = this.ruleForm[data.name].substring(number_Place)
-          let decimals_New = decimals.substring(0, precision)
+          let number_new = this.ruleForm[data.name].substring(0, number_Place).toString();
+          let decimals = this.ruleForm[data.name].substring(number_Place);
+          let decimals_New = decimals.substring(0, precision);
           this.ruleForm[data.name] = number_new + decimals_New
         }
       },
@@ -180,7 +180,7 @@
           if (valid) {
             _this.$emit('submintFun', _this.ruleForm, even.currentTarget, _this.$refs[formName])
           } else {
-            console.log('error submit!!')
+            console.log('error submit!!');
             return false
           }
         })

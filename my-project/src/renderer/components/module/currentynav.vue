@@ -116,11 +116,11 @@
         this.sollerNumber('right')
       },
       sollerNumber (type) {
-        let sollerBox = this.$refs.sollerBox
-        let sollerWidth = sollerBox.scrollWidth / this.currentyList.length
+        let sollerBox = this.$refs.sollerBox;
+        let sollerWidth = sollerBox.scrollWidth / this.currentyList.length;
         let number = 1
         let soller = setInterval(() => {
-          number++
+          number++;
           if (type == 'left') {
             sollerBox.scrollLeft--
           } else {
@@ -132,13 +132,13 @@
         }, 5)
       },
       navselect (data, index) { // 存储选中的值
-        this.currentyList[index].active = this.$set(this.currentyList[index], 'active', true)
+        this.currentyList[index].active = this.$set(this.currentyList[index], 'active', true);
         this.$store.dispatch('selectCurrenty', data)
       },
       balancePost () {
           let basicsCurrenty = {
                buy:this.activeCurrenty.quoteBalance || 0, //  卖入计价货币
-              sell:this.activeCurrenty.baseBalance || 0// 卖出计价货币
+               sell:this.activeCurrenty.baseBalance || 0// 卖出计价货币
           };
          this.$store.dispatch('balance', basicsCurrenty)
       }

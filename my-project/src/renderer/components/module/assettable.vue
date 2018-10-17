@@ -71,7 +71,7 @@
     computed: { //  监听选中值
         tableTr(){
             return [
-                {name: this.$t('tableheder.currency'), val: 'symbolName'},
+                {name: this.$t('tableheder.currency'), val: 'symbol'},
                 {name: this.$t('tableheder.amount'), val: 'total'},
                 {name: this.$t('tableheder.usable'), val: 'available', class: 'blue'}
             ]

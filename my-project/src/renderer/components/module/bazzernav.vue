@@ -40,14 +40,14 @@
         if (this.bazzerActive) { // vuex存值就不再取值,
           return
         }
-        const local_Obj = localStorage.getItem('defaultMarket')
+        const local_Obj = localStorage.getItem('defaultMarket');
         if (local_Obj != 'undefined' && local_Obj) { // 查看是否存储默认市场
-          this.$store.dispatch('selectBazzer', JSON.parse(local_Obj))// vux存储默认市场
+          this.$store.dispatch('selectBazzer', JSON.parse(local_Obj));// vux存储默认市场
           return
         }
         if (this.$store.state.bazzer[0]) {
-          localStorage.setItem('defaultMarket', JSON.stringify(this.$store.state.bazzer[0]))// 如果没设置，默认第一个为默认市场
-          this.$store.dispatch('selectBazzer', this.$store.state.bazzer[0])// vux存储默认市场
+          localStorage.setItem('defaultMarket', JSON.stringify(this.$store.state.bazzer[0]));// 如果没设置，默认第一个为默认市场
+          this.$store.dispatch('selectBazzer', this.$store.state.bazzer[0]);// vux存储默认市场
         }
       },
       sollerLeft () {
@@ -57,11 +57,11 @@
         this.sollerNumber('right')
       },
       sollerNumber (type) {
-        let sollerBox = this.$refs.sollerBox
-        let sollerWidth = sollerBox.scrollWidth / this.bazzerList.length
-        let number = 1
+        let sollerBox = this.$refs.sollerBox;
+        let sollerWidth = sollerBox.scrollWidth / this.bazzerList.length;
+        let number = 1;
         let soller = setInterval(() => {
-          number++
+          number++;
           if (type == 'left') {
             sollerBox.scrollLeft--
           } else {

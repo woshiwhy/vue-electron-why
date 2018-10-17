@@ -243,6 +243,7 @@
             currentyBalance(obj){ // 存储货币可用余额值。
                 for (let v of obj) {
                     let currentyName = v.symbol;
+                    currentyName=currentyName.toLowerCase();
                     for (let balance of this.$store.state.currenty) {
                         let baseName = balance.baseCurrency;//基础货币
                         let quoteName = balance.quoteCurrency;//计价货币
