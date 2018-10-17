@@ -330,6 +330,7 @@
               });
           }
       },
+      //  复制邀请码
       onCopy() {
         let input = document.getElementById("text");
         input.value = this.taskData.inviteUrl; // 修改文本框的内容
