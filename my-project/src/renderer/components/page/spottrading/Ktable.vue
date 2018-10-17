@@ -141,9 +141,9 @@
           }
           this.postNumber = 0;
           this.loading2 = false;
-          this.$messageTitle(val_Data.msg, 'error')
+//          this.$messageTitle(val_Data.msg, 'error')
         }).catch((err) => {
-          this.$messageTitle('链接超时，请稍后重试', 'error')
+//          this.$messageTitle('链接超时，请稍后重试', 'error')
         })
       }
     }

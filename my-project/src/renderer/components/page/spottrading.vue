@@ -240,65 +240,27 @@
                 this.currentySelect(this.navBazzer.symbolList);
                 this.$store.dispatch('currenty', this.navBazzer.symbolList)
             },
-            currentyBalance(obj){ // 存储货币可用余额值。
-                for (let v of obj) {
-                    let currentyName = v.symbol;
-                    currentyName=currentyName.toLowerCase();
-                    for (let balance of this.$store.state.currenty) {
-                        let baseName = balance.baseCurrency;//基础货币
-                        let quoteName = balance.quoteCurrency;//计价货币
-                        if (currentyName == baseName) {
-                            balance.baseBalance = v.available;
-                        }
-                        if (currentyName == quoteName) {
-                            balance.quoteBalance = v.available;
-                        }
-                    }
-                }
-            },
             // 个人资产
             balancePost (data) {
                 if(this.navBazzer.blanceList && !data.updateFlag){  // 有个人资产了就不申请了
                     this.unBind = false;// 绑定API// ；
-                    this.currentyBalance(this.navBazzer.blanceList);
+                    this.$currentyBalance(this.navBazzer.blanceList);
                     this.$store.dispatch('myBalance', this.navBazzer.blanceList.slice(0, 5));
                     return
                 }
-                    this.loading2=true;
-                this.$postAxios.balance(data).then((res) => {
-                    const data_Obj = res.data;
+                this.loading2=true;
+                this.$balancePost(data).then(res => {
                     this.loading2=false;
-                    if (data_Obj.code == 200) {
-                        this.unBind = false;// 绑定API
-                        this.currentyBalance(data_Obj.data);
-                        for(let v of this.bazzerList){
-                            if(v.id==data.siteId){
-                                v.blanceList=data_Obj.data;//存储个人资产；
-                            }
-                        }
-                        this.$store.dispatch('myBalance', data_Obj.data.slice(0, 5));//现货交易只显示前5条，截取前5条
-                        if(data.updateFlag){
-                            this.$messageTitle('更新成功', 'success')
-                        }
-                        return
-                    }
-                    if (data_Obj.code == 318) {
-                        this.$store.dispatch('myBalance', '');
-                        this.unBind = true;// 没绑定API
-                        return
-                    }
-                    if(!data.updateFlag){
-                        this.$store.dispatch('myBalance', [])
-                    }
-                    this.$messageTitle(data_Obj.msg, 'error')
-
-                }).catch((res) => {
-                    this.$messageTitle("网络错误稍后重试", 'error');
+                   if(res.code==200){
+                    this.unBind = false;// 绑定API
+                    this.$store.dispatch('myBalance', res.data.slice(0, 5));//现货交易只显示前5条，截取前5条
+                }
+                if (res.code == 318) {
+                    this.unBind = true;// 没绑定API
+                }
+                 },error => {
                     this.loading2=false;
-                    if(!data.updateFlag){
-                        this.$store.dispatch('myBalance', [])
-                    }
-                })
+                });
             },
 
             // 买卖完毕以后，币的可使用数量变化
