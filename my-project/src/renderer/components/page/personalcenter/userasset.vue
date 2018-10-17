@@ -81,7 +81,7 @@
                 pageIndex: 1,//默认第一页
                 pageSize: 10,//默认每页大小
                 unBind: false,
-                // tableData: [],
+                 tableData: [],
                 infortabIdx: '',
             }
         },
@@ -93,7 +93,7 @@
                 return this.$store.state.world.activeBazzer
             },
             tables() {
-                return this.$store.state.world.activeBazzer.blanceList
+                return this.tableData
             },
             total() {
                 return this.tables.length
@@ -130,11 +130,14 @@
                 }
                 if(updateFlag != true && this.activeBazzer.blanceList){ //如果资产存在并且用户不更新就不用请求
                     this.unBind = false;
+                    this.tableData = this.activeBazzer.blanceList
                     return
                 }
                 this.$balancePost(data).then(res => {
                     if(res.code==200){
                         this.unBind = false;// 已绑定API
+                        this.tableData = res.data;
+                        this.$store.dispatch('myBalance', res.data);
                         return
                     }
                     if (res.code == 318) {
