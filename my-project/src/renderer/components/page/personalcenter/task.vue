@@ -4,9 +4,6 @@
       <span>{{taskData.myIntegral}}{{$t("task.credits")}}</span></h3>
     <!-- 任务中心模块 -->
     <div class="bsmarket taskbox">
-      <!--<div>-->
-      <!--<img :src="imgVal" class="">-->
-      <!--</div>-->
       <div>
         <div class="taskh3 taskbas">
           <img src="../../../../../static/img/infor/basis.png" alt="">
@@ -400,6 +397,7 @@
               if (this.basicData[i].planType == "DAILY_SIGN") {
                 this.basicData[i].status = 1;
                 this.taskData.myIntegral += Number(this.basicData[i].rewardValue);
+                this.basicData[i].rewardValue = Number(this.basicData[i].rewardValue) + 5;
                 this.signInfo();
                 this.singInVisible = true;
               }
