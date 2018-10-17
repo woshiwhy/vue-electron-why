@@ -37,13 +37,19 @@ let balancePost=(data)=>{
                 messageTitle('更新成功', 'success')
             }
         }else if(data_Obj.code == 318){
+            for(let v of bazzerList){
+                if(v.id==data.siteId){
+                    v.blanceList='';//清空个人资产
+                }
+            }
             store.state.sopttrading.myBalance=[];
         }
         else {
             if(!data.updateFlag){
                 store.state.sopttrading.myBalance=[];
+            }else {
+                messageTitle(data_Obj.msg, 'error');
             }
-            messageTitle(data_Obj.msg, 'error');
         }
         return data_Obj;
     }).catch((res)=>{

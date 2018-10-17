@@ -143,7 +143,7 @@ export default {
                   break
               }
             }
-            this.$store.dispatch('bindApi', data_Val.data)
+            this.$store.dispatch('bindApi', data_Val.data);
             this.seachData = data_Val.data
           }
         }).catch((res) => {})
@@ -160,6 +160,7 @@ export default {
         this.$postAxios.unbindAxios(deleData.siteId).then((ref) => {
           if (ref.data.code == 200) {
             this.$messageTitle('解绑成功', 'success');
+            this.$balancePost({siteId: deleData.siteId}); // 更新资产
             this.$store.dispatch('bindApi', []);
             deleData.id = '';
             return
@@ -175,7 +176,7 @@ export default {
         this.wirghtApk = false
       },
       handleOk (item) { // 确认
-        this.changeObj = item // 传递当前编辑的对象。
+        this.changeObj = item;// 传递当前编辑的对象。
         this.wirghtApk = true
       }
     }
