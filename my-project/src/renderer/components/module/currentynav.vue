@@ -34,9 +34,6 @@
       webSocketType () { // webSocket连接状态，true连接，false断开
         return this.$store.state.webSocketType
       },
-      sellPriceType () {
-        return this.$store.state.sopttrading.pricesSet
-      },
       currentyList () {
         return this.$store.state.currenty
       },
@@ -53,9 +50,6 @@
       },
       searchVal (n, o) {
         this.$refs.sollerBox.scrollLeft = this.$refs[n.uniteSymbol][0].offsetLeft - 20
-      },
-      sellPriceType () { // 可用价格刷新
-        this.balancePost()
       },
         activeCurrenty (n, o) {
         if (n) { // 监控被选中的币对ID.
@@ -85,21 +79,24 @@
     created () {
       if (this.activeCurrenty) {
         this.socketPost();
-
       }
     },
     mounted(){  //快捷跳转，导航定位
    if(this.activeCurrenty){
-       this.$refs.sollerBox.scrollLeft = this.$refs[this.activeCurrenty.uniteSymbol][0].offsetLeft - 20
+       this.$refs.sollerBox.scrollLeft = this.$refs[this.activeCurrenty.uniteSymbol][0].offsetLeft - 20;
+
    }
     },
     methods: {
       socketPost () {
-        this.webSocket()
-        this.balancePost()
+        this.webSocket();
+          setTimeout(()=>{
+              this.balancePost()
+          },500)
+
       },
       webSocket () { //  市场，货币改变发出请求
-        const webSocketObj = this.$store.state.webSocket
+        const webSocketObj = this.$store.state.webSocket;
         if (webSocketObj.readyState == 1) { // 1，链接成功。
           this.$store.state.webSocket.send(JSON.stringify(this.depth))
         }
@@ -118,7 +115,7 @@
       sollerNumber (type) {
         let sollerBox = this.$refs.sollerBox;
         let sollerWidth = sollerBox.scrollWidth / this.currentyList.length;
-        let number = 1
+        let number = 1;
         let soller = setInterval(() => {
           number++;
           if (type == 'left') {
@@ -136,11 +133,13 @@
         this.$store.dispatch('selectCurrenty', data)
       },
       balancePost () {
+          console.log(this.activeCurrenty)
           let basicsCurrenty = {
                buy:this.activeCurrenty.quoteBalance || 0, //  卖入计价货币
                sell:this.activeCurrenty.baseBalance || 0// 卖出计价货币
           };
-         this.$store.dispatch('balance', basicsCurrenty)
+
+         this.$store.dispatch('balance', basicsCurrenty);
       }
     }
   }

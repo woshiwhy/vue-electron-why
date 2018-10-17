@@ -58,19 +58,20 @@ export default {
       searchGain (data) { // 搜索选择的值
         switch (this.type) {
           case '1':
-            this.$router.push({name: 'worldmarket', query: {bazzerObj: data}})// 给国际市场发送选择的市场
-            this.$store.dispatch('navType', '3')
-            break
+            this.$router.push({name: 'worldmarket', query: {bazzerObj: data}});// 给国际市场发送选择的市场
+            this.$store.dispatch('navType', '3');
+            break;
           case '2':
             for (let v of this.bazzerList) {
               if (v.id == data.siteId) { // 先查看推荐的交易所。
                 this.$store.dispatch('selectBazzer', v);// 存储选中市场
-                this.$store.dispatch('selectCurrenty', data);
+                  this.$router.push({name: 'spottrading',query: {currentyObj: data.uniteSymbol}}); // 默认的币种
+                  this.$store.dispatch('navType', '1');
                 break
               }
             }
-            this.$router.push({name: 'spottrading'}) // 默认的币种
-            this.$store.dispatch('navType', '1')
+            break
+
         }
       }
     }

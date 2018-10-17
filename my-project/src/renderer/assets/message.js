@@ -40,6 +40,7 @@ let balancePost=(data)=>{
             for(let v of bazzerList){
                 if(v.id==data.siteId){
                     v.blanceList='';//清空个人资产
+                    currentyclear(v)
                 }
             }
             store.state.sopttrading.myBalance=[];
@@ -61,6 +62,12 @@ let balancePost=(data)=>{
     })
 
 };
+function currentyclear(obj){    // 清空货币可用余额
+    for (let v of obj.symbolList) {
+        v.baseBalance=0;
+        v.quoteBalance=0;
+    }
+}
 let currentyBalance=(obj)=>{ // 存储货币可用余额值。
     for (let v of obj) {
         let currentyName = v.symbol;

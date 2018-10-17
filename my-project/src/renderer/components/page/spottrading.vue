@@ -7,7 +7,7 @@
             </div>
             <div class="small-box skin-bg" style="min-height: 3.05rem" v-loading="loading2" element-loading-background="rgba(0, 0, 0, 0)">
                 <h3 class="title-name">{{$t("headline.balance")}}</h3>
-                <span v-if="$store.state.sopttrading.myBalance" class=" btn-color update-btn"
+                <span v-if="!unBind" class=" btn-color update-btn"
                       @click="updateClick">{{$t("btnname.update")}}</span>
                 <asset-box :bindType="unBind"></asset-box>
             </div>
@@ -149,9 +149,6 @@
                     class: 'sell-btn'
                 }
             },
-            sellPriceType () {
-                return this.$store.state.sopttrading.pricesSet
-            },
             moneyNumber () {
                 return this.$store.state.sopttrading.balance
             },
@@ -195,9 +192,6 @@
                 this.$refs.child1.handleParentClick();// 传递给子组件删除
                 this.$refs.child2.handleParentClick();// 传递给子组件删除
             },
-            sellPriceType () {
-                this.balancePost({siteId: this.navBazzer.id});// 个人资产
-            }
         },
         components: {
             'setbourse-box': SetBourse,
@@ -212,6 +206,7 @@
             this.$store.dispatch('lineVal', '');
             this.$store.dispatch('depthChart', '');
             this.$store.dispatch('currenty', '');
+            this.$store.dispatch('selectBazzer', '');
         },
         created () {
             let currenty_Obj = this.navBazzer.id;
@@ -220,12 +215,23 @@
                this.balancePost({siteId: currenty_Obj});// 个人资产
             }
         },
+        mounted(){
+            let bazzer_Obj = this.$route.query.currentyObj ;    // 首页跳转的币对
+            if(bazzer_Obj){
+                for(let v of this.$store.state.currenty){
+                    if(v.uniteSymbol==bazzer_Obj){
+                        this.$store.dispatch('selectCurrenty', v);
+                        break
+                    }
+                }
+            }
+        },
         methods: {
             currentySelect (data_Obj) {
                 let currenty_Obj = this.$store.state.sopttrading.selectCurrenty;
                 if (!currenty_Obj) { // 如果没选择,默认第一个选中
                     this.$set(data_Obj[0], 'active', true);
-                    this.$store.dispatch('selectCurrenty', data_Obj[0])
+                    this.$store.dispatch('selectCurrenty', data_Obj[0]);
                 } else {
                     for (let v of data_Obj) { // 判断选中的ID，改变货币列表选中状态
                         this.$set(v, 'active', false);
@@ -243,7 +249,6 @@
             // 个人资产
             balancePost (data) {
                 if(this.navBazzer.blanceList && !data.updateFlag){  // 有个人资产了就不申请了
-                    console.log(this.navBazzer.blanceList)
                     this.unBind = false;// 绑定API// ；
                     this.$currentyBalance(this.navBazzer.blanceList);
                     this.$store.dispatch('myBalance', this.navBazzer.blanceList.slice(0, 5));
@@ -255,10 +260,13 @@
                    if(res.code==200){
                     this.unBind = false;// 绑定API
                     this.$store.dispatch('myBalance', res.data.slice(0, 5));//现货交易只显示前5条，截取前5条
+                       return
                 }
                 if (res.code == 318) {
                     this.unBind = true;// 没绑定API
+                    return
                 }
+
                  },error => {
                     this.loading2=false;
                 });

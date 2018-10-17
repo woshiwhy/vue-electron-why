@@ -68,7 +68,7 @@
       setTerrace () {
         this.$messageTitle('默认平台设置成功', 'success');
         this.bourse.blanceList='';//清空存储的交易所的个人资产，防止重新登录后重新拿去，防止数据不准确
-        localStorage.setItem('defaultMarket', JSON.stringify(this.bourse))
+        localStorage.setItem('defaultMarket', this.bourse.id)
       }
     }
   }

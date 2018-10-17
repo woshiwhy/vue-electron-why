@@ -68,7 +68,6 @@ export default {
         this.destroy = data
       },
       bazzer () { // 存储交易市场
-
         this.$postAxios.bazzerAxios().then((res) => {
           let data_Val = res.data;
           if (data_Val.code == 200) {
