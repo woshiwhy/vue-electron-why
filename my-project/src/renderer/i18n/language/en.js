@@ -111,7 +111,6 @@ const en = {
         buybazaar: 'Buy Market',
         moneyfor: 'Coin Pair',
         sellbazaar: 'Sale Market',
-        quantity: 'Volume',
         price: 'Price',
         amount: 'Amount',
         bazaar: 'Exchanges',

@@ -25,7 +25,7 @@
       </el-table-column>
         <el-table-column
           prop="amount"
-          :label="$t('tableheder.quantity')">
+          :label="$t('tableheder.amount')">
         </el-table-column>
     </el-table>
   </div>
