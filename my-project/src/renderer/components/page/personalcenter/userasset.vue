@@ -138,7 +138,6 @@
                 this.$balancePost(data).then(res => {
                     this.lodingStatus = true;
                     if(res.code==200){
-                        console.log(res.data)
                         this.unBind = false;// 已绑定API
                         this.lodingStatus = false;
                         this.tableData = res.data;
