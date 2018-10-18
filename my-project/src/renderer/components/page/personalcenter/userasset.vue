@@ -13,10 +13,12 @@
                     :data="tables.slice((pageIndex-1)*pageSize,pageIndex*pageSize)"
                     class="table-list bg-table wordTable"
                     stripe
+                    v-loading="lodingStatus"
+                    element-loading-background="rgba(0, 0, 0, 0)"
                     slot="empty"
                     style="width: 100%">
                 <el-table-column
-                        prop="symbolName"
+                        prop="symbol"
                         :label='$t("tableheder.currency")'>
                 </el-table-column>
                 <el-table-column
@@ -78,6 +80,7 @@
     export default {
         data(){
             return{
+                lodingStatus:false,
                 pageIndex: 1,//默认第一页
                 pageSize: 10,//默认每页大小
                 unBind: false,
@@ -134,17 +137,22 @@
                     return
                 }
                 this.$balancePost(data).then(res => {
+                    this.lodingStatus = true;
                     if(res.code==200){
+                        console.log(res.data)
                         this.unBind = false;// 已绑定API
+                        this.lodingStatus = false;
                         this.tableData = res.data;
                         this.$store.dispatch('myBalance', res.data);
                         return
                     }
                     if (res.code == 318) {
                         this.unBind = true;// 没绑定API
+                        this.lodingStatus = false;
                         return
                     }
                 },error => {
+                    this.lodingStatus = false;
                     this.$messageTitle('网络错误', 'error')
                 });
             },
