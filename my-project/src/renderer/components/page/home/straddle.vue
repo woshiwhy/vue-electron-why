@@ -30,6 +30,13 @@
     </el-table>
   </div>
 </template>
+<style scoped>
+  .small-box{
+    height: -moz-calc(100% - 4.4rem);
+    height: -webkit-calc(100% - 4.4rem);
+    height: calc(100% - 4.4rem);
+  }
+</style>
 <script>
   export default {
     data () {
