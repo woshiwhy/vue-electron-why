@@ -42,7 +42,7 @@
     <div style="margin: 0 auto;">
       <div class="exchange-set">
         <label>{{$t("tip.balance")}}:</label>
-        <span class="smll-title">{{$t("tip.tip3")}}:</span>
+        <span class="smll-title">{{$t("tip.tip3")}}</span>
         <el-input-number v-model="setStrateg.balancePercent" :precision="0" :controls=false :max="100"
                          :min="50" :disabled="!loadingType"></el-input-number>
         <i class="fontclor">%</i>
