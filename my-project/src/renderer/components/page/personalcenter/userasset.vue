@@ -84,8 +84,7 @@
                 pageIndex: 1,//默认第一页
                 pageSize: 10,//默认每页大小
                 unBind: false,
-                 tableData: [],
-                infortabIdx: '',
+                tableData: [],
             }
         },
         components: {
