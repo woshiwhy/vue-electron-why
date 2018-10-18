@@ -211,8 +211,8 @@
         created () {
             let currenty_Obj = this.navBazzer.id;
             if (currenty_Obj) {
+                this.balancePost({siteId: currenty_Obj});// 个人资产
                 this.currenty();// 动态加载货币
-               this.balancePost({siteId: currenty_Obj});// 个人资产
             }
         },
         mounted(){

@@ -67,6 +67,7 @@ export default {
                 this.$store.dispatch('selectBazzer', v);// 存储选中市场
                   this.$router.push({name: 'spottrading',query: {currentyObj: data.uniteSymbol}}); // 默认的币种
                   this.$store.dispatch('navType', '1');
+                  this.$store.dispatch('selectCurrenty', data);
                 break
               }
             }
