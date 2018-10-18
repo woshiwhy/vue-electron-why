@@ -356,7 +356,6 @@ export default {
       },
       runPlay () { // 执行策略接口
         this.$postAxios.playPlan({strategyId: this.setStrateg.id, strategyName: this.setStrateg.name}).then((res) => {
-
           if (res.data.code == 200) {
               this.loadingType = false;
             this.deleBtn();
@@ -366,8 +365,7 @@ export default {
           }
           this.$messageTitle(res.data.msg, 'error')
         }).catch((err) => {
-            this.loadingType = false;
-          this.$messageTitle('网络错误1，请稍后再试', 'error')
+          this.$messageTitle('网络超时，请稍后再试', 'error')
         })
       },
       // 可供选择的策略方案

@@ -70,7 +70,8 @@
         loading2: false,
         chartData: [],
         selectVal: '',
-        postNumber: 0
+        postNumber: 0,
+          setTimeObj:''
       }
   },
     computed: {
@@ -99,6 +100,7 @@
       },
       selectCurrentyId (n, o) {
         if (n) {
+            this.postNumber=0;
           this.chartPost()
         }
       }
@@ -111,6 +113,9 @@
         this.chartPost()
       }
     },
+      beforeDestroy(){
+          window.clearTimeout(this.setTimeObj);
+      },
     methods: {
       changeSelect () { // 选择的时间段。
         this.chartPost()
@@ -118,13 +123,16 @@
       chartPost () {
         this.loading2 = true;
         this.chartData = [];
-        this.postNumber++;
         const data_Val = {
           siteId: this.selectBazzer.id,
           period: this.selectVal,
           size: '100',
           symbol: this.selectCurrenty.uniteSymbol
+        };
+        if(this.postNumber==0){
+            window.clearTimeout(this.setTimeObj);
         }
+          this.postNumber++;
         this.$postAxios.chartAxios(data_Val).then((res) => {
           const val_Data = res.data;
           if (val_Data.code == 200) {
@@ -133,15 +141,15 @@
             this.loading2 = false;
             return
           }
-          if (this.postNumber <= 3) {
-            setTimeout(() => {
+          if (this.postNumber <3) {
+           this.setTimeObj= setTimeout(() => {
               this.chartPost()
             }, 1500);
             return
           }
           this.postNumber = 0;
           this.loading2 = false;
-//          this.$messageTitle(val_Data.msg, 'error')
+          this.$messageTitle(val_Data.msg, 'error')
         }).catch((err) => {
 //          this.$messageTitle('链接超时，请稍后重试', 'error')
         })

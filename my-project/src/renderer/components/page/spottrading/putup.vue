@@ -73,7 +73,6 @@ export default {
       operation (scope) { // 撤单
         this.$postAxios.cancellations(scope.row).then((ref) => {
           if (ref.data.code == 200) {
-            this.$store.dispatch('pricesSet', !this.$store.state.sopttrading.pricesSet);
             this.$messageTitle('撤单成功', 'success');
             this.tableVal[scope.$index].status = 4;// 撤销成功将数据状态改成4,：已撤单
             return

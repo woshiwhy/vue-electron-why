@@ -110,14 +110,14 @@ export default {
             case 'home_tl': //  套利
               this.$store.dispatch('interest', webVal.data);
               break;
-            case 'depth50': // 深度
-              if (webVal.symbol == this.currenActive && webVal.site == this.bazzerActive) { //  判断当前接受的币对是不是选中的币对
+            case 'depth': // 深度
+
                 this.$store.dispatch('depthChart', webVal.data);// 深度
                 if (this.$store.state.sopttrading.buyPrice == '') {
                   this.$store.dispatch('buyPrice', webVal.data.bids[0]); // 获得当前最高买入价
                   this.$store.dispatch('sellPrice', webVal.data.asks[0]);// 获得当前最低卖出价
                 }
-              }
+
               break;
             case 'ticker': // 国际行情
               if (webVal.symbol == this.worldActive) { //  判断当前交易所

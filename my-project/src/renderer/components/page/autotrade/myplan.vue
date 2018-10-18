@@ -42,7 +42,7 @@
       </el-table-column>
     </el-table>
     <!-- 分页 -->
-    <div style="text-align:center;margin-top:.035rem;margin-bottom: -0.13rem;" >
+    <div style="text-align:center;margin-top:.035rem;margin-bottom: -0.13rem;" v-if="total>5">
       <el-pagination
         :page-size="5"
         :pager-count="5"

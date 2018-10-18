@@ -7,13 +7,13 @@ import { Loading } from 'element-ui'
 const axiosLogin = 'http://api.bitbus.club:10000/upms';// 登录注册接口
 // const axiosLogin='http://192.168.2.88:10000/upms';//登录注册接口
 const webSocketOBj = {
-  // url:'ws://192.168.2.88:10000/hub',//webSocket对象地址
-  url: 'ws://api.bitbus.club:10000/hub', // webSocket对象地址
+   url:'ws://192.168.2.134:10041/ws',//webSocket对象地址
+    //url: 'ws://api.bitbus.club:10000/hub', // webSocket对象地址
   OutTime: 60000// 心跳
 
 };
- const axiosUrl='http://47.75.110.132:10003';//舒服
-//const axiosUrl='http://192.168.2.57:10003';//舒服
+// const axiosUrl='http://47.75.110.132:10003';//舒服
+const axiosUrl='http://192.168.2.57:10003';//舒服
 //const axiosUrl = 'http://api.bitbus.club:10000/hubrest'// 服务器
 
 const $axios = axios.create({
@@ -146,7 +146,7 @@ let postObj = { // 币对推荐接口
   // 自动交易盈利统计
   profitStatistics: () => $axios({
     method: 'post',
-    url: '/userOrder/findProfitByWord',
+    url: '/userOrder/getProfitStatistic',
   }),
 
   // 自动交易执行记录

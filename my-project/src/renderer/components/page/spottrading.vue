@@ -1,5 +1,5 @@
 <template>
-    <el-container>
+    <el-container style="padding-bottom: 0">
         <el-aside width="4rem">
             <div class="small-box skin-bg">
                 <h3 class="title-name">{{$t("headline.platformset")}}</h3>
@@ -251,7 +251,7 @@
                 if(this.navBazzer.blanceList && !data.updateFlag){  // 有个人资产了就不申请了
                     this.unBind = false;// 绑定API// ；
                     this.$currentyBalance(this.navBazzer.blanceList);
-                    this.$store.dispatch('myBalance', this.navBazzer.blanceList.slice(0, 5));
+                    this.$store.dispatch('myBalance', this.navBazzer.blanceList);
                     return
                 }
                 this.loading2=true;
@@ -259,7 +259,7 @@
                     this.loading2=false;
                    if(res.code==200){
                     this.unBind = false;// 绑定API
-                    this.$store.dispatch('myBalance', res.data.slice(0, 5));//现货交易只显示前5条，截取前5条
+                    this.$store.dispatch('myBalance', res.data);//现货交易只显示前5条，截取前5条
                        return
                 }
                 if (res.code == 318) {
@@ -291,9 +291,8 @@
                         table_List.fieldAmount = '0';
                         table_List.status = '0';
                         table_List.time = this.$moment(new Date()).format('YYYY/MM/DD HH:mm:ss');
-                        this.$store.dispatch('tableList', table_List)// 添加到挂单表格；
+                        this.$store.dispatch('tableList', table_List);// 添加到挂单表格；
                         this.$store.dispatch('dealType', !this.$store.state.sopttrading.dealType);// 挂单表格刷新
-                        this.$store.dispatch('pricesSet', !this.$store.state.sopttrading.pricesSet);// 可用价格刷新
                         this.$refs.child1.handleParentClick();
                         this.$refs.child2.handleParentClick();
                         this.$messageTitle('挂单成功', 'success');

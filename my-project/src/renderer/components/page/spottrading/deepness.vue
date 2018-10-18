@@ -69,28 +69,26 @@ export default {
   },
     computed: { //  监听选中值
       depthChart () {
-        let deepness = this.$store.state.sopttrading.depthChart
+        let deepness = this.$store.state.sopttrading.depthChart;
         if (deepness == '') {
-          this.loadingType = true
+          this.loadingType = true;
           return
         }
-        this.loadingType = false
+        this.loadingType = false;
         return deepness
       }
     },
     watch: {
       depthChart (n, o) {
         if (n) {
-          this.chartVal(n)
+          this.chartVal(n);
           return
         }
-
-        this.xAxisDataBy = [] // 价格
-        this.yAxisDataBy = []// 数量
-        this.xAxisDataSell = []
+        this.xAxisDataBy = [];// 价格
+        this.yAxisDataBy = [];// 数量
+        this.xAxisDataSell = [];
         this.yAxisDataSell = []
       }
-
     },
     components: {
       'chart-box': Chart,
@@ -103,13 +101,13 @@ export default {
     },
     methods: {
       chartVal (n) {
-        this.yAxisDataBy = n.bidCharts// 买数量
-        this.yAxisDataSell = n.askCharts// 卖数量
-        this.chartSet('xAxisDataBy', n.bids, 1)// 买
-        this.chartSet('xAxisDataSell', n.asks, 2)// 卖
+        this.yAxisDataBy = n.bidCharts;// 买数量
+        this.yAxisDataSell = n.askCharts;// 卖数量
+        this.chartSet('xAxisDataBy', n.bids, 1);// 买
+        this.chartSet('xAxisDataSell', n.asks, 2);// 卖
       },
       chartSet (nameX, n, type) {
-        let xAxis = []
+        let xAxis = [];
         for (let v of n) {
           if (type == 1) {
             xAxis.unshift(v.price)

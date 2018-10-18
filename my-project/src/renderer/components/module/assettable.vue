@@ -15,6 +15,7 @@
         v-else-if="myBalance.length"
         class="table-list"
         :data="myBalance"
+        max-height="240"
         stripe>
         <template v-for="(item,index) in tableTr">
           <el-table-column
@@ -82,7 +83,7 @@
     },
     methods: {
       navChange () {
-        this.$store.dispatch('navType', '4')
+        this.$store.dispatch('navType', '4');
         this.$router.push('/binding')
       }
     }

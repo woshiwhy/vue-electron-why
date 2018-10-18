@@ -14,15 +14,11 @@ const state={
   myBalance:[], //我的资产
   balance:0,//计价货币价格
   dealType:true,//买卖交易状态,
-  pricesSet:true,//可用价格刷新, 撤单，挂单触发。
   tableList:'',//挂单增加表格,
 };
 const  mutations= {
   tableList(state,msg){
     state.tableList=msg;
-  },
-  pricesSet(state,msg){
-    state.pricesSet=msg;
   },
   dealType(state,msg){
     state.dealType=msg;
@@ -63,9 +59,6 @@ const actions = {
   tableList(context, payload) {
   context.commit('tableList', payload)
 },
-  pricesSet(context, payload) {
-    context.commit('pricesSet', payload)
-  },
   dealType(context, payload) {
     context.commit('dealType', payload)
   },

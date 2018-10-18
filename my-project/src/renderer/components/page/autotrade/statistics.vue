@@ -2,87 +2,24 @@
   <div class="small-box skin-bg" style="height: 100%">
     <h3 class="title-name">{{$t("headline.earnings")}} <span class="title-tip">单位: USDT</span></h3>
     <div class="card-all">
-      <el-card class="red-card">
+      <el-card v-for="(item , index) in list" :key="index" :class="item.className">
         <div slot="header" class="clearfix">
-          {{$t("tabname.today")}}
-        </div>
-        <div class="list-margin">
-          <span class="list-content">{{$t("tip.tip8")}}</span>
-          <span class="list-content" v-if="today != ''">{{today.sum}}</span>
-          <span class="list-content" v-else>0</span>
+         {{item.name}}
         </div>
         <div class="list-margin">
           <span class="list-content">{{$t("tip.tip10")}}</span>
-          <span class="list-content" v-if="today != ''">{{today.profit}}</span>
-          <span class="list-content" v-else>0</span>
-        </div>
-        <div class="list-margin">
-          <span class="list-content">{{$t("tip.tip9")}}</span>
-          <span class="list-content" v-if="today != ''">{{today.rate | floatTwo}}%</span>
-          <span class="list-content" v-else>0%</span>
-        </div>
-      </el-card>
-      <el-card class="build-card">
-        <div slot="header" class="clearfix">
-          {{$t("tabname.week")}}
+          <span class="list-content">{{item.profit || '0'}}</span>
         </div>
         <div class="list-margin">
           <span class="list-content">{{$t("tip.tip8")}}</span>
-          <span class="list-content" v-if="week != ''">{{week.sum}}</span>
-          <span class="list-content" v-else>0</span>
-        </div>
-        <div class="list-margin">
-          <span class="list-content">{{$t("tip.tip10")}}</span>
-          <span class="list-content" v-if="week != ''">{{week.profit}}</span>
-          <span class="list-content" v-else>0</span>
+          <span class="list-content">{{item.tradeVolume || '0'}}</span>
         </div>
         <div class="list-margin">
           <span class="list-content">{{$t("tip.tip9")}}</span>
-          <span class="list-content" v-if="week != ''">{{week.rate | floatTwo}}%</span>
-          <span class="list-content" v-else>0%</span>
+          <span class="list-content">{{ item.yieldRate | floatTwo }}%</span>
         </div>
       </el-card>
-      <el-card class="green-card">
-        <div slot="header" class="clearfix">
-          {{$t("tabname.month")}}
-        </div>
-        <div class="list-margin">
-          <span class="list-content">{{$t("tip.tip8")}}</span>
-          <span class="list-content" v-if="month != ''">{{month.sum}}</span>
-          <span class="list-content" v-else>0</span>
-        </div>
-        <div class="list-margin">
-          <span class="list-content">{{$t("tip.tip10")}}</span>
-          <span class="list-content" v-if="month != ''">{{month.profit}}</span>
-          <span class="list-content" v-else>0</span>
-        </div>
-        <div class="list-margin">
-          <span class="list-content">{{$t("tip.tip9")}}</span>
-          <span class="list-content" v-if="month != ''">{{month.rate | floatTwo}}%</span>
-          <span class="list-content" v-else>0</span>
-        </div>
-      </el-card>
-      <el-card class="black-card">
-        <div slot="header" class="clearfix">
-          {{$t("tabname.all")}}
-        </div>
-        <div class="list-margin">
-          <span class="list-content">{{$t("tip.tip8")}}</span>
-          <span class="list-content" v-if="all != ''">{{all.sum}}</span>
-          <span class="list-content" v-else>0</span>
 
-        </div>
-        <div class="list-margin">
-          <span class="list-content">{{$t("tip.tip10")}}</span>
-          <span class="list-content" v-if="all != ''">{{all.profit}}</span>
-          <span class="list-content" v-else>0</span>
-        </div>
-        <div class="list-margin">
-          <span class="list-content">{{$t("tip.tip9")}}</span>
-          <span class="list-content" v-if="all != ''">{{all.rate | floatTwo}}%</span>
-          <span class="list-content" v-else>0%</span>
-        </div>
-      </el-card>
     </div>
   </div>
 </template>
@@ -162,36 +99,46 @@
   export default {
     data () {
       return {
-        sendData: '',
-        receiveData: '',
-        shutDownData: '',
-        today: [], // 今日盈利
-        week: [], // 本周盈利
-        month: [], // 本月盈利
-        all: []// 所有盈利
+          ALL:[
+              {dateType:'today',profit:'0',tradeVolume:'0',yieldRate:'0'},
+              {dateType:'week',profit:'0',tradeVolume:'0',yieldRate:'0'},
+              {dateType:'month',profit:'0',tradeVolume:'0',yieldRate:'0'},
+              {dateType:'all',profit:'0',tradeVolume:'0',yieldRate:'0'}
+              ]
       }
     },
     created () {
-      this.tableVal()
+      this.tableVal();
     },
     filters: {
       floatTwo: function (value) {
-        value = Number(value)
+        value = Number(value || 0);
         return value.toFixed(2)
       }
     },
-    mounted () {
-      // this.tableVal()
-    },
+      computed:{
+        list(){
+            let tody=this.ALL.filter(f => f.dateType == 'today')[0];
+            let week=this.ALL.filter(f => f.dateType == 'week')[0];
+            let month=this.ALL.filter(f => f.dateType == 'month')[0];
+            let all=this.ALL.filter(f => f.dateType == 'all')[0];
+            tody.className='red-card';
+            tody.name=this.$t('tabname.today');
+            week.className='build-card';
+            week.name=this.$t('tabname.week');
+            month.className='green-card';
+            month.name=this.$t('tabname.month');
+            all.className='black-card';
+            all.name=this.$t('tabname.all');
+            return this.ALL;
+        }
+      },
     methods: {
       // 自动交易盈利统计
       tableVal () {
         this.$postAxios.profitStatistics().then((res) => {
           if (res.data.code == 200) {
-            this.today = res.data.data.today;
-            this.week = res.data.data.week;
-            this.month = res.data.data.month;
-            this.all = res.data.data.all;
+              this.ALL=res.data.data;
           }
         }).catch((err) => {
           this.$messageTitle('网络错误，请稍后重试', 'error')

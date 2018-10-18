@@ -27,7 +27,7 @@
        <el-table-column :label='$t("tableheder.addUp")'>
          <template slot-scope="scope">
            <div slot="reference">
-             {{scope.row.lr}}
+             {{scope.row.profit}}
            </div>
          </template>
        </el-table-column>
