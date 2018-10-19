@@ -197,7 +197,6 @@
       // 上传头像
       sendUppoto (Img) {
         this.loding = true
-        console.log(Img)
         this.$loginAjax.setImage(Img).then((res) => {
           this.loding = false
           if (res.data.code == 200) {

@@ -73,14 +73,10 @@
             let result = this.result
             let img = new Image()
             img.src = result
-            console.log('********未压缩前的图片大小********')
-            console.log(result.length)
             img.onload = function () {
               let _this = this
               let data = self.compress(img)
               self.imgUrl = result
-              console.log(data.length)
-              console.log(this)
               let imgDA = {
                 avatarBase64: data
               }
@@ -104,9 +100,6 @@
         ctx.drawImage(img, 0, 0, width, height)
         // 进行最小压缩
         let ndata = canvas.toDataURL('image/jpeg', 0.1)
-        console.log('*******压缩后的图片大小*******')
-        console.log(ndata)
-        console.log(ndata.length)
         return ndata
       }
     },
