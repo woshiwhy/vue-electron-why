@@ -1,5 +1,5 @@
 <template>
-  <div class="small-box skin-bg" style="margin-bottom:0;padding-bottom: 0.62rem">
+  <div class="small-box skin-bg">
     <h3 class="title-name">{{$t("headline.master")}}</h3>
     <ul>
       <li v-for="(item,index) in authorList" @click="openNew(item.href)" :key="index">
@@ -10,6 +10,12 @@
   </div>
 </template>
 <style scoped>
+  .small-box{
+    height: -moz-calc(100% - 6.05rem);
+    height: -webkit-calc(100% - 6.05rem);
+    height: calc(100% - 6.05rem);
+    margin-bottom: 0;
+  }
   .small-box li{
     display: inline-block;
     width: 1.03rem;

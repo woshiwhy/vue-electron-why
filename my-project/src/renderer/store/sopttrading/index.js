@@ -13,15 +13,11 @@ const state={
   lineVal:'',//k线图数据
   myBalance:[], //我的资产
   balance:0,//计价货币价格
-  dealType:true,//买卖交易状态,
   tableList:'',//挂单增加表格,
 };
 const  mutations= {
   tableList(state,msg){
     state.tableList=msg;
-  },
-  dealType(state,msg){
-    state.dealType=msg;
   },
   depthChart(state,msg){
     state.depthChart=msg;
@@ -59,9 +55,6 @@ const actions = {
   tableList(context, payload) {
   context.commit('tableList', payload)
 },
-  dealType(context, payload) {
-    context.commit('dealType', payload)
-  },
   depthChart(context, payload) {
     context.commit('depthChart', payload)
   },

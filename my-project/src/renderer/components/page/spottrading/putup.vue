@@ -31,7 +31,10 @@ export default {
       },
       tableListAdd () { // 现货交易卖买是否成功，增加到表格
         return this.$store.state.sopttrading.tableList
-      }
+      },
+        navBazzer () {
+            return this.$store.state.sopttrading.selectBazzer
+        },
     },
     watch: {
       selectCurrenty (n, o) {
@@ -40,7 +43,7 @@ export default {
         }
       },
       tableListAdd (n, o) {
-        this.tableVal.unshift(n)// 添加最新交易的数据到挂单表格
+        this.tableVal.unshift(n);// 添加最新交易的数据到挂单表格
       }
     },
     created () {
@@ -52,10 +55,10 @@ export default {
       tablePost () {
         this.loadingType = true;
         let data = {
-          siteId: this.$store.state.sopttrading.selectBazzer.id,
-          symbol: this.selectCurrenty.symbol
+            siteId: this.$store.state.sopttrading.selectBazzer.id,
+            symbol: this.selectCurrenty.name
         };
-        this.$postAxios.entryOrders(data).then((ref) => {
+        this.$postAxios.entryOrders(data).then((ref) => {//现货交易买卖挂单列表
           let dataVal = ref.data;
           this.loadingType = false;
           if (dataVal.code == 200) {
@@ -74,6 +77,7 @@ export default {
         this.$postAxios.cancellations(scope.row).then((ref) => {
           if (ref.data.code == 200) {
             this.$messageTitle('撤单成功', 'success');
+              this.balancePost({siteId: this.navBazzer.id,updateFlag:true,unshow:true});
             this.tableVal[scope.$index].status = 4;// 撤销成功将数据状态改成4,：已撤单
             return
           }

@@ -11,9 +11,8 @@
         prop="name"
         :label='$t("tableheder.moneyfor")'>
         <template slot-scope="scope">
-          <div slot="reference" style="text-align: left">
-           <span style="display: inline-block;width: 30%;text-align: right"> <img class="hot-bg" v-if="scope.row.type" src="../../../../../static/img/hot.png"></span>
-            {{scope.row.symbol}}
+          <div slot="reference">
+              <span :class="[{'hot-bg':scope.row.type},'bgset']">{{scope.row.symbol}}</span>
           </div>
         </template>
       </el-table-column>
@@ -57,12 +56,15 @@
 </template>
 <style>
   .hot-bg{
-    position: relative;
-    top:0.05rem;
-    width: 0.15rem;
-    margin-right: 0.05rem;
+    background: url("../../../../../static/img/hot.png")no-repeat;
+    background-position: left center;
   }
-
+  .bgset{
+    width:0.82rem;
+    padding-left: 0.2rem;
+    display: inline-block;
+    text-align: left!important;
+  }
 </style>
 <script>
   import paymentBox from '@/components/module/Payment'

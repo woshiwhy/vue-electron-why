@@ -33,7 +33,7 @@ let balancePost=(data)=>{
                     v.blanceList=data_Obj.data;//存储个人资产；
                 }
             }
-            if(data.updateFlag){
+            if(data.updateFlag && !data.unshow){
                 messageTitle('更新成功', 'success')
             }
         }else if(data_Obj.code == 318){
@@ -83,5 +83,5 @@ let currentyBalance=(obj)=>{ // 存储货币可用余额值。
             }
         }
     }
-}
+};
 export {messageTitle, escapeHTML, unescapeHTML,balancePost,currentyBalance}

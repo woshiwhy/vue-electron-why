@@ -33,7 +33,6 @@
             <span v-else>
               {{scope.row[item.val]}}
             </span>
-
           </div>
         </template>
       </el-table-column>

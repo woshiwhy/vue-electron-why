@@ -8,8 +8,13 @@
   </div>
 </template>
 <style lang="scss" rel="stylesheet/scss" scoped>
+  .small-box{
+    height: -moz-calc(100% - 7.24rem);
+    height: -webkit-calc(100% - 7.24rem);
+    height: calc(100% - 7.24rem);
+  }
   .scroll-wrap{
-    height: 1.55rem;
+    height: 1.56rem;
     overflow: hidden;
     padding:0 0.15rem;
   }

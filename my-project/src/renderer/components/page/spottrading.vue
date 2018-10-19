@@ -259,14 +259,12 @@
                     this.loading2=false;
                    if(res.code==200){
                     this.unBind = false;// 绑定API
-                    this.$store.dispatch('myBalance', res.data);//现货交易只显示前5条，截取前5条
+                    this.$store.dispatch('myBalance', res.data);
                        return
                 }
                 if (res.code == 318) {
                     this.unBind = true;// 没绑定API
-                    return
                 }
-
                  },error => {
                     this.loading2=false;
                 });
@@ -283,7 +281,7 @@
             },
             transactionPost (data) {
                 data.siteId = this.navBazzer.id;
-                data.symbol = this.navCurrenty.symbol;
+                data.symbol = this.navCurrenty.name;
                 const table_List = JSON.parse(JSON.stringify(data));
                 this.$postAxios.transaction(data).then((ref) => {
                     if (ref.data.code == 200) {
@@ -292,7 +290,7 @@
                         table_List.status = '0';
                         table_List.time = this.$moment(new Date()).format('YYYY/MM/DD HH:mm:ss');
                         this.$store.dispatch('tableList', table_List);// 添加到挂单表格；
-                        this.$store.dispatch('dealType', !this.$store.state.sopttrading.dealType);// 挂单表格刷新
+                        this.updateClick('unshow:true');
                         this.$refs.child1.handleParentClick();
                         this.$refs.child2.handleParentClick();
                         this.$messageTitle('挂单成功', 'success');
@@ -303,8 +301,8 @@
                     this.$messageTitle('网络错误，请稍后重试', 'error')
                 })
             },
-            updateClick () { // 更新资产
-                this.balancePost({siteId: this.navBazzer.id,updateFlag:true})
+            updateClick (obj) { // 更新资产
+                this.balancePost({siteId: this.navBazzer.id,updateFlag:true,obj})
             }
         }
     }

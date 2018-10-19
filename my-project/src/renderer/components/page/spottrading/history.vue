@@ -78,13 +78,13 @@ export default {
         this.loadingType = true;
         let data = {
           'siteId': this.activeBazzerId,
-          'size': 0,
-          'symbol': this.activeCurrenty.symbol
+          'size': 50,
+          'symbol': this.activeCurrenty.name
         };
         this.$postAxios.historicalSum(data).then((ref) => {
           let dataVal = ref.data;
-          if (dataVal.code == 200) {
             this.loadingType = false;
+          if (dataVal.code == 200) {
             this.tableVal = dataVal.data;
             return
           }

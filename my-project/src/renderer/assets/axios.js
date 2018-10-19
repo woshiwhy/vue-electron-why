@@ -121,7 +121,7 @@ let postObj = { // 币对推荐接口
   // 现货交易买卖接口
   transaction: (data) => $axios({
     method: 'post',
-    url: '/userSite/createOrder',
+    url: '/userOrder/order',
     data: data,
     loding: true
   }),
@@ -140,7 +140,7 @@ let postObj = { // 币对推荐接口
   // 现货交易撤单
   cancellations: (data) => $axios({
     method: 'post',
-    url: '/cancel/cancelOrder',
+    url: '/userOrder/cancelOrder',
     data: data
   }),
   // 自动交易盈利统计
