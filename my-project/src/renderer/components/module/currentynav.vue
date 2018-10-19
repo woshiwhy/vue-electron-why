@@ -42,9 +42,15 @@
       },
       activeBazzer () {
         return this.$store.state.sopttrading.selectBazzer
+      },
+        balanceSet(){
+          return this.$store.state.sopttrading.balanceType;
       }
     },
     watch: {
+        balanceSet(n,o){
+            this.balancePost()
+        },
       activeBazzer () {
         this.$refs.sollerBox.scrollLeft = 0;
       },
@@ -52,6 +58,7 @@
         this.$refs.sollerBox.scrollLeft = this.$refs[n.uniteSymbol][0].offsetLeft - 20
       },
         activeCurrenty (n, o) {
+
         if (n) { // 监控被选中的币对ID.
           this.socketPost();
           this.navActive();
@@ -84,7 +91,6 @@
     mounted(){  //快捷跳转，导航定位
    if(this.activeCurrenty){
        this.$refs.sollerBox.scrollLeft = this.$refs[this.activeCurrenty.uniteSymbol][0].offsetLeft - 20;
-
    }
     },
     methods: {

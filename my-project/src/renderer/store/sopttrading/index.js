@@ -13,6 +13,7 @@ const state={
   lineVal:'',//k线图数据
   myBalance:[], //我的资产
   balance:0,//计价货币价格
+    balanceType:true,//刷新可用币的余额
   tableList:'',//挂单增加表格,
 };
 const  mutations= {
@@ -22,6 +23,9 @@ const  mutations= {
   depthChart(state,msg){
     state.depthChart=msg;
   },
+    balanceType(state,msg){
+        state.balanceType=msg;
+    },
   balance(state,msg){
     state.balance=msg;
   },
@@ -52,6 +56,9 @@ const  mutations= {
   }
 };
 const actions = {
+    balanceType(context, payload) {
+    context.commit('balanceType', payload)
+},
   tableList(context, payload) {
   context.commit('tableList', payload)
 },

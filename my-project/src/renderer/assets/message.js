@@ -22,18 +22,19 @@ let unescapeHTML = (a) => {
   a = '' + a;
   return a.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&apos;/g, "'")
 };
-let balancePost=(data)=>{
+let balancePost=(data,type)=>{
     let bazzerList=store.state.bazzer;
     return Vue.prototype.$postAxios.balance(data).then((res) => {
         const data_Obj = res.data;
         if (data_Obj.code == 200) {
             currentyBalance(data_Obj.data);
+            store.state.sopttrading.balanceType=!store.state.sopttrading.balanceType;
             for(let v of bazzerList){
                 if(v.id==data.siteId){
                     v.blanceList=data_Obj.data;//存储个人资产；
                 }
             }
-            if(data.updateFlag && !data.unshow){
+            if(data.updateFlag && !type){
                 messageTitle('更新成功', 'success')
             }
         }else if(data_Obj.code == 318){

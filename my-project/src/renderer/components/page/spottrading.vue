@@ -290,7 +290,7 @@
                         table_List.status = '0';
                         table_List.time = this.$moment(new Date()).format('YYYY/MM/DD HH:mm:ss');
                         this.$store.dispatch('tableList', table_List);// 添加到挂单表格；
-                        this.updateClick('unshow:true');
+                        this.balancePost({siteId: this.navBazzer.id});
                         this.$refs.child1.handleParentClick();
                         this.$refs.child2.handleParentClick();
                         this.$messageTitle('挂单成功', 'success');
@@ -301,8 +301,8 @@
                     this.$messageTitle('网络错误，请稍后重试', 'error')
                 })
             },
-            updateClick (obj) { // 更新资产
-                this.balancePost({siteId: this.navBazzer.id,updateFlag:true,obj})
+            updateClick () { // 更新资产
+                this.balancePost({siteId: this.navBazzer.id,updateFlag:true})
             }
         }
     }
