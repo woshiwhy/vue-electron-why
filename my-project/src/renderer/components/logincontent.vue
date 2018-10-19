@@ -30,15 +30,9 @@ export default {
         destroy: '',
         webStraddle: {// 套利，发送
           'site': 'hub',
-          'event': 'subscribe',
-          'channel': 'home_tl',
+          'event': 'sub',
+          'channel': 'OAS',
           'symbol': 'hub'
-        },
-        webAuto: { // 自动交易
-          'site': 'hub',
-          'event': 'subscribe',
-          'channel': 'depth_monitor',
-          'symbol': ''
         }
       }
     },
@@ -107,11 +101,10 @@ export default {
             return
           }
           switch (webVal.channel) {
-            case 'home_tl': //  套利
+            case 'OAS': //  套利
               this.$store.dispatch('interest', webVal.data);
               break;
             case 'depth': // 深度
-
                 this.$store.dispatch('depthChart', webVal.data);// 深度
                 if (this.$store.state.sopttrading.buyPrice == '') {
                   this.$store.dispatch('buyPrice', webVal.data.bids[0]); // 获得当前最高买入价

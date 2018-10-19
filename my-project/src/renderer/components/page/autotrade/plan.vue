@@ -11,8 +11,8 @@
         prop="name"
         :label='$t("tableheder.moneyfor")'>
         <template slot-scope="scope">
-          <div slot="reference">
-            <img class="hot-bg" v-if="scope.row.type" src="../../../../../static/img/hot.png">
+          <div slot="reference" style="text-align: left">
+           <span style="display: inline-block;width: 30%;text-align: right"> <img class="hot-bg" v-if="scope.row.type" src="../../../../../static/img/hot.png"></span>
             {{scope.row.symbol}}
           </div>
         </template>
@@ -62,6 +62,7 @@
     width: 0.15rem;
     margin-right: 0.05rem;
   }
+
 </style>
 <script>
   import paymentBox from '@/components/module/Payment'

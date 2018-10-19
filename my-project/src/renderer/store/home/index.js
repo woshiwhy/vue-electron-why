@@ -42,10 +42,14 @@ function addVal(name,item) {
   let storage_Val=state[name];
   let new_Id=item.id;
   let type='-1';
-  if(!storage_Val.length){
-    state[name]=[item];
-    return
+  if(item.length>1){
+      state[name]= item;
+      return
   }
+  // if(!storage_Val.length){
+  //   state[name]=[item];
+  //   return
+  // }
   for(let i=0,maxLength=storage_Val.length;i<maxLength;i++){
     let has_Id=storage_Val[i].id;
     if(has_Id==new_Id){  // 如果ID相同，删除以前的数据，添加新数据到数组第一位
@@ -53,10 +57,10 @@ function addVal(name,item) {
     }
   }
   if(type==-1){
-    storage_Val.push(item);
+    storage_Val.push(item[0]);
   }
   else {
-    storage_Val.splice(type,1,item);
+    storage_Val.splice(type,1,item[0]);
   }
   state[name]= storage_Val
 }

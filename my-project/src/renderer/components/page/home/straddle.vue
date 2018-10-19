@@ -7,10 +7,10 @@
       v-loading="loadingType"
       element-loading-background="rgba(0, 0, 0, 0)"
       style="width: 100%;"
-      height="440"
+      height="4.4rem"
       stripe>
       <el-table-column
-        prop="profit"
+        prop="sub"
         :label="$t('tableheder.profit')">
       </el-table-column>
       <el-table-column
