@@ -56,7 +56,6 @@
         } else {
           this.imgget(file)
         }
-      // this.$emit("sendUppoto",data);
       },
       // 获取图片
       imgget (file, callback) {
