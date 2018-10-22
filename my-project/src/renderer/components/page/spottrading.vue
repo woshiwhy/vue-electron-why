@@ -177,7 +177,7 @@
             }
         },
         watch: {// 交易市场改变，货币改变清空表单。
-            navBazzer (n, o) {
+            navBazzer (n,o) {
                 const Bazzer_SiteId = n.id;
               if(typeof(Bazzer_SiteId)!="undefined"){
                   this.$store.dispatch('selectCurrenty', '');
@@ -269,7 +269,6 @@
                     this.loading2=false;
                 });
             },
-
             // 买卖完毕以后，币的可使用数量变化
             buySubmint (data) {
                 data.type = 'buy';
@@ -290,7 +289,7 @@
                         table_List.status = '0';
                         table_List.time = this.$moment(new Date()).format('YYYY/MM/DD HH:mm:ss');
                         this.$store.dispatch('tableList', table_List);// 添加到挂单表格；
-                        this.balancePost({siteId: this.navBazzer.id});
+                        this.$balancePost({siteId: this.navBazzer.id});
                         this.$refs.child1.handleParentClick();
                         this.$refs.child2.handleParentClick();
                         this.$messageTitle('挂单成功', 'success');

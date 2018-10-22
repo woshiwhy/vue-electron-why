@@ -142,6 +142,7 @@ const cn = {
         addPlay: '新建策略',
         update: '更新资产',
         more: '更多',
+        sort:'排序',
         close: '关闭',
         bind: '绑定API',
         buy: '买入',

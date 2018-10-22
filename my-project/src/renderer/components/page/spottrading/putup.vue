@@ -76,9 +76,9 @@ export default {
       operation (scope) { // 撤单
         this.$postAxios.cancellations(scope.row).then((ref) => {
           if (ref.data.code == 200) {
-            this.$messageTitle('撤单成功', 'success');
-              this.balancePost({siteId: this.navBazzer.id});
-            this.tableVal[scope.$index].status = 4;// 撤销成功将数据状态改成4,：已撤单
+              this.$messageTitle('撤单成功', 'success');
+              this.$balancePost({siteId: this.navBazzer.id});
+              this.tableVal[scope.$index].status = 4;// 撤销成功将数据状态改成4,：已撤单
             return
           }
           this.$messageTitle('撤单失败', 'error')

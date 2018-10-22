@@ -15,7 +15,7 @@
         v-else-if="myBalance.length"
         class="table-list"
         :data="myBalance"
-        max-height="240"
+        max-height="228"
         stripe>
         <template v-for="(item,index) in tableTr">
           <el-table-column

@@ -1,6 +1,7 @@
 <template>
   <div class="small-box skin-bg" style="min-height:5rem;">
     <h3 class="title-name">{{$t("headline.arbitrage")}}</h3>
+    <span class="btn-color sort-btn" @click="sortSend">{{$t("btnname.sort")}}</span>
     <el-table
       class="table-list bg-table"
       :data="tableData"
@@ -36,13 +37,24 @@
     height: -webkit-calc(100% - 4.4rem);
     height: calc(100% - 4.4rem);
   }
+  .sort-btn{
+    position: absolute;
+    top:0.15rem;
+    right: 0.15rem;
+  }
 </style>
 <script>
   export default {
     data () {
       return {
         loadingType: false,
-        tableData: this.$store.state.home.interest
+        tableData: this.$store.state.home.interest,
+          webStraddle: {// 套利，发送
+              'site': 'hub',
+              'event': 'sub',
+              'channel': 'OAS',
+              'symbol': 'hub'
+          }
       }
     },
     computed: {
@@ -57,9 +69,16 @@
       }
     },
     watch: {
-      navBazzer: function (n, o) {
+      navBazzer: function (n,o) {
         this.tableData = n
       }
-    }
+    },
+      methods:{
+          sortSend:function () {
+            if(this.$store.state.webSocketType){
+              this.$store.state.webSocket.send(JSON.stringify(this.webStraddle));
+            }
+          }
+      }
   }
 </script>

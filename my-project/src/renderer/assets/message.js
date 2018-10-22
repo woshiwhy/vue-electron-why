@@ -32,6 +32,7 @@ let balancePost=(data,type)=>{
             for(let v of bazzerList){
                 if(v.id==data.siteId){
                     v.blanceList=data_Obj.data;//存储个人资产；
+                    store.state.sopttrading.myBalance=data_Obj.data
                 }
             }
             if(data.updateFlag && !type){

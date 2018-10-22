@@ -143,6 +143,7 @@ const en = {
         addPlay: 'Add Strategy',
         update: 'Add Assets',
         more: 'More',
+        sort: 'Sort',
         close: 'Close',
         bind: 'Associating API',
         buy: 'Buy',

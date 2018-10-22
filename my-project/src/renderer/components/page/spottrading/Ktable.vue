@@ -63,7 +63,6 @@
 </style>
 <script>
   import Chart from '@/components/module/kchart'
-
   export default {
     data () {
       return {
@@ -81,7 +80,7 @@
       selectTab () {
         let klineParams = this.$store.state.sopttrading.selectBazzer.klineParams;
         if (klineParams) {
-          const sele_Obj = JSON.parse(klineParams)
+          const sele_Obj = JSON.parse(klineParams);
           this.selectVal = sele_Obj[3].value || sele_Obj[0].value;
           return sele_Obj
         }
@@ -96,7 +95,7 @@
     },
     watch: {
       selectTab: function (n, o) {
-        this.selectVal = n[3].value || n[0].value// 市场改变默认渲染第一个
+        this.selectVal = n[3].value || n[0].value;// 市场改变默认渲染第一个
       },
       selectCurrentyId (n, o) {
         if (n) {
@@ -127,7 +126,7 @@
           siteId: this.selectBazzer.id,
           period: this.selectVal,
           size: '100',
-          symbol: this.selectCurrenty.uniteSymbol
+          symbol: this.selectCurrenty.name
         };
         if(this.postNumber==0){
             window.clearTimeout(this.setTimeObj);

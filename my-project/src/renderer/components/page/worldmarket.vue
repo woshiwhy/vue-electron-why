@@ -101,12 +101,12 @@ export default {
         return this.$store.state.webSocketType
       },
       filtedData () { // 筛选。
-        let DataVal = []
-        let oldTable = this.tableData
+        let DataVal = [];
+        let oldTable = this.tableData;
         if (this.selectVal) {
           for (let i = 0, maxLength = oldTable.length; i < maxLength; i++) {
             if (oldTable[i].flag == this.selectVal) {
-              DataVal.push(oldTable[i])
+              DataVal.push(oldTable[i]);
               break
             }
           }
@@ -128,8 +128,8 @@ export default {
         this.replaceObj(n)
       },
       activeBazzer (n, o) {
-        this.tableData = []
-        this.loadingType = true
+        this.tableData = [];
+        this.loadingType = true;
         this.changeWebVal()
       },
       webSocketType (n, o) {
@@ -157,27 +157,27 @@ export default {
       documentHeight () {
         let obj = {}
         window.addEventListener('resize', (ref) => {
-          clearTimeout(obj.throttle)
+          clearTimeout(obj.throttle);
           obj.throttle = setTimeout(() => {
             this.HeightChange()
           }, 100)
         })
       },
       HeightChange () {
-        let heightWidow = document.documentElement.clientHeight
+        let heightWidow = document.documentElement.clientHeight;
         this.reazeHeight = heightWidow - 250
       },
       replaceObj (n) {
-        let oldTable = this.tableData
-        let add_Type = true
-        this.loadingType = false
+        let oldTable = this.tableData;
+        let add_Type = true;
+        this.loadingType = false;
         if (this.tableData.length == 0) {
           oldTable.push(n)
         }
         for (let i = 0, maxLength = oldTable.length; i < maxLength; i++) {
           if (oldTable[i].flag == n.flag) {
-            this.tableData[i].data = this.$set(this.tableData[i], 'data', n.data)
-            add_Type = false
+            this.tableData[i].data = this.$set(this.tableData[i], 'data', n.data);
+            add_Type = false;
             return
           }
         }
@@ -189,29 +189,29 @@ export default {
           this.$store.dispatch('currenty', this.activeBazzer.symbolList)
       },
       changeWebVal () { //  更改websroket命令；
-        this.getMarket()
+        this.getMarket();
         if (this.activeBazzer.currentyList) {
-          this.$store.dispatch('currenty', this.activeBazzer.currentyList)
+          this.$store.dispatch('currenty', this.activeBazzer.currentyList);
           return
         }
         this.currtent()
       },
       getMarket () {
-        this.websocketSend.symbol = this.activeBazzer.id
-        this.websocketSend.event = 'subscribe'
+        this.websocketSend.symbol = this.activeBazzer.id;
+        this.websocketSend.event = 'subscribe';
         if (this.wsObj.readyState == 1) { // 1，链接成功。
           this.wsObj.send(JSON.stringify(this.websocketSend))
         }
       },
       // 国际行情搜索
       quoteSearch (obj) {
-        let sellect_Current = obj.name
+        let sellect_Current = obj.name;
         this.selectVal = sellect_Current || ''
       }
     },
     beforeDestroy () {
       // 离开国际行情时取消订阅，
-      this.websocketSend.event = 'unsubscribe'
+      this.websocketSend.event = 'unsubscribe';
       this.wsObj.send(JSON.stringify(this.websocketSend))
   },
     destroyed: function () {
