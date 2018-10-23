@@ -41,16 +41,19 @@
           return
         }
         const local_Obj = localStorage.getItem('defaultMarket');
+
         if (local_Obj != 'undefined' && local_Obj) { // 查看是否存储默认市场
             for(let v of this.bazzerList){
+                console.log(local_Obj)
                 if(v.id==local_Obj){
+
                     this.$store.dispatch('selectBazzer', v);// vux存储默认市场
                 }
             }
           return
         }
         if (this.$store.state.bazzer[0]) {
-          localStorage.setItem('defaultMarket',JSON.stringify(this.$store.state.bazzer[0].id));// 如果没设置，默认第一个为默认市场
+          localStorage.setItem('defaultMarket',this.$store.state.bazzer[0].id);// 如果没设置，默认第一个为默认市场
           this.$store.dispatch('selectBazzer', this.$store.state.bazzer[0]);// vux存储默认市场
         }
       },
