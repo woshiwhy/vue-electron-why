@@ -149,6 +149,7 @@
                         this.lodingStatus = false;
                         return
                     }
+                    this.lodingStatus = false;
                 },error => {
                     this.lodingStatus = false;
                     this.$messageTitle('网络错误', 'error')
