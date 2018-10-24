@@ -1,7 +1,7 @@
 <template>
   <div class="small-box skin-bg" style="min-height:5rem;">
     <h3 class="title-name">{{$t("headline.arbitrage")}}</h3>
-    <span class="btn-color sort-btn" @click="sortSend">{{$t("btnname.sort")}}</span>
+    <span v-show="tableData.length" class="btn-color sort-btn" @click="sortSend">{{$t("btnname.sort")}}</span>
     <el-table
       class="table-list bg-table"
       :data="tableData"
@@ -10,6 +10,13 @@
       style="width: 100%;"
       height="4.4rem"
       stripe>
+      <el-table-column
+              prop="profitPercent"
+              label="利差率">
+        <template slot-scope="scope">
+          {{scope.row.profitPercent*100}}%
+        </template>
+      </el-table-column>
       <el-table-column
         prop="sub"
         :label="$t('tableheder.profit')">
@@ -21,7 +28,7 @@
       <el-table-column
         :label="$t('tableheder.bazaar')">
         <template slot-scope="scope">
-          <span class="arbitrageCol">{{scope.row.bidSite}} , {{scope.row.askSite}} </span>
+          <span class="arbitrageCol">{{scope.row.site}} </span>
         </template>
       </el-table-column>
         <el-table-column

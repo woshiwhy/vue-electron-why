@@ -10,7 +10,7 @@
       <el-table class="table-list bg-table chat-table"
                 v-loading="loadingType"
                 element-loading-background="rgba(0, 0, 0, 0)"   :height="reazeHeight"  :data="filtedData" stripe style="min-height:3rem;width: 100%;margin-top: 0.4rem;">
-        <el-table-column :label='$t("tableheder.moneyfor")' prop="flag"></el-table-column>
+        <el-table-column :label='$t("tableheder.moneyfor")' prop="symbol"></el-table-column>
         <el-table-column :label='$t("tableheder.timeMin")'>
           <template slot-scope="scope">
             <span class="low-color">{{scope.row.data.low}}</span>
@@ -18,7 +18,7 @@
         </el-table-column>
         <el-table-column :label='$t("tableheder.timeMore")'>
           <template slot-scope="scope">
-            <span  class="heg-color"> {{scope.row.data.high}}</span>
+            <span class="heg-color"> {{scope.row.data.high}}</span>
           </template>
         </el-table-column>
         <el-table-column :label='$t("tableheder.turnover")' prop="data.volume"></el-table-column>
@@ -26,7 +26,7 @@
           <template slot-scope="scope">
             <span :class="[scope.row.data.rise>0 ? 'green' : 'red']">
                <span v-if="scope.row.data.rise >0" class="green">+</span>
-              {{scope.row.data.rise=='none'?$t("tip.tip11"):scope.row.data.rise+'%'}}
+              {{scope.row.data.rise?scope.row.data.rise+'%':$t("tip.tip11")}}
             </span>
           </template>
         </el-table-column>
@@ -80,9 +80,9 @@ export default {
         loadingType: false,
         websocketSend: {
           'site': 'hub',
-          'event': 'subscribe',
+          'event': 'sub',
           'channel': 'ticker',
-          'symbol': ''
+          'symbol': 'all'
         },
         tableData: [],
         selectVal: '',
@@ -125,19 +125,20 @@ export default {
     },
     watch: {
       tableList (n, o) {
-        this.replaceObj(n)
+       if(n){
+           this.replaceObj(n)
+       }
       },
       activeBazzer (n, o) {
-        this.tableData = [];
         this.loadingType = true;
         this.changeWebVal()
       },
       webSocketType (n, o) {
+
         if (n) { // 重新连接
           this.getMarket()
         }
       }
-
     },
     components: {
       'nav-box': ChilderNav,
@@ -155,7 +156,7 @@ export default {
     },
     methods: {
       documentHeight () {
-        let obj = {}
+        let obj = {};
         window.addEventListener('resize', (ref) => {
           clearTimeout(obj.throttle);
           obj.throttle = setTimeout(() => {
@@ -175,7 +176,7 @@ export default {
           oldTable.push(n)
         }
         for (let i = 0, maxLength = oldTable.length; i < maxLength; i++) {
-          if (oldTable[i].flag == n.flag) {
+          if (oldTable[i].symbol == n.symbol) {
             this.tableData[i].data = this.$set(this.tableData[i], 'data', n.data);
             add_Type = false;
             return
@@ -197,21 +198,23 @@ export default {
         this.currtent()
       },
       getMarket () {
-        this.websocketSend.symbol = this.activeBazzer.id;
-        this.websocketSend.event = 'subscribe';
+        this.websocketSend.site = this.activeBazzer.sysMark;
+        this.websocketSend.event = 'sub';
         if (this.wsObj.readyState == 1) { // 1，链接成功。
+            this.tableData = [];
           this.wsObj.send(JSON.stringify(this.websocketSend))
         }
       },
       // 国际行情搜索
       quoteSearch (obj) {
         let sellect_Current = obj.name;
-        this.selectVal = sellect_Current || ''
+        this.websocketSend.symbol= sellect_Current || 'all';
+        this.getMarket();
       }
     },
     beforeDestroy () {
       // 离开国际行情时取消订阅，
-      this.websocketSend.event = 'unsubscribe';
+      this.websocketSend.event = 'unsub';
       this.wsObj.send(JSON.stringify(this.websocketSend))
   },
     destroyed: function () {

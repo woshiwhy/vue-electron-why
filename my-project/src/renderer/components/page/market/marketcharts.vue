@@ -33,20 +33,20 @@ export default {
   },
     methods: {
       chartDaw (obj) {
-        clearTimeout(obj.throttle)
+        clearTimeout(obj.throttle);
         obj.throttle = setTimeout(() => {
           this.drawChart()
         }, 100)
       },
       drawChart () {
-        let chart = echarts.init(document.getElementById(this.id))
-        let chartSkin = this.skinType == 0 ? '#8cb0f8' : '#4470c8'
+        let chart = echarts.init(document.getElementById(this.id));
+        let chartSkin = this.skinType == 0 ? '#8cb0f8' : '#4470c8';
         chart.setOption(this.generatorLineOption(chartSkin))
-        let work = null
+        let work = null;
         window.addEventListener('resize', () => {
           if (work == null) {
             work = setTimeout(function () {
-              chart.resize()
+              chart.resize();
               work = null
             }, 100)
           }
@@ -56,7 +56,7 @@ export default {
         return {
           xAxis: {
             type: 'category',
-            data: this.charketData.time,
+            data: this.charketData,
             show: false,
             splitLine: {
               show: false
@@ -77,7 +77,7 @@ export default {
             top: '25%'
           },
           series: [{
-            data: this.charketData.price,
+            data: this.charketData,
             type: 'line',
             showSymbol: false,
             hoverAnimation: false,

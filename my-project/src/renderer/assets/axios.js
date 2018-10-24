@@ -7,7 +7,7 @@ import { Loading } from 'element-ui'
 const axiosLogin = 'http://api.bitbus.club:10000/upms';// 登录注册接口
 // const axiosLogin='http://192.168.2.88:10000/upms';//登录注册接口
 const webSocketOBj = {
-   url:'ws://192.168.2.134:10041/ws',//webSocket对象地址
+   url:'ws://192.168.2.57:10041/ws',//webSocket对象地址
     //url: 'ws://api.bitbus.club:10000/hub', // webSocket对象地址
   OutTime: 60000// 心跳
 
@@ -148,7 +148,6 @@ let postObj = { // 币对推荐接口
     method: 'post',
     url: '/userOrder/getProfitStatistic',
   }),
-
   // 自动交易执行记录
   executionRecord: (data) => $axios({
     method: 'post',
@@ -167,7 +166,6 @@ let postObj = { // 币对推荐接口
     url: '/depthMonitor/selectPage',
     data: data
   }),
-
   // 自动交易保存策略信息
   saveStrategy: (data) => $axios({
     method: 'post',
@@ -175,7 +173,6 @@ let postObj = { // 币对推荐接口
     data: data,
     loding: true
   }),
-
   // 删除我的方案
   delMyplan: (data) => $axios({
     method: 'get',

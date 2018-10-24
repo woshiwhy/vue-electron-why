@@ -25,10 +25,10 @@
     computed: {
       depth () {
         return {
-          'site': this.activeCurrenty.siteId, // 站点
-          'event': 'subscribe', // subscribe(订阅)/unsubscribe(取消订阅)
-          'channel': 'depth50', // depth50请求50条
-          'symbol': this.activeCurrenty.uniteSymbol/// 币对
+          'site': this.activeCurrenty.sysMark, // 站点
+          'event': 'sub', // subscribe(订阅)/unsubscribe(取消订阅)
+          'channel': 'depth', // depth50请求50条
+          'symbol': this.activeCurrenty.name/// 币对
         }
       },
       webSocketType () { // webSocket连接状态，true连接，false断开
@@ -77,7 +77,7 @@
       }
     },
     beforeDestroy () { // 组件销毁前清空值。
-      this.depth.event = 'unsubscribe';
+      this.depth.event = 'unsub';
       this.webSocket()
   },
     destroyed () { // 组件销毁完成

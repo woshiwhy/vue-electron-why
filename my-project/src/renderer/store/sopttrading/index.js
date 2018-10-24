@@ -15,8 +15,12 @@ const state={
   balance:0,//计价货币价格
     balanceType:true,//刷新可用币的余额
   tableList:'',//挂单增加表格,
+    kLine:[],
 };
 const  mutations= {
+    kLine(state,msg){
+        state.kLine=msg;
+    },
   tableList(state,msg){
     state.tableList=msg;
   },
@@ -56,6 +60,9 @@ const  mutations= {
   }
 };
 const actions = {
+    kLine(context, payload) {
+    context.commit('kLine', payload)
+},
     balanceType(context, payload) {
     context.commit('balanceType', payload)
 },

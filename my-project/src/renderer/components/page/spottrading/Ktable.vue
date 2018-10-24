@@ -66,6 +66,13 @@
   export default {
     data () {
       return {
+          websocketSend: {
+              'site': 'hub',
+              'event': 'sub',
+              'channel': 'kline',
+              'symbol': '',
+              "param":{"period":''}
+          },
         loading2: false,
         chartData: [],
         selectVal: '',
@@ -86,6 +93,12 @@
         }
         return []
       },
+        KList () { // k线图
+            return this.$store.state.sopttrading.kLine
+        },
+        webSocketType () { // webSocket连接状态，true连接，false断开
+            return this.$store.state.webSocketType
+        },
       selectCurrenty () {
         return this.$store.state.sopttrading.selectCurrenty
       },
@@ -94,64 +107,51 @@
       }
     },
     watch: {
+        webSocketType (n, o) {
+            if (n) { // 重新连接
+                this.chartPost()
+            }
+        },
+        KList:function (n,o) {
+            if(n){
+                this.loading2=false;
+                this.chartData=n
+            }
+        },
       selectTab: function (n, o) {
         this.selectVal = n[3].value || n[0].value;// 市场改变默认渲染第一个
       },
       selectCurrentyId (n, o) {
         if (n) {
             this.postNumber=0;
-          this.chartPost()
+            this.chartPost()
         }
       }
     },
     components: {
       'chart-box': Chart
     },
-    mounted () {
-      if (this.selectCurrenty) {
-        this.chartPost()
-      }
-    },
-      beforeDestroy(){
-          window.clearTimeout(this.setTimeObj);
+      beforeDestroy () { // 组件销毁前清空值。
+          this.websocketSend.event = 'unsub';
+          this.chartPost()
       },
+    mounted () {
+        this.chartPost()
+    },
     methods: {
       changeSelect () { // 选择的时间段。
         this.chartPost()
       },
       chartPost () {
-        this.loading2 = true;
-        this.chartData = [];
-        const data_Val = {
-          siteId: this.selectBazzer.id,
-          period: this.selectVal,
-          size: '100',
-          symbol: this.selectCurrenty.name
-        };
-        if(this.postNumber==0){
-            window.clearTimeout(this.setTimeObj);
-        }
-          this.postNumber++;
-        this.$postAxios.chartAxios(data_Val).then((res) => {
-          const val_Data = res.data;
-          if (val_Data.code == 200) {
-            this.chartData = val_Data.data;
-            this.postNumber = 0;
-            this.loading2 = false;
-            return
+          const webSocketObj = this.$store.state.webSocket;
+          this.loading2 = true;
+          this.websocketSend.site = this.selectBazzer.sysMark;
+          this.websocketSend.symbol = this.selectCurrenty.name;
+          this.websocketSend.param.period = this.selectVal;
+          if (webSocketObj.readyState == 1) { // 1，链接成功。
+              this.chartData = [];
+              webSocketObj.send(JSON.stringify(this.websocketSend))
           }
-          if (this.postNumber <3) {
-           this.setTimeObj= setTimeout(() => {
-              this.chartPost()
-            }, 1500);
-            return
-          }
-          this.postNumber = 0;
-          this.loading2 = false;
-          this.$messageTitle(val_Data.msg, 'error')
-        }).catch((err) => {
-//          this.$messageTitle('链接超时，请稍后重试', 'error')
-        })
       }
     }
   }

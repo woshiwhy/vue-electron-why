@@ -11,11 +11,9 @@
 <style lang="scss" rel="stylesheet/scss">
   @import "../assets/scss/skindefault";
   @import "../assets/scss/skinone";
-
   .default-skin { // 默认皮肤
     background: #f2f4f8;
   }
-
   .skin-one { // 皮肤1
     background: #222842;
   }
@@ -32,7 +30,7 @@ export default {
           'site': 'hub',
           'event': 'sub',
           'channel': 'OAS',
-          'symbol': 'hub'
+          'symbol': 'all'
         }
       }
     },
@@ -110,13 +108,17 @@ export default {
                   this.$store.dispatch('buyPrice', webVal.data.bids[0]); // 获得当前最高买入价
                   this.$store.dispatch('sellPrice', webVal.data.asks[0]);// 获得当前最低卖出价
                 }
-
               break;
             case 'ticker': // 国际行情
-              if (webVal.symbol == this.worldActive) { //  判断当前交易所
                 this.$store.dispatch('worldTable', webVal)
+              if (webVal.site == this.worldActive) { //  判断当前交易所
+                  console.log(webVal.data)
+
               }
               break;
+              case 'kline': // K线图
+                  this.$store.dispatch('kLine', webVal.data);
+                  break;
           }
         };
         ws.onclose = () => {
@@ -141,7 +143,6 @@ export default {
   .fade-enter-active, .fade-leave-active {
     transition: opacity .3s;
   }
-
   .fade-enter, .fade-leave-to {
     opacity: 0;
   }
