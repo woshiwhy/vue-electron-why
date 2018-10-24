@@ -110,10 +110,8 @@ export default {
                 }
               break;
             case 'ticker': // 国际行情
-                this.$store.dispatch('worldTable', webVal)
               if (webVal.site == this.worldActive) { //  判断当前交易所
-                  console.log(webVal.data)
-
+                  this.$store.dispatch('worldTable', webVal)
               }
               break;
               case 'kline': // K线图
