@@ -76,10 +76,6 @@
         }
       }
     },
-    beforeDestroy () { // 组件销毁前清空值。
-      this.depth.event = 'unsub';
-      this.webSocket()
-  },
     destroyed () { // 组件销毁完成
       this.$store.dispatch('selectCurrenty', '')
   },

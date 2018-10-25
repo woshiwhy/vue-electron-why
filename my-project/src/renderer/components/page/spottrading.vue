@@ -174,7 +174,10 @@
                     name = this.navCurrenty.baseCurrency + '/' + this.moneyNumber.sell
                 }
                 return name
-            }
+            },
+            wsObj () {
+                return this.$store.state.webSocket
+            },
         },
         watch: {// 交易市场改变，货币改变清空表单。
             navBazzer (n,o) {
@@ -214,6 +217,9 @@
                 this.balancePost({siteId: currenty_Obj});// 个人资产
                 this.currenty();// 动态加载货币
             }
+        },
+        beforeDestroy () { // 组件销毁前清空值。
+            this.wsObj.send(JSON.stringify({event:"UNSUB_ALL"}))
         },
         mounted(){
             let bazzer_Obj = this.$route.query.currentyObj ;    // 首页跳转的币对

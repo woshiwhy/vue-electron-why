@@ -25,13 +25,7 @@ export default {
     data () {
       return {
         timOBj: '',
-        destroy: '',
-        webStraddle: {// 套利，发送
-          'site': 'hub',
-          'event': 'sub',
-          'channel': 'OAS',
-          'symbol': 'all'
-        }
+        destroy: ''
       }
     },
     computed: {
@@ -90,7 +84,6 @@ export default {
             flag: 'Basic d2ViQXBwOndlYkFwcA=='
           };
           ws.send(JSON.stringify(logo_ws)) ;// 每次链接发送TOKEN.
-          ws.send(JSON.stringify(this.webStraddle));
           this.heartSend()
         };
         ws.onmessage = evt => {

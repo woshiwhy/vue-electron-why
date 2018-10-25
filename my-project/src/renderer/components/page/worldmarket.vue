@@ -105,7 +105,7 @@ export default {
         let oldTable = this.tableData;
         if (this.selectVal) {
           for (let i = 0, maxLength = oldTable.length; i < maxLength; i++) {
-            if (oldTable[i].flag == this.selectVal) {
+            if (oldTable[i].symbol == this.selectVal) {
               DataVal.push(oldTable[i]);
               break
             }
@@ -113,7 +113,6 @@ export default {
         } else {
           DataVal = oldTable
         }
-
         return DataVal
       },
       activeBazzer () {
@@ -130,11 +129,11 @@ export default {
        }
       },
       activeBazzer (n, o) {
+        this.tableData = [];
         this.loadingType = true;
         this.changeWebVal()
       },
       webSocketType (n, o) {
-
         if (n) { // 重新连接
           this.getMarket()
         }
@@ -201,21 +200,20 @@ export default {
         this.websocketSend.site = this.activeBazzer.sysMark;
         this.websocketSend.event = 'sub';
         if (this.wsObj.readyState == 1) { // 1，链接成功。
-            this.tableData = [];
           this.wsObj.send(JSON.stringify(this.websocketSend))
         }
       },
       // 国际行情搜索
       quoteSearch (obj) {
         let sellect_Current = obj.name;
+          this.selectVal=obj.uniteSymbol;
         this.websocketSend.symbol= sellect_Current || 'all';
         this.getMarket();
       }
     },
     beforeDestroy () {
       // 离开国际行情时取消订阅，
-      this.websocketSend.event = 'unsub';
-      this.wsObj.send(JSON.stringify(this.websocketSend))
+      this.wsObj.send(JSON.stringify({event:"UNSUB_ALL"}))
   },
     destroyed: function () {
       this.$store.dispatch('activeBazzer', '')

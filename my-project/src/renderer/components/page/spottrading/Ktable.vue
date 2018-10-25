@@ -131,13 +131,6 @@
     components: {
       'chart-box': Chart
     },
-      beforeDestroy () { // 组件销毁前清空值。
-          this.websocketSend.event = 'unsub';
-          this.chartPost()
-      },
-    mounted () {
-        this.chartPost()
-    },
     methods: {
       changeSelect () { // 选择的时间段。
         this.chartPost()

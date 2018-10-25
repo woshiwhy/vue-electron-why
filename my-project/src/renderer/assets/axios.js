@@ -12,7 +12,7 @@ const webSocketOBj = {
   OutTime: 60000// 心跳
 
 };
- const axiosUrl='http://47.75.110.132:10003';//舒服
+ const axiosUrl='http://47.75.110.57:10003';//舒服
 //const axiosUrl='http://192.168.2.57:10003';//舒服
 //const axiosUrl = 'http://api.bitbus.club:10000/hubrest'// 服务器
 

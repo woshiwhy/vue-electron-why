@@ -60,7 +60,7 @@
               'site': 'hub',
               'event': 'sub',
               'channel': 'OAS',
-              'symbol': 'hub'
+              'symbol': 'all'
           }
       }
     },
@@ -73,17 +73,36 @@
         }
         this.loadingType = false;
         return tableData
-      }
+      },
+        wsObj () {
+            return this.$store.state.webSocket
+        },
+        webSocketType () { // webSocket连接状态，true连接，false断开
+            return this.$store.state.webSocketType
+        },
     },
     watch: {
       navBazzer: function (n,o) {
         this.tableData = n
-      }
+      },
+        webSocketType:function (n,o) {
+          if(n){
+             this.sortSend()
+          }
+
+        }
     },
+      mounted(){
+        this.sortSend()
+      },
+      beforeDestroy () {
+          // 离开国际行情时取消订阅，
+          this.wsObj.send(JSON.stringify({event:"UNSUB_ALL"}))
+      },
       methods:{
           sortSend:function () {
-            if(this.$store.state.webSocketType){
-              this.$store.state.webSocket.send(JSON.stringify(this.webStraddle));
+            if(this.webSocketType){
+                this.wsObj.send(JSON.stringify(this.webStraddle));
             }
           }
       }
