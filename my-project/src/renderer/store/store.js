@@ -31,7 +31,6 @@ const store = new Vuex.Store({
     // 导航状态
     navType: '',
     skinType:'',//皮肤状态0白色皮肤,1黑色皮肤
-    webSocketType: true,//已经连接
     bindApi:[],//绑定的API
   },
   mutations: {
@@ -46,9 +45,6 @@ const store = new Vuex.Store({
     },
       integral(state, msg){
       state.integral = msg;
-    },
-    webSocketType(state, msg){
-      state.webSocketType = msg;
     },
     skinType(state, msg){
       state.skinType = msg;
@@ -80,9 +76,6 @@ const store = new Vuex.Store({
     },
       integral(context, payload) {
       context.commit('integral', payload)
-    },
-    webSocketType(context, payload) {
-      context.commit('webSocketType', payload)
     },
     skinType(context, payload) {
       context.commit('skinType', payload)

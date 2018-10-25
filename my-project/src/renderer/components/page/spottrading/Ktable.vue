@@ -96,8 +96,8 @@
         KList () { // k线图
             return this.$store.state.sopttrading.kLine
         },
-        webSocketType () { // webSocket连接状态，true连接，false断开
-            return this.$store.state.webSocketType
+        wsObj () {
+            return this.$store.state.webSocket
         },
       selectCurrenty () {
         return this.$store.state.sopttrading.selectCurrenty
@@ -107,8 +107,8 @@
       }
     },
     watch: {
-        webSocketType (n, o) {
-            if (n) { // 重新连接
+        wsObj (n, o) {
+            if (n.readyState==1) { // 重新连接
                 this.chartPost()
             }
         },
@@ -131,19 +131,23 @@
     components: {
       'chart-box': Chart
     },
+      created(){
+        if(!this.chartData.length){
+            this.chartData=this.KList;
+        }
+      },
     methods: {
       changeSelect () { // 选择的时间段。
         this.chartPost()
       },
       chartPost () {
-          const webSocketObj = this.$store.state.webSocket;
           this.loading2 = true;
           this.websocketSend.site = this.selectBazzer.sysMark;
           this.websocketSend.symbol = this.selectCurrenty.name;
           this.websocketSend.param.period = this.selectVal;
-          if (webSocketObj.readyState == 1) { // 1，链接成功。
+          if (this.wsObj.readyState == 1) { // 1，链接成功。
               this.chartData = [];
-              webSocketObj.send(JSON.stringify(this.websocketSend))
+              this.wsObj.send(JSON.stringify(this.websocketSend))
           }
       }
     }

@@ -44,9 +44,7 @@
 
         if (local_Obj != 'undefined' && local_Obj) { // 查看是否存储默认市场
             for(let v of this.bazzerList){
-                console.log(local_Obj)
                 if(v.id==local_Obj){
-
                     this.$store.dispatch('selectBazzer', v);// vux存储默认市场
                 }
             }

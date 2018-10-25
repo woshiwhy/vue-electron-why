@@ -25,15 +25,15 @@
     computed: {
       depth () {
         return {
-          'site': this.activeCurrenty.sysMark, // 站点
+          'site': this.activeBazzer.sysMark, // 站点
           'event': 'sub', // subscribe(订阅)/unsubscribe(取消订阅)
           'channel': 'depth', // depth50请求50条
           'symbol': this.activeCurrenty.name/// 币对
         }
       },
-      webSocketType () { // webSocket连接状态，true连接，false断开
-        return this.$store.state.webSocketType
-      },
+        wsObj () {
+            return this.$store.state.webSocket
+        },
       currentyList () {
         return this.$store.state.currenty
       },
@@ -70,8 +70,8 @@
           }
         }
       },
-      webSocketType (n, o) {
-        if (n) { // 重新连接
+        wsObj (n, o) {
+        if (n.readyState==1) { // 重新连接
           this.webSocket()
         }
       }
@@ -98,9 +98,8 @@
 
       },
       webSocket () { //  市场，货币改变发出请求
-        const webSocketObj = this.$store.state.webSocket;
-        if (webSocketObj.readyState == 1) { // 1，链接成功。
-          this.$store.state.webSocket.send(JSON.stringify(this.depth))
+        if (this.wsObj.readyState == 1) { // 1，链接成功。
+            this.wsObj.send(JSON.stringify(this.depth))
         }
       },
       navActive () {

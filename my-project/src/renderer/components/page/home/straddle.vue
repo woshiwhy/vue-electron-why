@@ -76,20 +76,16 @@
       },
         wsObj () {
             return this.$store.state.webSocket
-        },
-        webSocketType () { // webSocket连接状态，true连接，false断开
-            return this.$store.state.webSocketType
-        },
+        }
     },
     watch: {
       navBazzer: function (n,o) {
         this.tableData = n
       },
-        webSocketType:function (n,o) {
-          if(n){
+        wsObj:function (n,o) {
+          if(n.readyState==1){ //链接成功
              this.sortSend()
           }
-
         }
     },
       mounted(){
@@ -97,11 +93,13 @@
       },
       beforeDestroy () {
           // 离开国际行情时取消订阅，
-          this.wsObj.send(JSON.stringify({event:"UNSUB_ALL"}))
+          if(this.wsObj.readyState == 1) {
+              this.wsObj.send(JSON.stringify({event: "UNSUB_ALL"}))
+          }
       },
       methods:{
           sortSend:function () {
-            if(this.webSocketType){
+              if(this.wsObj.readyState == 1) {
                 this.wsObj.send(JSON.stringify(this.webStraddle));
             }
           }

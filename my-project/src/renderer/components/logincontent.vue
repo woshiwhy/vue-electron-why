@@ -75,9 +75,8 @@ export default {
         },
       websocket () { // 长链接，
         let ws = new WebSocket(webSocketOBj.url);
-        this.$store.dispatch('webSocket', ws);
         ws.onopen = () => {
-          this.$store.dispatch('webSocketType', true);// 改变websock状态改为连接
+            this.$store.dispatch('webSocket', ws);
           const logo_ws = {
             data: localStorage.getItem('userToken'),
             event: 'login',
@@ -96,10 +95,12 @@ export default {
               this.$store.dispatch('interest', webVal.data);
               break;
             case 'depth': // 深度
-                this.$store.dispatch('depthChart', webVal.data);// 深度
-                if (this.$store.state.sopttrading.buyPrice == '') {
-                  this.$store.dispatch('buyPrice', webVal.data.bids[0]); // 获得当前最高买入价
-                  this.$store.dispatch('sellPrice', webVal.data.asks[0]);// 获得当前最低卖出价
+                if(webVal.site==this.bazzerActive && webVal.symbol==this.currenActive){
+                    this.$store.dispatch('depthChart', webVal.data);// 深度
+                    if (this.$store.state.sopttrading.buyPrice == '') {
+                        this.$store.dispatch('buyPrice', webVal.data.bids[0]); // 获得当前最高买入价
+                        this.$store.dispatch('sellPrice', webVal.data.asks[0]);// 获得当前最低卖出价
+                    }
                 }
               break;
             case 'ticker': // 国际行情
@@ -113,8 +114,8 @@ export default {
           }
         };
         ws.onclose = () => {
-          this.$store.dispatch('webSocketType', false);// 改变websock状态改为断开
           window.clearTimeout(this.timOBj);
+          this.$store.dispatch('webSocket', '');
           setTimeout(() => { // websocket断线每隔5S重连
             this.websocket()
           }, 5000);

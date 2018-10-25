@@ -219,7 +219,9 @@
             }
         },
         beforeDestroy () { // 组件销毁前清空值。
-            this.wsObj.send(JSON.stringify({event:"UNSUB_ALL"}))
+            if( this.wsObj.readyState==1){
+                this.wsObj.send(JSON.stringify({event:"UNSUB_ALL"}))
+            }
         },
         mounted(){
             let bazzer_Obj = this.$route.query.currentyObj ;    // 首页跳转的币对

@@ -20,7 +20,11 @@ Vue.prototype.$md5 = md5;
 Vue.prototype.$moment = moment;
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.config.productionTip = false
-
+router.beforeEach((to, from, next) => {
+   console.log("to"+to)
+   console.log("from"+from)
+   console.log("next"+next)
+})
 new Vue({
   components: { App },
   router,

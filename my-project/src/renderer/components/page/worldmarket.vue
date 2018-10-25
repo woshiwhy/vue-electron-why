@@ -97,9 +97,6 @@ export default {
       wsObj () {
         return this.$store.state.webSocket
       },
-      webSocketType () { // webSocket连接状态，true连接，false断开
-        return this.$store.state.webSocketType
-      },
       filtedData () { // 筛选。
         let DataVal = [];
         let oldTable = this.tableData;
@@ -133,8 +130,8 @@ export default {
         this.loadingType = true;
         this.changeWebVal()
       },
-      webSocketType (n, o) {
-        if (n) { // 重新连接
+        wsObj (n, o) {
+        if (n.readyState==1) { // 重新连接
           this.getMarket()
         }
       }

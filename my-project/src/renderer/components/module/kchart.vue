@@ -42,13 +42,13 @@ export default {
     },
     computed: {
       categoryData () {
-        let categoryData = []
-        let values = []
-        let volumes = []
+        let categoryData = [];
+        let values = [];
+        let volumes = [];
         for (let i = 0; i < this.chartData.length; i++) {
-          categoryData.push(this.chartData[i].slice(0, 1)[0])
-          values.push(this.chartData[i].slice(1, 5))
-          volumes.push([i, this.chartData[i][5], this.chartData[i][1] > this.chartData[i][2] ? 1 : -1])// 开收比较，如果收大于开=1；
+          categoryData.push(this.chartData[i].slice(0, 1)[0]);
+          values.push(this.chartData[i].slice(1, 5));
+          volumes.push([i, this.chartData[i][5], this.chartData[i][1] > this.chartData[i][2] ? 1 : -1]);// 开收比较，如果收大于开=1；
         }
         return {
           categoryData: categoryData,
@@ -63,7 +63,7 @@ export default {
     },
     watch: {
       categoryData: function (n, o) {
-        this.cratedObj()
+        this.cratedObj();
         this.drawChart()
       },
       skinType (n, o) {
@@ -75,7 +75,7 @@ export default {
         let result = []
         for (let i = 0, len = this.categoryData.values.length; i < len; i++) {
           if (i < dayCount) {
-            result.push('-')
+            result.push('-');
             continue
           }
           let sum = 0
@@ -108,9 +108,9 @@ export default {
       drawChart () {
         let chart = echarts.init(document.getElementById(this.id));
         let chartSkin = this.skinType == 0 ? this.defaultSkin : this.skinOne;
-        this.chartsObj = chart
+        this.chartsObj = chart;
         if (chart == undefined) {
-          console.error(`echarts init dom id ${this.id} failed`)
+          console.error(`echarts init dom id ${this.id} failed`);
           return
         }
         chart.setOption(this.stockOption(chartSkin))
@@ -451,8 +451,8 @@ export default {
       this.generatorWithAndHeight()
   },
     mounted () {
-      this.cratedObj()
-      this.drawChart()
+      this.cratedObj();
+      this.drawChart();
   }
 
   }
