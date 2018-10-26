@@ -77,7 +77,7 @@
       }
     },
     destroyed () { // 组件销毁完成
-      this.$store.dispatch('selectCurrenty', '')
+      this.$store.dispatch('selectCurrenty', '');
   },
     created () {
       if (this.activeCurrenty) {

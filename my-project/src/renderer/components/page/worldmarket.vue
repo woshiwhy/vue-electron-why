@@ -13,26 +13,26 @@
         <el-table-column :label='$t("tableheder.moneyfor")' prop="symbol"></el-table-column>
         <el-table-column :label='$t("tableheder.timeMin")'>
           <template slot-scope="scope">
-            <span class="low-color">{{scope.row.data.low}}</span>
+            <span class="low-color">{{scope.row.low}}</span>
           </template>
         </el-table-column>
         <el-table-column :label='$t("tableheder.timeMore")'>
           <template slot-scope="scope">
-            <span class="heg-color"> {{scope.row.data.high}}</span>
+            <span class="heg-color"> {{scope.row.high}}</span>
           </template>
         </el-table-column>
-        <el-table-column :label='$t("tableheder.turnover")' prop="data.volume"></el-table-column>
+        <el-table-column :label='$t("tableheder.turnover")' prop="volume"></el-table-column>
         <el-table-column :label='$t("tableheder.increase")'>
           <template slot-scope="scope">
-            <span :class="[scope.row.data.rise>0 ? 'green' : 'red']">
-               <span v-if="scope.row.data.rise >0" class="green">+</span>
-              {{scope.row.data.rise?scope.row.data.rise+'%':$t("tip.tip11")}}
+            <span :class="[scope.row.rise>0 ? 'green' : 'red']">
+               <span v-if="scope.row.rise >0" class="green">+</span>
+              {{scope.row.rise?scope.row.rise+'%':$t("tip.tip11")}}
             </span>
           </template>
         </el-table-column>
         <el-table-column :label='$t("tableheder.trendChart")'>
           <template slot-scope="scope">
-            <marketCharts-box :id="'ceshi'+scope.$index" :newaddVal="scope.row.data.kline"></marketCharts-box>
+            <marketCharts-box :id="'ceshi'+scope.$index" :newaddVal="scope.row.kline"></marketCharts-box>
           </template>
         </el-table-column>
       </el-table>
@@ -107,10 +107,9 @@ export default {
               break
             }
           }
-        } else {
-          DataVal = oldTable
+            return DataVal
         }
-        return DataVal
+            return oldTable
       },
       activeBazzer () {
         return this.$store.state.world.activeBazzer
@@ -121,8 +120,15 @@ export default {
     },
     watch: {
       tableList (n, o) {
-       if(n){
-           this.replaceObj(n)
+         if(n.data[0]==null)return;
+          let marketList=n.data.length;
+       if(marketList==1){
+           this.replaceObj(n.data[0]);
+           return
+       }
+       if(marketList>1){
+           this.tableData=n.data;
+           this.loadingType=false
        }
       },
       activeBazzer (n, o) {
@@ -167,13 +173,9 @@ export default {
       replaceObj (n) {
         let oldTable = this.tableData;
         let add_Type = true;
-        this.loadingType = false;
-        if (this.tableData.length == 0) {
-          oldTable.push(n)
-        }
         for (let i = 0, maxLength = oldTable.length; i < maxLength; i++) {
           if (oldTable[i].symbol == n.symbol) {
-            this.tableData[i].data = this.$set(this.tableData[i], 'data', n.data);
+             this.$set(this.tableData,i,n);
             add_Type = false;
             return
           }

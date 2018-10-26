@@ -1,5 +1,5 @@
 <template>
-  <div style="position: relative" v-loading="loading2" element-loading-background="rgba(0, 0, 0, 0)">
+  <div style="position: relative" >
     <el-select class="ktable-select" v-model="selectVal" @change="changeSelect">
       <el-option
         v-for="item in selectTab"
@@ -16,6 +16,7 @@
       </li>
     </ul>
     <chart-box
+            v-loading="loading2" element-loading-background="rgba(0, 0, 0, 0)"
       :_id="'testCharts'"
       :chartData="chartData"
       :width="'100%'"
@@ -113,7 +114,7 @@
             }
         },
         KList:function (n,o) {
-            if(n){
+            if(n.length){
                 this.loading2=false;
                 this.chartData=n
             }
@@ -132,9 +133,13 @@
       'chart-box': Chart
     },
       created(){
-        if(!this.chartData.length){
-            this.chartData=this.KList;
-        }
+          this.chartPost ()
+      },
+      beforeDestroy () { // 组件销毁前清空值。
+          if( this.wsObj.readyState==1){
+              this.websocketSend.event='unsub';
+              this.wsObj.send(JSON.stringify(this.websocketSend))
+          }
       },
     methods: {
       changeSelect () { // 选择的时间段。
@@ -145,8 +150,9 @@
           this.websocketSend.site = this.selectBazzer.sysMark;
           this.websocketSend.symbol = this.selectCurrenty.name;
           this.websocketSend.param.period = this.selectVal;
+          this.$store.dispatch('kLine', []);
+          this.chartData = [];
           if (this.wsObj.readyState == 1) { // 1，链接成功。
-              this.chartData = [];
               this.wsObj.send(JSON.stringify(this.websocketSend))
           }
       }

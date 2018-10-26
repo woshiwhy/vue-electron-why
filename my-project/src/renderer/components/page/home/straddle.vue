@@ -14,7 +14,7 @@
               prop="profitPercent"
               label="利差率">
         <template slot-scope="scope">
-          {{scope.row.profitPercent*100}}%
+          {{scope.row.profitPercent}}%
         </template>
       </el-table-column>
       <el-table-column
