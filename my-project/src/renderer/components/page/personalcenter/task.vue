@@ -277,6 +277,9 @@
         taskData(){ //用户积分
             return this.$store.state.integral;
         },
+        activeDay (){
+            return this.$store.state.activeDay;
+        },
       sortBasic() {
         return this.sortByKey(this.basicData, 'status');
       },
@@ -379,10 +382,9 @@
         this.phoneVisible = false
       },
       signInfo() { //获取本周签到记录
-          let activeDay = this.$store.state.activeDay;
-          if(activeDay){  //如果有连续登录天数就不请求
-              this.active = activeDay;
-              this.singinTitle = '已连续签到' + activeDay + '天';
+          if(this.activeDay){  //如果有连续签到天数就不请求
+              this.active = this.activeDay;
+              this.singinTitle = '已连续签到' + this.activeDay + '天';
               this.singInVisible = true;
               return
           }
@@ -406,7 +408,7 @@
               if (this.basicData[i].planType == "DAILY_SIGN") {
                 this.basicData[i].status = 1;
                 this.taskData.myIntegral += Number(this.basicData[i].rewardValue);
-                this.basicData[i].rewardValue = Number(this.basicData[i].rewardValue) + 5;
+                this.activeDay == 7 ? this.basicData[i].rewardValue = 5 : this.basicData[i].rewardValue = Number(this.basicData[i].rewardValue) + 5;
                 this.signInfo();
                 this.singInVisible = true;
               }
