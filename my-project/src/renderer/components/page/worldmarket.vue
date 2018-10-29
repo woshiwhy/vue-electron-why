@@ -212,7 +212,9 @@ export default {
     },
     beforeDestroy () {
       // 离开国际行情时取消订阅，
-      this.wsObj.send(JSON.stringify({event:"UNSUB_ALL"}))
+        if (this.wsObj.readyState == 1) { // 1，链接成功。
+            this.wsObj.send(JSON.stringify({event: "UNSUB_ALL"}))
+        }
   },
     destroyed: function () {
       this.$store.dispatch('activeBazzer', '')

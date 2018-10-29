@@ -113,13 +113,13 @@ export default {
           console.error(`echarts init dom id ${this.id} failed`);
           return
         }
-        chart.setOption(this.stockOption(chartSkin))
+        chart.setOption(this.stockOption(chartSkin));
         window.addEventListener('resize', () => {
           this.chartResize(chart)
         })
       },
       chartResize (chart) {
-        clearTimeout(chart.throttle)
+        clearTimeout(chart.throttle);
         chart.throttle = setTimeout(function () {
           chart.resize()
         }, 100)
