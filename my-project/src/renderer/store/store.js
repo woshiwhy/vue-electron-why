@@ -25,6 +25,7 @@ const store = new Vuex.Store({
     },//用户信息
     userTasks:[],//用户基本任务
     integral:{},//用户积分
+    activeDay:'',//连续签到天数
     webSocket: '',//webSocket对象
     bazzer: [],//市场
     currenty: [],//货币
@@ -45,6 +46,9 @@ const store = new Vuex.Store({
     },
       integral(state, msg){
       state.integral = msg;
+    },
+      activeDay(state, msg){
+      state.activeDay = msg;
     },
     skinType(state, msg){
       state.skinType = msg;
@@ -76,6 +80,9 @@ const store = new Vuex.Store({
     },
       integral(context, payload) {
       context.commit('integral', payload)
+    },
+      activeDay(context, payload) {
+      context.commit('activeDay', payload)
     },
     skinType(context, payload) {
       context.commit('skinType', payload)

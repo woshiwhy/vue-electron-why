@@ -379,10 +379,18 @@
         this.phoneVisible = false
       },
       signInfo() { //获取本周签到记录
+          let activeDay = this.$store.state.activeDay;
+          if(activeDay){  //如果有连续登录天数就不请求
+              this.active = activeDay;
+              this.singinTitle = '已连续签到' + activeDay + '天';
+              this.singInVisible = true;
+              return
+          }
         this.$loginAjax.signInfo({}).then((res) => {
           if (res.data.code == 200) {
             this.active = res.data.data
             this.singinTitle = '已连续签到' + this.active + '天';
+            this.$store.dispatch('activeDay', this.active)// 存储连续签到天数
             this.singInVisible = true;
           }
         }).catch((err) => {
