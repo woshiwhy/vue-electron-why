@@ -35,17 +35,17 @@ export default {
       'tablelist-box': TableList
     },
     computed: {
-      tableName () { // 挂单表头
+      tableName () { // 成交历史
         return [
           {name: this.$t('tableheder.time'), val: 'time'},
           {name: this.$t('tableheder.price'), val: 'price'},
           {name: this.$t('tableheder.turnover'), val: 'amount'}]
       },
-      tableNameOne () { // 挂单表头
+      tableNameOne () { // 成交历史
         return [
           {name: this.$t('tableheder.turnover'), val: 'amount'},
           {name: this.$t('tableheder.price'), val: 'price'},
-          {name: this.$t('tableheder.time'), val: 'time'},
+          {name: this.$t('tableheder.time'), val: 'time'}
         ]
       },
       tableData () {

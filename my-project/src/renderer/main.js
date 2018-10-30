@@ -11,6 +11,8 @@ import 'element-ui/lib/theme-chalk/index.css';
 import ElementUI from 'element-ui';
 import moment from 'moment'
 import i18n from './i18n/i18n';
+import filter from "./assets/filters"
+Vue.mixin(filter);
 Vue.use(ElementUI);
 Vue.prototype.$messageTitle = messageTitle;
 Vue.prototype.$balancePost = balancePost;
@@ -22,7 +24,6 @@ Vue.prototype.$md5 = md5;
 Vue.prototype.$moment = moment;
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'));
 Vue.config.productionTip = false;
-
 new Vue({
   components: { App },
   router,

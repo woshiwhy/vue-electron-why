@@ -27,8 +27,9 @@
       <el-table-column :label='$t("tableheder.type")' prop="more">
         <template slot-scope="scope">
           <div slot="reference">
-            <span v-if="scope.row.status==1" style="color: red">{{$t("btnname.execute ")}}</span>
-            <span v-else class="myUnexecute">{{$t("btnname.unExecute ")}}</span>
+            <span :class="scope.row.status?'myUnexecute':'color-red'"
+                  v-html="$t($options.filters.$_executeStatus(scope.row.status))"
+            ></span>
           </div>
         </template>
       </el-table-column>
@@ -64,7 +65,9 @@
     color: #0098ff;
 
   }
-
+  .color-red{
+    color: red;
+  }
   .change-btn {
     margin-right: 0.1rem;
   }

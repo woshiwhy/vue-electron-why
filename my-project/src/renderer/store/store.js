@@ -7,7 +7,7 @@ import home from "../store/home/index";//引入vuex的首页模块
 import sopttrading from "../store/sopttrading/index";//现货交易
 import auto from "../store/auto/index";//自动交易
 import world from "../store/world/index";//国际行情
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const store = new Vuex.Store({
   // strict:process.env.NODE_ENV !=='production',//关闭严格模式

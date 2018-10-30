@@ -15,20 +15,13 @@
         <template slot-scope="scope">
           <div slot="reference" :class="item.class">
             <span v-if="item.val=='status'">
-              {{
-              scope.row.status==0?'待成交':
-              scope.row.status==1?'部分成交':
-              scope.row.status==2?'完全成交':
-              scope.row.status==3?'撤单中':
-              scope.row.status==4?'已撤销':'过期'
-              }}
+              {{ scope.row.status | $_filterDealType}}
             </span>
             <span  v-else-if="item.val=='operation'">
-                <span v-if=" scope.row.status=='0'|| scope.row.status=='1'" class="btn-color" @click="operation(scope)">撤单</span>
+                <span class="btn-color" @click="operation(scope)">{{ scope.row.status | $_dealName}}</span>
             </span>
             <span v-else-if="item.val=='type'">
-                  <span v-if="scope.row.type=='sell'" style="color: red">卖出</span>
-                  <span v-else-if="scope.row.type=='buy'" style="color:green">买入</span>
+                  <span :style="{'color':scope.row.type=='buy'?'green':'red'}">{{ scope.row.type | $_dealName}}</span>
             </span>
             <span v-else>
               {{scope.row[item.val]}}

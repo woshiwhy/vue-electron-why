@@ -78,9 +78,11 @@ export default {
         ws.onopen = () => {
             this.$store.dispatch('webSocket', ws);
           const logo_ws = {
-            data: localStorage.getItem('userToken'),
             event: 'login',
-            flag: 'Basic d2ViQXBwOndlYkFwcA=='
+              param:{
+                  authorization:'Basic d2ViQXBwOndlYkFwcA==',
+                  token:localStorage.getItem('userToken')
+              },
           };
           ws.send(JSON.stringify(logo_ws)) ;// 每次链接发送TOKEN.
           this.heartSend()

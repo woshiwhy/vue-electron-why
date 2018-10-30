@@ -122,13 +122,13 @@ export default {
       tableList (n, o) {
          if(n.data[0]==null)return;
           let marketList=n.data.length;
+          this.loadingType=false;
        if(marketList==1){
            this.replaceObj(n.data[0]);
            return
        }
        if(marketList>1){
            this.tableData=n.data;
-           this.loadingType=false
        }
       },
       activeBazzer (n, o) {

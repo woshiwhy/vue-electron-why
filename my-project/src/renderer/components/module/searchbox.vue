@@ -45,7 +45,6 @@
             key: 'uniteSymbol'
           }
         }
-
         return {
           placeholder: this.$t('placeholder.currencyName'),
           val: this.$store.state.currenty,
