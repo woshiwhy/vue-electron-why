@@ -111,7 +111,9 @@ export default {
               }
               break;
               case 'kline': // K线图
-                  this.$store.dispatch('kLine', webVal.data);
+                  if(webVal.site==this.bazzerActive && webVal.symbol==this.currenActive){
+                      this.$store.dispatch('kLine', webVal.data);
+                  }
                   break;
           }
         };
