@@ -11,6 +11,8 @@ import 'element-ui/lib/theme-chalk/index.css';
 import ElementUI from 'element-ui';
 import moment from 'moment'
 import i18n from './i18n/i18n';
+import filter from "./assets/filters";
+Vue.mixin(filter);
 Vue.use(ElementUI);
 Vue.prototype.$messageTitle = messageTitle;
 Vue.prototype.$postAxios = postObj;
