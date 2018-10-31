@@ -20,7 +20,7 @@
   }
 </style>
 <script>
-  import TableList from '@/components/module/historytable'
+  import TableList from '&/historytable'
 export default {
     data () {
       return {

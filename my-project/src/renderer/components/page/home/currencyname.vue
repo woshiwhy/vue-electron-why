@@ -43,7 +43,7 @@
 
 </style>
 <script type="text/javascript">
-  import searchBox from '@/components/module/searchbox'
+  import searchBox from '&/searchbox'
 export default {
     props: ['currency', 'type'], // type==1能交易所，type==2货币
     computed: {

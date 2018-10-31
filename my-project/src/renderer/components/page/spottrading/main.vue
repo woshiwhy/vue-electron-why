@@ -32,10 +32,10 @@
   }
 </style>
 <script>
-  import ChilderNav from '@/components/module/bazzernav'
-import currentynavBox from '@/components/module/currentynav'
-import searchBox from '@/components/module/searchbox'
-import TabCat from '@/components/page/spottrading/tabcat'
+  import ChilderNav from '&/bazzernav'
+import currentynavBox from '&/currentynav'
+import searchBox from '&/searchbox'
+import TabCat from '~/spottrading/tabcat'
 export default {
     data () {
       return {

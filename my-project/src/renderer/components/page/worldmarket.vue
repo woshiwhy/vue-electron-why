@@ -71,9 +71,9 @@
   }
 </style>
 <script>
-  import searchBox from '@/components/module/searchbox'
-import ChilderNav from '@/components/module/wordnav'
-import marketCharts from '@/components/page/market/marketcharts'
+  import searchBox from '&/searchbox'
+import ChilderNav from '&/wordnav'
+import marketCharts from '~/market/marketcharts'
 export default {
     data () {
       return {

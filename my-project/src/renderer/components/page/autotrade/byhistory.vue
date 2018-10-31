@@ -60,7 +60,6 @@
       </div>
 </template>
 <script>
-  // import {beginPlan,stopPlan} from "../../../../static/js/axios";
   export default {
     data () {
       return {

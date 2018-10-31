@@ -82,7 +82,7 @@
 </style>
 <script>
   import {escapeHTML, unescapeHTML} from '../../../assets/message'
-  import upPhoto from '@/components/module/upphoto'
+  import upPhoto from '&/upphoto'
 
   export default {
     components: {

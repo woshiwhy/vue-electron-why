@@ -73,7 +73,7 @@
   }
 </style>
 <script>
-  import layerBox from '@/components/module/layer'
+  import layerBox from '&/layer'
 export default {
     data () {
       return {

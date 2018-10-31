@@ -59,14 +59,14 @@
   }
 </style>
 <script type="text/javascript">
-  import currencyList from '@/components/page/home/currencyList' //  查询历史
-import WelFare from '@/components/page/home/welfare'// 福利空头
-import Recommend from '@/components/page/home/recommend'// 推荐
-import Carousel from '@/components/page/home/rightcarousel'// 轮播
-import NewList from '@/components/page/home/newlist'// 新闻列表
-import Author from '@/components/page/home/author'// 大咖
-import Arbitragetable from '@/components/page/home/arbitragetable'// 套利排行榜
-import Straddle from '@/components/page/home/straddle'// 套利
+  import currencyList from '~/home/currencyList' //  查询历史
+import WelFare from '~/home/welfare'// 福利空头
+import Recommend from '~/home/recommend'// 推荐
+import Carousel from '~/home/rightcarousel'// 轮播
+import NewList from '~/home/newlist'// 新闻列表
+import Author from '~/home/author'// 大咖
+import Arbitragetable from '~/home/arbitragetable'// 套利排行榜
+import Straddle from '~/home/straddle'// 套利
 export default {
     data () {
       return {

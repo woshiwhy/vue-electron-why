@@ -74,9 +74,9 @@
 </style>
 
 <script>
-    import pwdMound from '@/components/page/personalcenter/pwdlayer'
-    import mailMound from '@/components/page/personalcenter/maillayer'
-    import PhoneMound from '@/components/page/personalcenter/phonelayer'
+    import pwdMound from '~/personalcenter/pwdlayer'
+    import mailMound from '~/personalcenter/maillayer'
+    import PhoneMound from '~/personalcenter/phonelayer'
 
     export default {
         data() {

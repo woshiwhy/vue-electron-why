@@ -22,7 +22,7 @@
 
 </style>
 <script>
-  import listCarousel from '@/components/module/listcarousel'
+  import listCarousel from '&/listcarousel'
 export default {
     data () {
       return {

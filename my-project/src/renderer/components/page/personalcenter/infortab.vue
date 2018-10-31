@@ -57,9 +57,9 @@
     }
 </style>
 <script>
-    import taskBox from '@/components/page/personalcenter/task'
-    import safety from '@/components/page/personalcenter/safety'
-    import userasset from '@/components/page/personalcenter/userasset'
+    import taskBox from '~/personalcenter/task'
+    import safety from '~/personalcenter/safety'
+    import userasset from '~/personalcenter/userasset'
 
     export default {
         data() {

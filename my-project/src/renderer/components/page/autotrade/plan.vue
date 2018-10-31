@@ -67,7 +67,7 @@
   }
 </style>
 <script>
-  import paymentBox from '@/components/module/Payment'
+  import paymentBox from '&/Payment'
 export default {
     data () {
       return {

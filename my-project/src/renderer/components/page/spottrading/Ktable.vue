@@ -63,7 +63,7 @@
   }
 </style>
 <script>
-  import Chart from '@/components/module/kchart'
+  import Chart from '&/kchart'
   export default {
     data () {
       return {

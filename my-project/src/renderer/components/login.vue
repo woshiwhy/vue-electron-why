@@ -90,8 +90,8 @@
 </style>
 <script>
   const { ipcRenderer,remote } = require('electron');
-  import minmax from '@/components/module/minmax'
-import formMound from '@/components/module/from'
+  import minmax from '&/minmax'
+   import formMound from '&/from'
 
 export default {
     data () {

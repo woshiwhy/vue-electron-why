@@ -24,10 +24,10 @@
   }
 </style>
 <script>
-  import setBox from '@/components/page/autotrade/setauto' // 策略设置
-import Plan from '@/components/page/autotrade/plan' // 推荐策略
-import AutoTab from '@/components/page/autotrade/autotab' // tab选项
-import Statistics from '@/components/page/autotrade/statistics' // 统计
+  import setBox from '~/autotrade/setauto' // 策略设置
+import Plan from '~/autotrade/plan' // 推荐策略
+import AutoTab from '~/autotrade/autotab' // tab选项
+import Statistics from '~/autotrade/statistics' // 统计
 export default {
     data () {
       return {

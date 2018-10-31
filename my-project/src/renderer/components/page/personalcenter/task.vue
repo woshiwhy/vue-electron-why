@@ -247,9 +247,9 @@
   }
 </style>
 <script>
-  import mailMound from "@/components/page/personalcenter/maillayer";
-  import PhoneMound from "@/components/page/personalcenter/phonelayer";
-  import singIn from "@/components/page/personalcenter/singin";
+  import mailMound from "~/personalcenter/maillayer";
+  import PhoneMound from "~/personalcenter/phonelayer";
+  import singIn from "~/personalcenter/singin";
 
   export default {
     components: {

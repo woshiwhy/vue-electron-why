@@ -76,7 +76,7 @@
     }
 </style>
 <script>
-    import ChilderNav from '@/components/module/wordnav'
+    import ChilderNav from '&/wordnav'
     export default {
         data(){
             return{

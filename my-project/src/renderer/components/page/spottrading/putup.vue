@@ -3,7 +3,7 @@
   <tablelist-box  :tableVal="tableVal" :loadingType="loadingType" :tableName="tableName" @operation="operation"></tablelist-box>
 </template>
 <script>
-  import TableList from '@/components/module/putuptable'
+  import TableList from '&/putuptable'
 export default {
     data () {
       return {

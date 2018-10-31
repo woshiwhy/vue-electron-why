@@ -83,8 +83,8 @@
   }
 </style>
 <script>
-  import layerBox from '@/components/module/layer'
-import layerWright from '@/components/module/layerinput'
+  import layerBox from '&/layer'
+import layerWright from '&/layerinput'
 export default {
     data () {
       return {

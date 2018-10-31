@@ -25,7 +25,7 @@
   </el-dialog>
 </template>
 <script>
-  import formMound from '@/components/module/from'
+  import formMound from '&/from'
 export default {
     data () {
       var oldPass = (rule, value, callback) => {

@@ -21,9 +21,9 @@
 }
 </style>
 <script>
-  import PersonalInfor from '@/components/page/personalcenter/personalinfor'
-import RobotBind from '@/components/page/personalcenter/robotbind'
-import InforTab from '@/components/page/personalcenter/infortab'
+  import PersonalInfor from '~/personalcenter/personalinfor'
+import RobotBind from '~/personalcenter/robotbind'
+import InforTab from '~/personalcenter/infortab'
 export default {
     components: {
       'personalinfor-box': PersonalInfor,

@@ -234,7 +234,7 @@
 </style>
 
 <script type="text/javascript">
-  import setClr from '@/components/module/setClr'
+  import setClr from '&/setClr'
   export default {
     props: ['destroy'], // resizable禁止缩放
     components: {

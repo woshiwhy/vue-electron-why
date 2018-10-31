@@ -5,15 +5,15 @@ import axios from 'axios'
 import { Loading } from 'element-ui'
 
 //const axiosLogin = 'http://api.bitbus.club:10000/upms';// 登录注册接口
-const axiosLogin='http://192.168.2.134:11000/upms';//登录注册接口
+const axiosLogin='http://47.75.110.132:10006/upms';//登录注册接口
 const webSocketOBj = {
-   url:'ws://192.168.2.134:11000/hub',//webSocket对象地址
+   url:'ws://47.75.110.132:10006/hub',//webSocket对象地址
     //url: 'ws://api.bitbus.club:10000/hub', // webSocket对象地址
   OutTime: 60000// 心跳
 
 };
 //const axiosUrl='http://47.75.110.132:10003';//舒服
-const axiosUrl='http://192.168.2.134:11000/api';//舒服
+const axiosUrl='http://47.75.110.132:10006/api';//舒服
 //const axiosUrl = 'http://api.bitbus.club:10000/hubrest'// 服务器
 
 const $axios = axios.create({

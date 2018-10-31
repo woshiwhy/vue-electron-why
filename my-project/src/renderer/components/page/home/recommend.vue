@@ -9,7 +9,7 @@
   </div>
 </template>
 <script>
-  import CurrencyName from '@/components/page/home/currencyname'
+  import CurrencyName from '~/home/currencyname'
 export default {
     data () {
       return {

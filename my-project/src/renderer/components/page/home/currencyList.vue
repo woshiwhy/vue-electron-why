@@ -32,8 +32,8 @@
 }
 </style>
 <script type="text/javascript">
-  import searchBox from '@/components/module/searchbox'
-import CurrencyName from '@/components/page/home/currencyname'
+  import searchBox from '&/searchbox'
+import CurrencyName from '~/home/currencyname'
 export default {
     data () {
       return {

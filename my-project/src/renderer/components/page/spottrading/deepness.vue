@@ -47,8 +47,8 @@
   }
 </style>
 <script>
-  import Chart from '@/components/module/deepnesschart'
-  import TableList from '@/components/module/tablelist'
+  import Chart from '&/deepnesschart'
+  import TableList from '&/tablelist'
 export default {
     data () {
       return {

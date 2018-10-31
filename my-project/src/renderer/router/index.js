@@ -4,21 +4,22 @@ const Login = require('@/components/login').default;//登录窗口
 const Register = require('@/components/register').default;//注册
 const Forget = require('@/components/forget').default;//忘记密码
 const LoginContent = require('@/components/logincontent').default;//登录后主窗口
-const Home = require('@/components/page/home').default;//  首页
-const SpotTrading = require('@/components/page/spottrading').default;//  现货交易
-const OutoTrade = require('@/components/page/outotrade').default;//  自动交易
-const MyPlan = require('@/components/page/autotrade/myplan').default;//  自动交易我的方案
-const ByHistory = require ('@/components/page/autotrade/byhistory').default;//  自动交易购买历史
-const ExecuteHistory =require('@/components/page/autotrade/executehistory').default;//  自动交易执行历史
-const WorldMarket = require('@/components/page/worldmarket').default;//  国际行情
-const KTable = require('@/components/page/spottrading/Ktable').default;//  现货交易K线模块
-const PutUp = require('@/components/page/spottrading/putup').default;//  现货交易挂单模块
-const Deepness = require('@/components/page/spottrading/deepness').default;//  现货交易深度模块
-const History = require('@/components/page/spottrading/history').default;//  现货交易历史记录模块
-const BinDing = require('@/components/page/binding').default;//  授权绑定
-const AccountSet = require('@/components/page/accountset').default;//  账户设置
-Vue.use(Router)
-
+const Home = require('~/home').default;//  首页
+const SpotTrading = require('~/spottrading').default;//  现货交易
+const OutoTrade = require('~/outotrade').default;//  自动交易
+const MyPlan = require('~/autotrade/myplan').default;//  自动交易我的方案
+const ByHistory = require ('~/autotrade/byhistory').default;//  自动交易购买历史
+const ExecuteHistory =require('~/autotrade/executehistory').default;//  自动交易执行历史
+const WorldMarket = require('~/worldmarket').default;//  国际行情
+const KTable = require('~/spottrading/Ktable').default;//  现货交易K线模块
+const PutUp = require('~/spottrading/putup').default;//  现货交易挂单模块
+const Deepness = require('~/spottrading/deepness').default;//  现货交易深度模块
+const History = require('~/spottrading/history').default;//  现货交易历史记录模块
+const BinDing = require('~/binding').default;//  授权绑定
+const AccountSet = require('~/accountset').default;//  账户设置
+Vue.use(Router);
+// '~':path.join(__dirname, '../src/renderer/components/page');
+//  '&':path.join(__dirname, '../src/renderer/components/module'),
 export default new Router({
   routes: [
     {
