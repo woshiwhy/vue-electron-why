@@ -53,6 +53,7 @@ export default {
     },
     methods: {
       tablePost () {
+          this.tableVal=[];
         this.loadingType = true;
         let data = {
             siteId: this.$store.state.sopttrading.selectBazzer.id,
@@ -66,11 +67,8 @@ export default {
             return
           }
           this.$messageTitle(dataVal.msg, 'error');
-          this.tableVal = []
         }).catch((ref) => {
           this.loadingType = false;
-          this.$messageTitle('网络错误，请稍后重试', 'error');
-          this.tableVal = []
         })
       },
       operation (scope) { // 撤单

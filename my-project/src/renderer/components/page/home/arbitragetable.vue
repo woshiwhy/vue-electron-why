@@ -16,29 +16,29 @@
       class="table-list bg-table"
       :data="tableData"
       style="width: 100%"
-
       :max-height="maxHeight"
       :min-height="maxHeight"
       v-loading="loadingType"
       element-loading-background="rgba(0, 0, 0, 0)"
       stripe>
       <el-table-column
-        prop="profit"
-        :label="$t('tableheder.profit')">
+              prop="profit"
+              :label="$t('tableheder.profit')">
+      </el-table-column>
+      <el-table-column
+              prop="profitRate"
+              :label="$t('tableheder.spreadrate')">
       </el-table-column>
       <el-table-column
         prop="symbol"
         :label="$t('tableheder.moneyfor')">
       </el-table-column>
       <el-table-column
+              prop="name"
         :label="$t('tableheder.bazaar')">
         <template slot-scope="scope">
-          <span class="arbitrageCol">{{scope.row.bidSite}} , {{scope.row.askSite}} </span>
+          <span class="arbitrageCol">{{scope.row.name}} </span>
         </template>
-      </el-table-column>
-      <el-table-column
-        prop="amount"
-        :label="$t('tableheder.amount')">
       </el-table-column>
     </el-table>
   </div>
@@ -162,18 +162,17 @@
     methods: {
       postAjax () {
         this.loadingType = true;
+          this.tableData = [];
         this.$postAxios.rankingList(this.postData).then((ref) => {
           const dataVal = ref.data;
           this.loadingType = false;
           if (dataVal.code == 200) {
-            this.tableLIst[this.postData.word] = dataVal.data.records;
+            this.tableLIst[this.postData.eq.type] = dataVal.data.records;
             this.tableData = dataVal.data.records;
             return
           }
-          this.tableData = [];
           this.$messageTitle(dataVal.msg, 'error')
         }).catch((err) => {
-          this.tableData = [];
           this.loadingType = false;
         })
       },

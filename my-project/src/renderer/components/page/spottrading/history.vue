@@ -74,8 +74,15 @@ export default {
       }
     },
     methods: {
+        clearVal(){
+            this.tableVal = {
+                buy: [],
+                sell: []
+            }
+        },
       historyPost () {
         this.loadingType = true;
+        this.clearVal();
         let data = {
           'siteId': this.activeBazzerId,
           'size': 50,
@@ -86,18 +93,9 @@ export default {
             this.loadingType = false;
           if (dataVal.code == 200) {
             this.tableVal = dataVal.data;
-            return
-          }
-          this.tableVal = {
-            buy: [],
-            sell: []
           }
         }).catch((err) => {
           this.loadingType = false;
-          this.tableVal = {
-            buy: [],
-            sell: []
-          }
         })
       }
     }

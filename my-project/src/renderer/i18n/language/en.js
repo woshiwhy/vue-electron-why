@@ -107,7 +107,7 @@ const en = {
         operation: 'Operation',
         addUp: 'Total',
         type: 'Status',
-        profit: 'Profit',
+        profit: 'Profit（usdt）',
         spread:'spread',
         spreadrate:'Spread Rate',
         buybazaar: 'Buy Market',

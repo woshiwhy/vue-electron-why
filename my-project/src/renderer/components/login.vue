@@ -22,6 +22,7 @@
       title="验证码"
       :visible.sync="centerDialogVisible"
       :before-close="closeBtn"
+      style="-webkit-app-region: no-drag"
       width="395px"
       center>
       <el-input class="verify-input" autofocus="true" @keyup.enter.native="longIn"
@@ -90,8 +91,8 @@
 </style>
 <script>
   const { ipcRenderer,remote } = require('electron');
-  import minmax from '@/components/module/minmax'
-import formMound from '@/components/module/from'
+  import minmax from '&/minmax'
+import formMound from '&/from'
 
 export default {
     data () {
