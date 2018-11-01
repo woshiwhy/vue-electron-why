@@ -265,8 +265,10 @@
             },
             // 个人资产
             balancePost (data) {
+                this.$store.dispatch('myBalance', []);
                 if(this.navBazzer.blanceList && !data.updateFlag){  // 有个人资产了就不申请了
                     this.unBind = false;// 绑定API// ；
+                    this.loading2=false;
                     this.$currentyBalance(this.navBazzer.blanceList);
                     this.$store.dispatch('myBalance', this.navBazzer.blanceList);
                     return
@@ -275,8 +277,10 @@
                 this.$balancePost(data).then(res => {
                     this.loading2=false;
                    if(res.code==200){
-                    this.unBind = false;// 绑定API
-                    this.$store.dispatch('myBalance', res.data);
+                       if(this.navBazzer.id==data.siteId){  //  匹配当前得交易所
+                           this.unBind = false;// 绑定API
+                           this.$store.dispatch('myBalance', res.data);
+                       }
                        return
                 }
                 if (res.code == 318) {

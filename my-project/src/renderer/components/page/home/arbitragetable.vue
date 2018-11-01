@@ -175,7 +175,6 @@
         }).catch((err) => {
           this.tableData = [];
           this.loadingType = false;
-          this.$messageTitle('网络错误，请稍后重试', 'error')
         })
       },
       navClick (index, id) {
