@@ -108,6 +108,8 @@ const en = {
         addUp: 'Total',
         type: 'Status',
         profit: 'Profit',
+        spread:'spread',
+        spreadrate:'Spread Rate',
         buybazaar: 'Buy Market',
         moneyfor: 'Coin Pair',
         sellbazaar: 'Sale Market',

@@ -56,9 +56,15 @@
       },
       selectCurrenty () {
         return this.$store.state.sopttrading.selectCurrenty
-      }
+      },
+        worldActive () { // 国际行情选中的市场
+            return this.$store.state.world.activeBazzer.sysMark
+        }
     },
     watch: {
+        worldActive(){
+            this.state1 = '';
+        },
       selectBazzer () {
         this.state1 = ''
       },

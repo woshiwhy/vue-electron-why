@@ -17,7 +17,7 @@ import i18n from './../i18n/i18n';
      1:'撤单'
  };
  const executeStatus={
-     0:"btnname.execute",//正在执行
-     1:"btnname.unExecute"//未执行
+     0:"btnname.unExecute",//正在执行
+     1:"btnname.execute"//未执行
  };
 export{dealStatus,dealName,executeStatus}

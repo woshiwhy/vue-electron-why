@@ -38,17 +38,17 @@
       tabNav () {
         let navList = [{name: this.$t('tabname.kGraph'), href: '/Ktable', active: false}, {name: this.$t('tabname.entry'), href: '/putup', active: false},
           {name: this.$t('tabname.depth'), href: '/deepness', active: false}, {name: this.$t('tabname.history'), href: '/history', active: false}]
-        navList[this.index].active = true
+        navList[this.index].active = true;
         return navList
       }
     },
     methods: {
       navClick (href, index) {
-        this.index = index
+        this.index = index;
         for (let val of this.tabNav) {
           val.active = false
         }
-        this.tabNav[index].active = true
+        this.tabNav[index].active = true;
         this.$router.push(href)
       }
     }

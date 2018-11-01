@@ -12,14 +12,10 @@
       stripe>
       <el-table-column
               prop="profitPercent"
-              label="利差率">
+              :label="$t('tableheder.spreadrate')">
         <template slot-scope="scope">
           {{scope.row.profitPercent}}%
         </template>
-      </el-table-column>
-      <el-table-column
-        prop="sub"
-        :label="$t('tableheder.profit')">
       </el-table-column>
       <el-table-column
         prop="symbol"
@@ -30,6 +26,10 @@
         <template slot-scope="scope">
           <span class="arbitrageCol">{{scope.row.site}} </span>
         </template>
+      </el-table-column>
+      <el-table-column
+              prop="sub"
+              :label="$t('tableheder.spread')">
       </el-table-column>
         <el-table-column
           prop="amount"

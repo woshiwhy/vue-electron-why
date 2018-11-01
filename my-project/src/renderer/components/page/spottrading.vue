@@ -9,7 +9,7 @@
                 <h3 class="title-name">{{$t("headline.balance")}}</h3>
                 <span v-if="!unBind" class=" btn-color update-btn"
                       @click="updateClick">{{$t("btnname.update")}}</span>
-                <asset-box :bindType="unBind"></asset-box>
+                <asset-box :bindType="unBind" :is="asstTable"></asset-box>
             </div>
             <div class="small-box skin-bg bottom-box">
                 <h3 class="title-name">{{$t("headline.deal")}}</h3>
@@ -42,16 +42,16 @@
                 <div class="deal-box clearfloat">
                     <div class="pull-left ">
                         <h3 class="title-name">{{$t("headline.buydepth")}}</h3>
-                        <tablelist-box :tableType="'1'"></tablelist-box>
+                        <tablelist-box :tableType="'1'" :is="tableList"></tablelist-box>
                     </div>
                     <div class="pull-right ">
                         <h3 class="title-name">{{$t("headline.selldepth")}}</h3>
-                        <tablelist-box :tableType="'2'"></tablelist-box>
+                        <tablelist-box :tableType="'2'" :is="tableList"></tablelist-box>
                     </div>
                 </div>
             </div>
         </el-aside>
-        <main-box></main-box>
+        <main-box :is="mainCompent"></main-box>
     </el-container>
 </template>
 <style lang="scss" rel="stylesheet/scss" scoped>
@@ -90,10 +90,7 @@
 </style>
 <script>
     import SetBourse from '&/setbourse'
-    import TableList from '&/tablelist'// 深度表格
-    import AsstTable from '&/assettable'// 账户资产表格
-    import formMound from '@/components/module/byfrom'
-    import spottradMain from '@/components/page/spottrading/main'
+    import formMound from '&/byfrom'
     export default {
         data () {
             return {
@@ -111,6 +108,21 @@
             }
         },
         computed: { //  监听选中值
+            mainCompent(){//异步加载右侧模块
+              return () => ({
+                  component: import('~/spottrading/main')
+              })
+            },
+            tableList(){//深度表格
+                return () => ({
+                    component: import('&/tablelist')
+            })
+            },
+            asstTable(){//账户资产
+                return () => ({
+                    component: import('&/assettable')
+            })
+            },
             registerList () {
                 return [// 买入
                     {
@@ -198,10 +210,7 @@
         },
         components: {
             'setbourse-box': SetBourse,
-            'tablelist-box': TableList,
-            'asset-box': AsstTable,
-            'form-box': formMound,
-            'main-box': spottradMain
+            'form-box': formMound
         },
         beforeDestroy () { // 组件销毁前清空值。
             this.$store.dispatch('buyPrice', '');

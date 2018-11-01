@@ -108,6 +108,8 @@ const cn = {
         addUp: '累计利润',
         type: '状态',
         profit: '利润',
+        spread:'利差',
+        spreadrate:'利差率',
         buybazaar: '买入市场',
         moneyfor: '币对',
         sellbazaar: '卖出市场',

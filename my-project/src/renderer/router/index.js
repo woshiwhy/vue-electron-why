@@ -1,22 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-const Login = require('@/components/login').default;//登录窗口
-const Register = require('@/components/register').default;//注册
-const Forget = require('@/components/forget').default;//忘记密码
-const LoginContent = require('@/components/logincontent').default;//登录后主窗口
-const Home = require('~/home').default;//  首页
-const SpotTrading = require('~/spottrading').default;//  现货交易
-const OutoTrade = require('~/outotrade').default;//  自动交易
-const MyPlan = require('~/autotrade/myplan').default;//  自动交易我的方案
-const ByHistory = require ('~/autotrade/byhistory').default;//  自动交易购买历史
-const ExecuteHistory =require('~/autotrade/executehistory').default;//  自动交易执行历史
-const WorldMarket = require('~/worldmarket').default;//  国际行情
-const KTable = require('~/spottrading/Ktable').default;//  现货交易K线模块
-const PutUp = require('~/spottrading/putup').default;//  现货交易挂单模块
-const Deepness = require('~/spottrading/deepness').default;//  现货交易深度模块
-const History = require('~/spottrading/history').default;//  现货交易历史记录模块
-const BinDing = require('~/binding').default;//  授权绑定
-const AccountSet = require('~/accountset').default;//  账户设置
+const Login =  () => import('@/components/login');//登录窗口
+const Register =  () => import('@/components/register');//注册
+const Forget =  () => import('@/components/forget');//忘记密码
+const LoginContent = () => import('@/components/logincontent');//登录后主窗口
+const Home = () => import('~/home');//  首页
+const SpotTrading = () => import('~/spottrading');//  现货交易
+const OutoTrade = () => import('~/outotrade');//  自动交易
+const MyPlan = () => import('~/autotrade/myplan');//  自动交易我的方案
+const ByHistory = () => import ('~/autotrade/byhistory');//  自动交易购买历史
+const ExecuteHistory =() => import('~/autotrade/executehistory');//  自动交易执行历史
+const WorldMarket = () => import('~/worldmarket');//  国际行情
+const KTable = () => import('~/spottrading/Ktable');//  现货交易K线模块
+const PutUp = () => import('~/spottrading/putup');//  现货交易挂单模块
+const Deepness = () => import('~/spottrading/deepness');//  现货交易深度模块
+const History = () => import('~/spottrading/history');//  现货交易历史记录模块
+const BinDing = () => import('~/binding');//  授权绑定
+const AccountSet = () => import('~/accountset');//  账户设置
 Vue.use(Router);
 // '~':path.join(__dirname, '../src/renderer/components/page');
 //  '&':path.join(__dirname, '../src/renderer/components/module'),

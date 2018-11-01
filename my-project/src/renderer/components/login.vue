@@ -90,8 +90,8 @@
 </style>
 <script>
   const { ipcRenderer,remote } = require('electron');
-  import minmax from '&/minmax'
-   import formMound from '&/from'
+  import minmax from '@/components/module/minmax'
+import formMound from '@/components/module/from'
 
 export default {
     data () {
@@ -192,7 +192,7 @@ export default {
         let data = {
           'password': this.$md5(this.register.pwd),
           'username': this.register.account
-        }
+        };
         this.disableBtn = false;
         this.$loginAjax.loginAxios(data).then((res) => {
           if (res.data.code == 200) {

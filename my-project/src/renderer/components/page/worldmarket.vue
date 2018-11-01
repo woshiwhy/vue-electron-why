@@ -188,6 +188,7 @@ export default {
           this.$store.dispatch('currenty', this.activeBazzer.symbolList)
       },
       changeWebVal () { //  更改websroket命令；
+          this.websocketSend.symbol= 'all';
         this.getMarket();
         if (this.activeBazzer.currentyList) {
           this.$store.dispatch('currenty', this.activeBazzer.currentyList);

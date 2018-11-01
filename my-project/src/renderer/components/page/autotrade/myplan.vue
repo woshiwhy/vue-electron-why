@@ -27,7 +27,7 @@
       <el-table-column :label='$t("tableheder.type")' prop="more">
         <template slot-scope="scope">
           <div slot="reference">
-            <span :class="scope.row.status?'myUnexecute':'color-red'"
+            <span :class="scope.row.status?'color-red':'myUnexecute'"
                   v-html="$t($options.filters.$_executeStatus(scope.row.status))"
             ></span>
           </div>
