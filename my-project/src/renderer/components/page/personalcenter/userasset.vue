@@ -133,12 +133,10 @@
                 this.lodingStatus = true;
                 this.$balancePost(data).then(res => {
                     if(res.code==200){
-                        if(data.siteId == this.activeBazzer.id){
                         this.unBind = false;// 已绑定API
                         this.lodingStatus = false;
                         this.tableData = res.data;
                         this.$store.dispatch('myBalance', res.data);
-                        }
                         return
                     }
                     if (res.code == 318) {
