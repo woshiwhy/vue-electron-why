@@ -2,7 +2,7 @@
     <div>
         <h3 class="title-name hnav spoBot">{{$t("headline.market")}}</h3>
         <div class="bsmarket" style="padding-left: 0.1rem;display: flex">
-            <nav-box style="margin-bottom:.15rem;"></nav-box>
+            <nav-box style="margin-bottom:.15rem;" @balanceData="balanceData"></nav-box>
             <span @click="updateAssets(true)" v-if="!unBind" class="up-assets">更新资产</span>
         </div>
         <!-- 个人中心表格 -->
@@ -100,13 +100,6 @@
             total() {
                 return this.tables.length
             },
-            navBazzer () { // 获取用户资产
-                return this.$store.state.sopttrading.selectBazzer
-            },
-            bazzerList(){ //市场
-                return this.$store.state.bazzer;
-            },
-
         },
         watch: {
             activeBazzer(n, o) {
@@ -131,17 +124,21 @@
                     'siteId': this.activeBazzer.id
                 }
                 if(updateFlag != true && this.activeBazzer.blanceList){ //如果资产存在并且用户不更新就不用请求
+                    this.lodingStatus = false;
                     this.unBind = false;
-                    this.tableData = this.activeBazzer.blanceList
+                    this.tableData = this.activeBazzer.blanceList;
                     return
                 }
+                this.tableData = [];
+                this.lodingStatus = true;
                 this.$balancePost(data).then(res => {
-                    this.lodingStatus = true;
                     if(res.code==200){
+                        if(data.siteId == this.activeBazzer.id){
                         this.unBind = false;// 已绑定API
                         this.lodingStatus = false;
                         this.tableData = res.data;
                         this.$store.dispatch('myBalance', res.data);
+                        }
                         return
                     }
                     if (res.code == 318) {
