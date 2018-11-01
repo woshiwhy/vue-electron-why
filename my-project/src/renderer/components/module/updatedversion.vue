@@ -4,7 +4,7 @@
             :visible.sync="upvShow"
             :before-close="close"
             width="4.21rem"
-            class="center-dialog"
+            class="center-dialog up-version"
             center>
        <div>
            <div v-for="(item,index) in msgData" :key="index">
@@ -17,6 +17,11 @@
         </span>
     </el-dialog>
 </template>
+<style>
+    .up-version .el-dialog__headerbtn{
+        display: none!important;
+    }
+</style>
 <style scoped>
 .list{
     margin: 5px 10px;
@@ -28,8 +33,8 @@
             return{
                 title:'更新版本',
                 msgData:[{message:'更新1'},
-                    {message:'更新2'},
-                    {message:'更新3'}],
+                        {message:'更新2'},
+                        {message:'更新3'}],
                 upvShow:true
             }
         },
