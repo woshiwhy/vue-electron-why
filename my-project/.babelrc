@@ -30,11 +30,14 @@
     "web": {
       "presets": [
         ["env", {
-          "modules": false
+          "modules": false,
+          "useBuiltIns": true
         }],
         "stage-0"
       ]
     }
   },
-  "plugins": ["transform-runtime"]
+  "plugins": [
+   // "transform-runtime"
+  ]
 }

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import App from './App'
+import 'babel-polyfill'
 import router from './router'
 import store from './store/store'
 import md5 from 'js-md5';
@@ -20,6 +21,9 @@ Vue.prototype.$loginAjax = loginAjax;
 Vue.prototype.$ajax = axios;
 Vue.prototype.$md5 = md5;
 Vue.prototype.$moment = moment;
+import 'core-js/modules/es6.array.find'
+
+    [1, 2, 3].find((v => v > 2))
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'));
 Vue.config.productionTip = false;
 new Vue({
