@@ -57,7 +57,9 @@ function win_event() {
       webContents = childWindow.webContents;
     widowObj(childWindow);
     ipcMain.on('clerar-appTray',function(e,message) {
-         login_Window.close();
+      if(login_Window!=null){
+          login_Window.close();
+      }
          login_Window=null;
          appTrayObj(childWindow);
     });

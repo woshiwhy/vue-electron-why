@@ -41,7 +41,6 @@
           return
         }
         const local_Obj = localStorage.getItem('defaultMarket');
-
         if (local_Obj != 'undefined' && local_Obj) { // 查看是否存储默认市场
             for(let v of this.bazzerList){
                 if(v.id==local_Obj){

@@ -54,10 +54,6 @@ export default {
     created () {
       this.websocket();
       this.bazzer();// 存储交易市场
-       setTimeout(()=>{
-           this.messageList({type:'0004-0002',content:'测试'})
-       },5000)
-
   },
     methods: {
         closeBox(){ //关闭更新通告
