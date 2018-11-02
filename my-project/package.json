@@ -30,7 +30,7 @@
     "publish": [
       {
         "provider": "generic",
-        "url": "http://bitbus.club:80"
+        "url": "http://47.106.254.63:88"
       }
     ],
     "dmg": {

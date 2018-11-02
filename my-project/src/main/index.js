@@ -1,10 +1,9 @@
-'use strict'
 
 import { app, BrowserWindow, Menu, Tray, shell, ipcMain } from 'electron';
 const { autoUpdater } = require('electron-updater');
 const path = require('path');
 const url = require('url');
-const feedUrl = `http://bitbus.club:80` // 更新包位置
+const feedUrl = `http://47.106.254.63:88` ;// 更新包位置
 // const feedUrl = `http://bitbus.club:80` // 更新包位置
 let login_Window,webContents,childWindow;
 //托盘对象
@@ -47,7 +46,7 @@ function createWindow () {
   webContents = login_Window.webContents;
   // 打开开发者工具。
   // webContents.openDevTools();
-  widowObj(login_Window,true);
+  widowObj(login_Window);
   win_event();
 }
 //内容窗口
@@ -58,6 +57,8 @@ function win_event() {
       webContents = childWindow.webContents;
     widowObj(childWindow);
     ipcMain.on('clerar-appTray',function(e,message) {
+         login_Window.close();
+         login_Window=null;
          appTrayObj(childWindow);
     });
      event.preventDefault();
@@ -65,8 +66,8 @@ function win_event() {
   });
 }
 //窗口初始化
-function widowObj(obj,type) {
-    obj.openDevTools()
+function widowObj(obj) {
+    obj.openDevTools();
   //由于 Electron 本质是一个浏览器，需要加载非网页部分的资源。因此，我们可以先隐藏窗口。渲染进程开始渲染页面的那一刻,显示窗口
   obj.on('ready-to-show', function () {
     obj.show();
@@ -82,7 +83,7 @@ function widowObj(obj,type) {
 }
 app.on('ready', () => {
   createWindow();
-  checkForUpdates()
+   checkForUpdates()
 });
 
 app.on('window-all-closed', () => {
@@ -95,12 +96,13 @@ app.on('activate', () => {
   if (login_Window === null) {
     createWindow()
   }
-})
+});
 //登录
 ipcMain.on('maxmin-logn',function(e,message) {//1是最小，2是全屏，3是还原，4是关闭
   switch (message){
     case 1:
-      login_Window.minimize();
+      let boxObj=login_Window==null?childWindow:login_Window;
+        boxObj.minimize();
       break;
     case 4:
       app.quit();
@@ -125,8 +127,6 @@ ipcMain.on('maxmin',function(e,message) {//1是最小，2是全屏，3是还原�
     case 4:
       childWindow.minimize();
       childWindow.setSkipTaskbar(true);
-      // app.quit();
-      // app.quit();
       break;
   }
 
@@ -187,8 +187,8 @@ function appTrayObj(obj) {
 /* / 主进程监听渲染进程传来的信息 */
 /* / 主进程监听渲染进程传来的信息 */
 ipcMain.on('update', (e, arg) => {
+    appTray.destroy();
     checkForUpdates();
-
  });
 let versions='';
 let checkForUpdates = () => {
@@ -230,5 +230,6 @@ let checkForUpdates = () => {
 
 // 主进程主动发送消息给渲染进程函数
 function sendUpdateMessage (message, data) {
+  console.log()
      webContents.send('message', { message, data });
 }
