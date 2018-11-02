@@ -17,7 +17,7 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column :label='$t("tableheder.Trigger")' prop="more">
+      <el-table-column :label='$t("tableheder.spreadrate")' prop="more">
         <template slot-scope="scope">
           <div slot="reference">
             <span>{{scope.row.balancePercent}}%</span>

@@ -26,7 +26,7 @@
               :label="$t('tableheder.profit')">
       </el-table-column>
       <el-table-column
-              prop="profitRate"
+              prop="avgProfitRate"
               :label="$t('tableheder.spreadrate')">
       </el-table-column>
       <el-table-column

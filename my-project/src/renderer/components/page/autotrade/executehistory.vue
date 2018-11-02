@@ -4,8 +4,8 @@
       <el-table-column :label='$t("tableheder.planName")' prop="strategyName"></el-table-column>
       <el-table-column :label='$t("tableheder.beginTime")' prop="createTime"  show-overflow-tooltip></el-table-column>
       <el-table-column :label='$t("tableheder.endTime")' prop="endTime"   show-overflow-tooltip></el-table-column>
-      <el-table-column :label='$t("tableheder.moneyfor")' prop="symbolName"></el-table-column>
-      <el-table-column :label='$t("tableheder.profit")'  prop="name"  show-overflow-tooltip>
+      <el-table-column :label='$t("tableheder.moneyfor")' prop="symbol"></el-table-column>
+      <el-table-column :label='$t("tableheder.profit")'  prop="profit"  show-overflow-tooltip>
         <template slot-scope="scope">
           <div slot="reference">
             <span style="color:#0fc45b;">{{scope.row.profit|| 0}}</span>
