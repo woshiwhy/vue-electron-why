@@ -134,6 +134,7 @@ export default {
       activeBazzer (n, o) {
         this.tableData = [];
         this.loadingType = true;
+        this.selectVal='';
         this.changeWebVal()
       },
         wsObj (n, o) {

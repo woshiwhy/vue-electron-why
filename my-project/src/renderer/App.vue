@@ -43,8 +43,8 @@
     beforeCreate(){
       ipcRenderer.on('message',(event,{message,data}) => {
         if(message==='updateavailable'){ //有更新
+            this.dialogVisible=true;
             remote.getCurrentWindow().setSize(447,370);
-          this.dialogVisible=true;
           this.visit=data.version;
           this.upList=data.mesage;
         }
