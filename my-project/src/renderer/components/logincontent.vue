@@ -6,6 +6,7 @@
         <router-view @destroyType="destroyVal"/>
       </transition>
     </div>
+    <layer-Box v-if="messageType" :messageOBj="messageOBj" @close="closeBox" @messageType="updateClick"></layer-Box>
   </div>
 </template>
 <style lang="scss" rel="stylesheet/scss">
@@ -19,13 +20,17 @@
   }
 </style>
 <script>
+    const { ipcRenderer,remote } = require('electron');
   import {webSocketOBj} from '../assets/axios'
-import headerBox from '@/components/header.vue'
+  import headerBox from '@/components/header.vue'
+  import layerBox from '&/updatedversion'
 export default {
     data () {
       return {
         timOBj: '',
-        destroy: ''
+        destroy: '',
+          messageType:false,
+          messageOBj:''
       }
     },
     computed: {
@@ -40,7 +45,8 @@ export default {
       }
     },
     components: {
-      'header-box': headerBox
+      'header-box': headerBox,
+      'layer-Box': layerBox,
     },
     beforeDestroy () {
       this.$store.state.webSocket.close();//  关闭通信.
@@ -48,8 +54,19 @@ export default {
     created () {
       this.websocket();
       this.bazzer();// 存储交易市场
+        this.messageList({type:'0004-0002',content:'测试'})
+
   },
     methods: {
+        closeBox(){ //关闭更新通告
+            this.messageType=false
+        },
+        updateClick(type){//更新公告提示。
+            if(type!='0004-0003'){
+                ipcRenderer.send('update', 2)
+            }
+            this.messageType=false
+        },
       destroyVal (data) {
         this.destroy = data
       },
@@ -115,6 +132,9 @@ export default {
                       this.$store.dispatch('kLine', webVal.data);
                   }
                   break;
+              case "message": // 系统消息
+                  this.messageList(webVal.data);
+                  break;
           }
         };
         ws.onclose = () => {
@@ -126,6 +146,24 @@ export default {
           console.log('连接已关闭...')
         }
       },
+        messageList(data){
+            let dataType=data.type;
+            switch (dataType){
+                case '0004-0003':
+                    this.$notify({
+                        title: '系统消息',
+                        message: data.content,
+                        type: 'success',
+                        duration: 0,
+                        offset: 100
+                    });
+                    break;
+              default://更新
+                    this.messageType=true;
+                    this.messageOBj=data;
+                    break;
+            }
+        },
       heartSend () { // 心跳发送
         this.timOBj = setTimeout(() => {
           this.heartSend();

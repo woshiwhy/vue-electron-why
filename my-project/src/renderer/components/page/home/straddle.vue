@@ -1,10 +1,10 @@
 <template>
   <div class="small-box skin-bg" style="min-height:5rem;">
     <h3 class="title-name">{{$t("headline.arbitrage")}}</h3>
-    <span v-show="tableData.length" class="btn-color sort-btn" @click="sortSend">{{$t("btnname.sort")}}</span>
+    <span  class="btn-color sort-btn" @click="sortSend">{{$t("btnname.sort")}}</span>
     <el-table
       class="table-list bg-table"
-      :data="tableData"
+      :data="interest"
       v-loading="loadingType"
       element-loading-background="rgba(0, 0, 0, 0)"
       style="width: 100%;"
@@ -55,7 +55,6 @@
     data () {
       return {
         loadingType: false,
-        tableData: this.$store.state.home.interest,
           webStraddle: {// 套利，发送
               'site': 'hub',
               'event': 'sub',
@@ -65,7 +64,7 @@
       }
     },
     computed: {
-      navBazzer () {
+        interest () {
         let tableData = this.$store.state.home.interest;
         if (!tableData.length) {
           this.loadingType = true;
@@ -79,9 +78,6 @@
         }
     },
     watch: {
-      navBazzer: function (n,o) {
-        this.tableData = n
-      },
         wsObj:function (n,o) {
           if(n.readyState==1){ //链接成功
              this.sortSend()
@@ -100,6 +96,7 @@
       methods:{
           sortSend:function () {
               if(this.wsObj.readyState == 1) {
+                  this.$store.dispatch('interest', []);
                 this.wsObj.send(JSON.stringify(this.webStraddle));
             }
           }

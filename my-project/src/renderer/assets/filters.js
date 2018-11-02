@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2018/10/30.
  */
-import { dealStatus,dealName,executeStatus} from "./config"
+import { dealStatus,dealName,executeStatus,messageList} from "./config"
 export default {
     filters: {
         $_filterDealType: (value) => {
@@ -12,6 +12,9 @@ export default {
         },
         $_executeStatus:(value) => {
             return executeStatus[value]
+        },
+        $_messageList:(value) => {
+            return messageList[value]
         },
     }
 }

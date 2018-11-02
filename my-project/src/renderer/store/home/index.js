@@ -40,12 +40,12 @@ export default {
 }
 function addVal(name,item) {
   let storage_Val=state[name];
-  let new_Id=item[0].id;
   let type='-1';
-  if(item.length>1){
+  if(item.length!=1){//为0时，没数据。为1时需要检查数据是否重复。
       state[name]= item;
       return
   }
+    let new_Id=item[0].id;
   for(let i=0,maxLength=storage_Val.length;i<maxLength;i++){
     let has_Id=storage_Val[i].id;
     if(has_Id==new_Id){  // 如果ID相同，删除以前的数据，添加新数据到数组第一位

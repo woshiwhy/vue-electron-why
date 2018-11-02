@@ -148,7 +148,6 @@ export default {
         let routeData = this.$router.resolve({name: 'logincontent'});
         window.open(routeData.href, '_blank');
         if (window.require) {
-
           const winObj = remote.getCurrentWindow();// 获取当前焦点窗口
           ipcRenderer.send('clerar-appTray', 2); // 只有主页面才会创建托盘图标
           winObj.close()

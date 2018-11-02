@@ -55,6 +55,7 @@ function win_event() {
   webContents.on('new-window', function (event, url, fname, disposition, options) {
     childWindow = new BrowserWindow(win_Option);
     childWindow.loadURL(url);
+      webContents = childWindow.webContents;
     widowObj(childWindow);
     ipcMain.on('clerar-appTray',function(e,message) {
          appTrayObj(childWindow);
@@ -185,9 +186,10 @@ function appTrayObj(obj) {
 
 /* / 主进程监听渲染进程传来的信息 */
 /* / 主进程监听渲染进程传来的信息 */
-// ipcMain.on('update', (e, arg) => {
-//   // checkForUpdates()
-// });
+ipcMain.on('update', (e, arg) => {
+    checkForUpdates();
+
+ });
 let versions='';
 let checkForUpdates = () => {
   // 配置安装包远端服务器
@@ -228,5 +230,5 @@ let checkForUpdates = () => {
 
 // 主进程主动发送消息给渲染进程函数
 function sendUpdateMessage (message, data) {
-  webContents.send('message', { message, data })
+     webContents.send('message', { message, data });
 }

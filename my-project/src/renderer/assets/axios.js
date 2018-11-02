@@ -7,7 +7,8 @@ import { Loading } from 'element-ui'
 //const axiosLogin = 'http://api.bitbus.club:10000/upms';// 登录注册接口
 const axiosLogin='http://47.75.110.132:10006/upms';//登录注册接口
 const webSocketOBj = {
-   url:'ws://47.75.110.132:10006/hub',//webSocket对象地址
+   //url:'ws://47.75.110.132:10006/hub',//webSocket对象地址
+   url:'ws://192.168.2.121:10006/hub',//webSocket对象地址
     //url: 'ws://api.bitbus.club:10000/hub', // webSocket对象地址
   OutTime: 60000// 心跳
 

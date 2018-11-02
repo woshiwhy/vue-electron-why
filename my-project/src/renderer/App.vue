@@ -43,10 +43,10 @@
     beforeCreate(){
       ipcRenderer.on('message',(event,{message,data}) => {
         if(message==='updateavailable'){ //有更新
+            remote.getCurrentWindow().setSize(447,370);
           this.dialogVisible=true;
           this.visit=data.version;
           this.upList=data.mesage;
-          remote.getCurrentWindow().setSize(447,370)
         }
         if(message==='downloadProgress'){//下载中
           this.percentage=data.percent.toFixed(1);

@@ -18,6 +18,14 @@ import i18n from './../i18n/i18n';
  };
  const executeStatus={
      0:"btnname.unExecute",//正在执行
-     1:"btnname.execute"//未执行
+     1:"btnname.execute",//未执行
+     '0004-0001':"立即更新",//必更新
+     '0004-0002':"更新",//可更新
+     '0004-0003':"确认"//消息提示
  };
-export{dealStatus,dealName,executeStatus}
+const messageList={ //消息提示
+    '0004-0001':"重要更新",//必更新
+    '0004-0002':"更新提示",//可更新
+    '0004-0003':"消息提示"//消息提示
+};
+export{dealStatus,dealName,executeStatus,messageList}
