@@ -7,11 +7,11 @@
             class="center-dialog up-version"
             center>
        <div class="list">
-           <p >{{messageOBj.content}}</p>
+           <p class="list-content">{{messageOBj.content}}</p>
        </div>
         <span slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="confirm(messageOBj.type)">{{ messageOBj.type | $_executeStatus}} </el-button>
-            <el-button type="primary" @click="close()" v-if="messageOBj.type=='0004-0002'">取 消</el-button>
+            <el-button type="primary" class="affirm-btn" @click="confirm(messageOBj.type)">{{ messageOBj.type | $_executeStatus}} </el-button>
+            <el-button type="primary" class="hover-btn clospay" @click="close()" v-if="messageOBj.type=='0004-0002'">取 消</el-button>
         </span>
     </el-dialog>
 </template>
@@ -23,7 +23,12 @@
 <style scoped>
 .list{
     margin: 5px 10px;
+    max-height: 240px;
+    overflow-y: scroll;
 }
+    .list .list-content{
+        word-wrap:break-word
+    }
 </style>
 <script>
     export default {
