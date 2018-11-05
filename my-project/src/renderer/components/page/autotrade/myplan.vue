@@ -10,14 +10,14 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column :label='$t("tableheder.interest")' prop="interest">
+      <el-table-column :label='$t("tableheder.spreadrate")' prop="interest">
         <template slot-scope="scope">
           <div slot="reference">
             <span>{{scope.row.pricePercent}}%</span>
           </div>
         </template>
       </el-table-column>
-      <el-table-column :label='$t("tableheder.spreadrate")' prop="more">
+      <el-table-column :label='$t("tableheder.Trigger")' prop="more">
         <template slot-scope="scope">
           <div slot="reference">
             <span>{{scope.row.balancePercent}}%</span>
