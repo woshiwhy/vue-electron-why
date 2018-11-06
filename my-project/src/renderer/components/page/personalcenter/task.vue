@@ -309,13 +309,11 @@
           canvas.width = 350;
           canvas.height = 800;
           var canvasBox = canvas.getContext("2d");
-
-          canvasBox.drawImage(imgBg, 0, 0, 350, 800); //绘制图像进行拉伸
-
-          canvasBox.drawImage(codeImg, 137, 670, 80, 80);
+          canvasBox.drawImage(imgBg, 0, 0, 350, 788); //绘制图像进行拉伸
+          canvasBox.drawImage(codeImg, 250, 635, 80, 80);
           var dataURL = canvas.toDataURL('image/png');
           this.imgVal = dataURL;
-        }
+        };
         codeImg.src = this.imgUrl;
       },
       //显示海报
