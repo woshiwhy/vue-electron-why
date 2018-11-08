@@ -10,12 +10,12 @@
       </ul>
     </div>
     <div class="pull-right maxmin-box">
-      <span @click="helpBtn()" class="hoverbtn help-btn">帮助</span>
+      <span @click="helpBtn()" class="hoverbtn help-btn">{{$t('headline.help')}}</span>
       <el-dropdown trigger="click" @command="handleCommand">
       <span class="el-dropdown-link hoverbtn setClr-btn"></span>
         <el-dropdown-menu slot="dropdown" style=" -webkit-app-region: no-drag;">
-          <el-dropdown-item command="theme">主题设置</el-dropdown-item>
-          <el-dropdown-item command="lang">语言设置</el-dropdown-item>
+          <el-dropdown-item command="theme">{{$t('headline.themeSet')}}</el-dropdown-item>
+          <el-dropdown-item command="lang">{{$t('headline.languageSet')}}</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
       <span class="hoverbtn min-btn" @click="maxMin(1)"></span>
@@ -369,7 +369,7 @@
         let language = localStorage.getItem('languageType');
         let typeNumber = Number(localStorage.getItem('skinType') || 1);
         this.$store.dispatch('skinType',typeNumber);
-        this.skinChange(typeNumber)
+        this.skinChange(typeNumber);
         this.langchat(language);
       this.$store.dispatch('navType', sessionStorage.getItem('navType') || 0)
     },
@@ -378,7 +378,7 @@
             this.boxObj.type=type;
             switch (type){
                 case 'theme':
-                    this.boxObj.title='主题设置';
+                    this.boxObj.title=this.$t('headline.themeSet');
                     this.boxObj.radioArry=[
                         {
                             name:"白色",
@@ -391,7 +391,7 @@
                     ];
                    break
                 case 'lang':
-                    this.boxObj.title='语言选择';
+                    this.boxObj.title=this.$t('headline.languageSet');
                     this.boxObj.radioArry=[
                         {
                             name:this.$t('lang.cng'),

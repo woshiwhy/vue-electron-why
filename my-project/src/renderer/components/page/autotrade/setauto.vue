@@ -39,7 +39,7 @@
       </div>
     </div>
     <h3 class="title-name" style="padding: 0;margin-top: .3rem;">{{$t("headline.planset")}}
-        <el-tooltip placement="bottom" >
+        <el-tooltip placement="right" >
           <div slot="content">
             执行多种方案时，不建议使用同一计价货币。<br/>
             如需关闭自动平衡功能，请将平衡参数设置为100%。

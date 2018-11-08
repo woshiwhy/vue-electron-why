@@ -35,7 +35,10 @@ const en = {
         personal: 'Personal Information',
         account: 'Account Information',
         loginHistory: 'Login History',
-        bind: 'Verifications'
+        bind: 'Verifications',
+        help:'Help',
+        themeSet:'Theme Set',
+        languageSet:'Language Set'
     },
     // 提示语
     tip: {

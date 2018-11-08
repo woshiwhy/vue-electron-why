@@ -36,7 +36,10 @@ const cn = {
         personal: '个人信息',
         account: '账户信息',
         loginHistory: '登录历史',
-        bind: '安全绑定'
+        bind: '安全绑定',
+        help:'帮助',
+        themeSet:'主题设置',
+        languageSet:'语言设置'
     },
     // 提示语
     tip: {
