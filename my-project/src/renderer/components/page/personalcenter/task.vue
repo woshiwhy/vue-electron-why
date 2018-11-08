@@ -70,14 +70,12 @@
     <el-dialog
             class="center-dialog poster"
             :visible.sync="qrcode"
-            width="30%"
-            height="100%"
-            top="0vh"
+            top="0"
             center>
       <div class="imgBox" v-loading="loadingImg" element-loading-text="海报拼命加载中">
         <a :href="imgVal" download v-if="loadingImg == false">
           <el-tooltip class="item" effect="light" content="点击下载海报" placement="left">
-            <img :src="imgVal" alt="">
+            <img :src="imgVal" alt="" width="400">
           </el-tooltip>
         </a>
       </div>
@@ -306,11 +304,11 @@
         codeImg.setAttribute("crossOrigin", 'anonymous');  // 跨域请求图片
         imgBg.src = "./static/img/ceshi.jpg";
         codeImg.onload = () => {
-          canvas.width = 350;
-          canvas.height = 800;
+          canvas.width = 700;
+          canvas.height = 1575;
           var canvasBox = canvas.getContext("2d");
-          canvasBox.drawImage(imgBg, 0, 0, 350, 788); //绘制图像进行拉伸
-          canvasBox.drawImage(codeImg, 250, 635, 80, 80);
+          canvasBox.drawImage(imgBg, 0, 0, 700, 1575); //绘制图像进行拉伸
+          canvasBox.drawImage(codeImg, 510, 1270, 150, 150);
           var dataURL = canvas.toDataURL('image/png');
           this.imgVal = dataURL;
         };
