@@ -125,7 +125,9 @@ export default {
       handledele (index, item) { // 删除
         this.layerContent = this.$t('tip.tip5');
         if (item.status) { //  True当前方法正在执行。
-          this.layerContent = this.$t('tip.tip6');
+//          this.layerContent = this.$t('tip.tip6');
+            this.$messageTitle(this.$t('tip.tip6'), 'error');
+          return
         };
         this.centerDialogVisible = true;
         this.deleVal.item = item;

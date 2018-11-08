@@ -2,8 +2,6 @@
  * Created by Administrator on 2018/6/28.
  */
 // 注意：一定是 exports，不是 export，否则会报错，报错信息是下列的中的内容不是 string
-import zhLocale from 'element-ui/lib/locale/lang/zh-CN' //引入element语言包
-
 const cn = {
     // 小标题
     headline: {
@@ -53,8 +51,8 @@ const cn = {
         trigger: '自动触发平衡',
         tip3: '币对价值差超过',
         tip4: '已经有策略执行确认替换',
-        tip5: '确认删除该方法？',
-        tip6: '当前策略正在执行，是否取消并删除？',
+        tip5: '确认删除该方案？',
+        tip6: '当前方案正在执行，请先取消执行？',
         tip7: '删除成功',
         tip8: '交易量',
         tip9: '收益率',
@@ -187,8 +185,7 @@ const cn = {
     lang: {
         eng: 'English',
         cng: '中文'
-    },
-    zhLocale
+    }
 }
 
 export default cn;
