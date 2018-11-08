@@ -133,7 +133,9 @@
       'chart-box': Chart
     },
       created(){
-          this.chartPost ()
+        if(this.selectVal){//K线图时间段选择
+            this.chartPost ()
+        }
       },
       beforeDestroy () { // 组件销毁前清空值。
           if( this.wsObj.readyState==1){

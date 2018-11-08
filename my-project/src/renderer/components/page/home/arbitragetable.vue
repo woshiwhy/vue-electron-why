@@ -8,7 +8,7 @@
       </li>
     </ul>
     <div class="more-btn">
-      <span class="btn-color" v-if="$store.state.home.homeMore"
+      <span class="btn-color" v-if="moreType"
             @click="morerList(false,100)">{{$t("btnname.more")}}</span>
       <span class="btn-color" v-else @click="morerList(true,7)">{{$t("btnname.close")}}</span>
     </div>
@@ -116,6 +116,7 @@
   export default {
     data () {
       return {
+          moreType:true,
         maxHeight: 480,
         tableData: [],
         tableLIst: {
@@ -153,9 +154,6 @@
         ]
       }
     },
-    beforeDestroy () { // 组件销毁，打开套利
-      this.$store.dispatch('homeMore', true)
-  },
     created () {
       this.postAjax()
     },
@@ -197,7 +195,8 @@
         };
         this.postAjax();
         this.$refs.arbitragebox.classList.add('fadbox');
-        this.$store.dispatch('homeMore', data);
+          this.$emit('homeMore',data);
+          this.moreType=data;
         setTimeout(() => { // 动画过度完删除Class
           this.$refs.arbitragebox.classList.remove('fadbox')
         },

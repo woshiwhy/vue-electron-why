@@ -235,6 +235,9 @@
 
 <script type="text/javascript">
   import setClr from '&/setClr'
+  import locale from 'element-ui/lib/locale';
+  import en from 'element-ui/lib/locale/lang/en'
+  import cn from 'element-ui/lib/locale/lang/zh-CN'
   export default {
     props: ['destroy'], // resizable禁止缩放
     components: {
@@ -407,9 +410,11 @@
       langchat (language) {
         if (language == 'en') {
           this.$i18n.locale = 'en';
+            locale.use(en);
           return
         }
-        this.$i18n.locale = 'cn'
+        this.$i18n.locale = 'cn';
+          locale.use(cn)
       },
       skinChange (type) {
         let Obj = document.getElementById('change-skin');

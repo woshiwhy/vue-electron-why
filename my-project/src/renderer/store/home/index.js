@@ -4,19 +4,15 @@
  */
 // /首页状态
 const state={
-  homeMore:true,//套利排行榜更多开关
   interest:[],//套利数据
   recommendCurrent:{
       innovate:'',
-      potential:''
+      potential:'',
   }//推荐币种
 };
 const  mutations= {
   recommendCurrent(state, msg){
     state.recommendCurrent = msg;
-  },
-  homeMore(state, msg){
-    state.homeMore = msg;
   },
   interest(state,msg){
     addVal('interest',msg)
@@ -25,9 +21,6 @@ const  mutations= {
 const actions = {
   recommendCurrent(context, payload) {
     context.commit('recommendCurrent', payload)
-  },
-  homeMore(context, payload) {
-    context.commit('homeMore', payload)
   },
   interest(context, payload) {
     context.commit('interest', payload)

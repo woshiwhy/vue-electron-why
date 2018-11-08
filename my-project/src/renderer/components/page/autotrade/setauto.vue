@@ -38,7 +38,16 @@
         <span class="icon-number">%</span>
       </div>
     </div>
-    <h3 class="title-name" style="padding: 0;margin-top: .3rem;">{{$t("headline.planset")}}</h3>
+    <h3 class="title-name" style="padding: 0;margin-top: .3rem;">{{$t("headline.planset")}}
+        <el-tooltip placement="bottom" >
+          <div slot="content">
+            执行多种方案时，不建议使用同一计价货币。<br/>
+            如需关闭自动平衡功能，请将平衡参数设置为100%。
+          </div>
+        <i class="el-icon-question"></i>
+      </el-tooltip>
+
+    </h3>
     <div style="margin: 0 auto;">
       <div class="exchange-set">
         <label>{{$t("tip.balance")}}:</label>
@@ -71,7 +80,6 @@
 </template>
 <style lang="scss" rel="stylesheet/scss">
   @import "../../../assets/scss/app";
-
   .auto-btn {
     padding: 0!important;
     margin-bottom: 0.1rem!important;
@@ -317,7 +325,7 @@ export default {
               }
 
             this.refreshTable();// 刷新表格
-            this.$messageTitle('设置保存成功', 'success');
+            this.$messageTitle('方案保存成功', 'success');
             this.$store.dispatch('changePlan', savaData);
             this.disableType = false;
             return
@@ -360,7 +368,7 @@ export default {
               this.loadingType = false;
             this.deleBtn();
             this.refreshTable();
-            this.$messageTitle('执行成功', 'success');
+            this.$messageTitle('方案执行成功，将在30分钟后生效', 'success');
             return
           }
           this.$messageTitle(res.data.msg, 'error')

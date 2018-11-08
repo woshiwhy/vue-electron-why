@@ -22,10 +22,10 @@
     <el-main class="main-width" style="margin-right: 0.1rem">
       <!--套利-->
       <transition name="fade">
-        <straddle-box v-show="$store.state.home.homeMore"></straddle-box>
+        <straddle-box v-show="boxShow"></straddle-box>
       </transition>
       <!--套利排行榜-->
-      <arbitrage-box></arbitrage-box>
+      <arbitrage-box @homeMore="homeMore"></arbitrage-box>
     </el-main>
     <el-aside width="3.1rem">
       <!--轮播图-->
@@ -98,7 +98,10 @@ export default {
       navClick (href, index) {
         this.$store.dispatch('navType', index + 1);
         this.$router.push(href)
-      }
+      },
+        homeMore(data){
+          this.boxShow=data;
+        }
     }
   }
   </script>
