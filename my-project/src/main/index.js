@@ -45,7 +45,7 @@ function createWindow () {
   login_Window.loadURL(winURL);
   webContents = login_Window.webContents;
   // 打开开发者工具。
-  webContents.openDevTools();
+    //webContents.openDevTools();
   widowObj(login_Window);
   win_event();
 }
@@ -69,7 +69,7 @@ function win_event() {
 }
 //窗口初始化
 function widowObj(obj) {
-    obj.openDevTools();
+    //obj.openDevTools();
   //由于 Electron 本质是一个浏览器，需要加载非网页部分的资源。因此，我们可以先隐藏窗口。渲染进程开始渲染页面的那一刻,显示窗口
   obj.on('ready-to-show', function () {
     obj.show();
