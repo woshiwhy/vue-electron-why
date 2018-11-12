@@ -4,7 +4,8 @@
     <span class="login-close" @click="maxMin(4)"></span>
   </div>
 </template>
-<style scoped>
+<style lang="scss" rel="stylesheet/scss" scoped>
+  @import "@/assets/scss/app.scss";
   span{
     cursor: pointer;
     display: inline-block;
@@ -17,11 +18,11 @@
   }
   .login-min{
     width: .17rem;
-    background-image: url("../../../../static/img/narrow_white.svg");
+    background-image:$narrow_white;
   }
   .login-close{
     width: .15rem;
-    background-image: url("../../../../static/img/Close_white.svg");
+    background-image: $Close_white
   }
 </style>
 <script type="text/javascript">

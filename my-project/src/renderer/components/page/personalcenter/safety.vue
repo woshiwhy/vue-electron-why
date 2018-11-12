@@ -38,16 +38,6 @@
         height: 0.45rem ;
         line-height: 0.45rem;
     }
-
-    .wordTable .el-table td {
-        padding: 0;
-    }
-
-    /*隐藏elementUI表格暂无数据*/
-    .infor-cat .el-table__empty-block {
-        display: none;
-    }
-
     /**/
     .content-list {
         padding: 0.18rem 0.7rem;

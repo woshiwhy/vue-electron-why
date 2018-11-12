@@ -3,11 +3,11 @@
   <div class="clearfloat">
     <div class="pull-left deep-table" >
       <h3 class="title-name">{{$t("headline.buyHistory")}}</h3>
-      <tablelist-box :loadingType="loadingType" :type="'one'" :tableVal="tableData.buy.slice(0, 12)" :tableName="tableName"></tablelist-box>
+      <tablelist-box :height="'7rem'" :loadingType="loadingType" :type="'one'" :tableVal="tableData.buy.slice(0, 12)" :tableName="tableName"></tablelist-box>
     </div>
     <div class="pull-right deep-table">
       <h3 class="title-name">{{$t("headline.sellHistory")}}</h3>
-      <tablelist-box :loadingType="loadingType" :type="'two'" :tableVal="tableData.sell.slice(0, 12)" :tableName="tableNameOne"></tablelist-box>
+      <tablelist-box :height="'7rem'" :loadingType="loadingType" :type="'two'" :tableVal="tableData.sell.slice(0, 12)" :tableName="tableNameOne"></tablelist-box>
     </div>
   </div>
 </template>

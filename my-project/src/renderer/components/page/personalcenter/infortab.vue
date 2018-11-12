@@ -13,6 +13,10 @@
                 <!-- 任务中心模块 -->
                 <task-Box :qrCode="qrCode" :imgUrl="imgUrl"></task-Box>
             </el-tab-pane>
+            <el-tab-pane label='订单管理' name="orderManagement">
+                <!-- 订单统计 -->
+                <order-Box></order-Box>
+            </el-tab-pane>
         </el-tabs>
     </el-main>
 </template>
@@ -38,10 +42,7 @@
         padding: 0;
     }
 
-    /*隐藏elementUI表格暂无数据*/
-    .infor-cat .el-table__empty-block {
-        display: none;
-    }
+
 
 </style>
 <style scoped>
@@ -60,6 +61,7 @@
     import taskBox from '~/personalcenter/task'
     import safety from '~/personalcenter/safety'
     import userasset from '~/personalcenter/userasset'
+    import ordermanagement from '~/personalcenter/ordermanagement'
 
     export default {
         data() {
@@ -72,7 +74,8 @@
         components: {
             'task-Box': taskBox,
             'asset-Box':userasset,
-            'safety-Box':safety
+            'safety-Box':safety,
+            'order-Box':ordermanagement
         },
         computed: {
             basicData(){ //基本任务

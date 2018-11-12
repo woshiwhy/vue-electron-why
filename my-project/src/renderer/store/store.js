@@ -33,8 +33,20 @@ const store = new Vuex.Store({
     navType: '',
     skinType:'',//皮肤状态0白色皮肤,1黑色皮肤
     bindApi:[],//绑定的API
+      orderList:{ //  订单管理
+          siteId:'',//站点
+          strategyName:'',//方案名称
+          symbol:'',//币种
+          type:'',//订单类型
+          current:'1',//页码
+          size:'15'//每页条数
+
+      }
   },
   mutations: {
+      orderList(state, msg){
+          state.orderList = msg;
+      },
     bindApi(state, msg){
       state.bindApi = msg;
     },
@@ -69,6 +81,9 @@ const store = new Vuex.Store({
 
   },
   actions: {
+      orderList(context, payload) {
+      context.commit('orderList', payload)
+   },
       bindApi(context, payload) {
       context.commit('bindApi', payload)
     },

@@ -1,3 +1,25 @@
+//导航图片
+$personal:url("../../../static/img/personal.svg");
+$personal_hover:url("../../../static/img/personal_hover.svg");
+$home:url("../../../static/img/home.svg");
+$home_hover:url("../../../static/img/home_hover.svg");
+$xhjy:url("../../../static/img/xhjy.svg");
+$xhjy_hover:url("../../../static/img/xhjy_hover.svg");
+$zdjy:url("../../../static/img/zdjy.svg");
+$zdjy_hover:url("../../../static/img/zdjy_hover.svg");
+$GJHQ:url("../../../static/img/GJHQ.svg");
+$gjhq_hover:url("../../../static/img/gjhq_hover.svg");
+$sqbd:url("../../../static/img/sqbd.svg");
+$sqbd_hover:url("../../../static/img/sqbd_hover.svg");
+$zhsz:url("../../../static/img/zhsz.svg");
+$zhsz_hover:url("../../../static/img/zhsz_hover.svg");
+$GD:url("../../../static/img/GD.svg");
+$gd_hover:url("../../../static/img/gd_hover.svg");
+  //更新图片
+$down:url("../../static/img/down.png");
+//登录最小,关闭按钮
+$narrow_white:url("../../../../static/img/narrow_white.svg");
+$Close_white:url("../../../../static/img/Close_white.svg");
 
   @mixin background-white {
     background: #ffffff;
@@ -24,51 +46,51 @@
     @include border-radius($border-radius);
   }
   @mixin personal-bg {
-    background-image: url("../../../static/img/personal.svg");
+    background-image: $personal;
   }
   @mixin personal-active {
-    background-image: url("../../../static/img/personal_hover.svg");
+    background-image: $personal_hover;
   }
   @mixin home-bg {
-    background-image: url("../../../static/img/home.svg");
+    background-image: $home;
   }
   @mixin home-active {
-    background-image: url("../../../static/img/home_hover.svg");
+    background-image:$home_hover ;
   }
   @mixin xianhuo-bg {
-    background-image: url("../../../static/img/xhjy.svg");
+    background-image: $xhjy;
   }
   @mixin xianhuo-active {
-    background-image: url("../../../static/img/xhjy_hover.svg");
+    background-image: $xhjy_hover;
   }
   @mixin zidong-bg {
-    background-image: url("../../../static/img/zdjy.svg");
+    background-image: $zdjy;
   }
   @mixin zidong-active {
-    background-image: url("../../../static/img/zdjy_hover.svg");
+    background-image: $zdjy_hover;
   }
 
   @mixin guoji-bg {
-    background-image: url("../../../static/img/GJHQ.svg");
+    background-image: $GJHQ;
   }
   @mixin guoji-active {
-    background-image: url("../../../static/img/gjhq_hover.svg");
+    background-image: $gjhq_hover;
   }
   @mixin shouquan-bg {
-    background-image: url("../../../static/img/sqbd.svg");
+    background-image: $sqbd;
   }
   @mixin shouquan-active {
-    background-image: url("../../../static/img/sqbd_hover.svg");
+    background-image: $sqbd_hover;
   }
   @mixin zhsz-bg {
-    background-image: url("../../../static/img/zhsz.svg");
+    background-image: $zhsz;
   }
   @mixin zhsz-active {
-    background-image: url("../../../static/img/zhsz_hover.svg");
+    background-image: $zhsz_hover;
   }
   @mixin mored-bg {
-    background-image: url("../../../static/img/GD.svg");
+    background-image: $GD;
   }
   @mixin mored-active {
-    background-image: url("../../../static/img/gd_hover.svg");
+    background-image: $gd_hover;
   }

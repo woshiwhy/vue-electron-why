@@ -137,7 +137,7 @@ const cn = {
         currencyName: '搜索币对',
         seekBazzer: '请输入查找的交易所',
         planName: '新建策略名称',
-        seekPlan: '请输入查找的方案',
+        seekPlan: '请输入查找的策略',
         SelectDate: '选择日期'
     },
     // 按钮

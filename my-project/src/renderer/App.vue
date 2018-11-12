@@ -56,7 +56,7 @@
   }
 </script>
 <style lang="scss" rel="stylesheet/scss">
-    @import "./assets/scss/app.scss";
+    @import "@/assets/scss/app.scss";
     .visit-box{
         position: relative;
         text-align: center;
@@ -69,7 +69,7 @@
     }
     .downClass>.el-dialog__header{
         height: 113px!important;
-        background: url("../../static/img/down.png")no-repeat;
+        background: $down no-repeat;
         background-size: 100%;
     }
     .downClass>.el-dialog__body{

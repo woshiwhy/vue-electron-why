@@ -10,7 +10,7 @@
         <robotbind-box></robotbind-box>
       </div>
     </el-aside>
-    <main-box></main-box>
+    <main-box style=" overflow: auto!important"></main-box>
   </el-container>
 </template>
 <style scoped>

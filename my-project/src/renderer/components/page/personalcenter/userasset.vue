@@ -74,6 +74,10 @@
         line-height: 0.28rem;
         color: #0098ff
     }
+    /*隐藏elementUI表格暂无数据*/
+    .infor-cat .el-table__empty-block {
+        display: none;
+    }
 </style>
 <script>
     import ChilderNav from '&/wordnav'

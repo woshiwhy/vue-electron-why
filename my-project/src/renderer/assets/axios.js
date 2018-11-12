@@ -202,7 +202,14 @@ let postObj = { // 币对推荐接口
     method: 'get',
     url: '/userSite/unbind/' + data,
     loding: true
-  })
+  }),
+    //订单详情
+    orderList: (data) => $axios({
+    method: 'post',
+    url: 'userOrder/query/page',
+    data: data
+ }),
 };
+
 
 export { webSocketOBj, axiosLogin, postObj}
