@@ -39,7 +39,7 @@
           </div>
         </div>
         <div style="margin-top: 15px;display: flex" class="ivitcode">
-          <p class="border-Ipt"><input type="text" v-model="taskData.inviteUrl" id="text"></p>
+          <p class="border-Ipt"><input type="text" v-model="taskData.inviteUrl" ref="copeText"></p>
           <el-button type="primary" size="medium" class="oncopy" @click="onCopy()">
             {{$t("task.copyLink")}}
           </el-button>
@@ -349,9 +349,7 @@
       },
       //  复制邀请码
       onCopy() {
-        let input = document.getElementById("text");
-        input.value = this.taskData.inviteUrl; // 修改文本框的内容
-        input.select(); // 选中文本
+        this.$refs.copeText.select(); // 选中文本
         document.execCommand("copy"); // 执行浏览器复制命令
         this.$messageTitle('复制成功', "success")
       },

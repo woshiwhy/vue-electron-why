@@ -5,7 +5,7 @@
                 value="">
         </el-option>
         <el-option
-                v-for="item in optionList"
+                v-for="item in selectOption"
                 :key="item[type]"
                 :label="item[labelName]"
                 :value="item[type]">
@@ -22,7 +22,7 @@
 </style>
 <script>
     export default {
-        props:['selectOption','type','labelName','allName','name'],
+        props:['selectOption','type','labelName','allName','name'],//selectOption=select选中项。type=取值字段。labelName=选项展示字段。name=传产字段
         data () {
             return {
                 selectVal:''
@@ -34,12 +34,9 @@
             }
         },
         computed:{
-            optionList(){
-                    return  this.selectOption
-            },
             orderList(){
                 return this.$store.state.orderList;
-            },
+            }
         },
         beforeDestroy(){
             if(this.type=='id') {
@@ -52,17 +49,16 @@
                     case 'val': //交易类型
                         this.$emit('tradeType',ref);
                         this.orderList.siteId='';
-                        this.orderList.strategyName='';
+                        this.orderList.strategyName=''; //清空模糊搜索。
                         this.orderList.symbol='';//选择交易所就清空币对
                         this.orderList.current=1;
+                        this.$store.dispatch('selectBazzer', []);
                         break;
                     case 'id'://交易所选择
                         this.activeBazzer(ref);
                         this.orderList.symbol='';//选择交易所就清空币对
                         this.orderList.current=1;
                         break;
-                    case 'uniteSymbol'://币对选择
-                        break
                 }
             },
             activeBazzer(data){
