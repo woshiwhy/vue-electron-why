@@ -114,7 +114,7 @@
                         this.loadingType = false;
                         this.$messageTitle('网络错误，请稍后重试', 'error')
                     })
-                },2000)
+                },1000)
 
             },
             handleCurrentChange(page){

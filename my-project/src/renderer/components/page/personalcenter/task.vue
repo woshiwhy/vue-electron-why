@@ -43,7 +43,7 @@
           <el-button type="primary" size="medium" class="oncopy" @click="onCopy()">
             {{$t("task.copyLink")}}
           </el-button>
-          <el-button size="medium" plain class="generate" @click="showImg()">{{viewQRcode}}</el-button>
+          <el-button size="medium" plain class="generate" @click="qrcode=true">{{viewQRcode}}</el-button>
         </div>
 
         <div class="taskh3 taskbtom">
@@ -72,10 +72,10 @@
             :visible.sync="qrcode"
             top="0"
             center>
-      <div class="imgBox" v-loading="loadingImg" element-loading-text="海报拼命加载中">
-        <a :href="imgVal" download v-if="loadingImg == false">
+      <div class="imgBox">
+        <a :href="imgUrl" download>
           <el-tooltip class="item" effect="light" content="点击下载海报" placement="left">
-            <img :src="imgVal" alt="" width="400">
+            <img :src="imgUrl" alt="" width="400">
           </el-tooltip>
         </a>
       </div>
@@ -248,6 +248,7 @@
   import mailMound from "~/personalcenter/maillayer";
   import PhoneMound from "~/personalcenter/phonelayer";
   import singIn from "~/personalcenter/singin";
+  import ceshiImg from "^/ceshi.jpg";
 
   export default {
     components: {
@@ -255,20 +256,28 @@
       'PhoneMound-box': PhoneMound,
       'singIn-box': singIn
     },
-    props: [ 'qrCode', 'imgUrl'],
     data() {
       return {
-        imgVal: '',
         emailVisible: false,
         phoneVisible: false,
         qrcode: false,
-        loadingImg: false,
         singInVisible: false,
         singinTitle: '',
         active: 0,
       }
     },
+      created(){
+          if(!this.basicData.length){
+              this.basicTasks();
+          }
+          if(!this.taskData.myIntegral){
+              this.userIntegral();
+          }
+      },
     computed: {
+        imgUrl(){//二维码地址
+            return this.$store.state.inviteUrl;
+        },
         basicData(){ //基本任务
             return this.$store.state.userTasks;
         },
@@ -284,7 +293,6 @@
       ivintData() {
         let ivintMl = [
           {title: this.$t('task.rule1')},
-          {title: this.$t('task.rule2')},
           {title: this.$t('task.rule3')}
         ];
         return ivintMl
@@ -293,16 +301,31 @@
         return this.$t('task.viewQRcode')
       },
     },
-    updated() {
-      this.coedeBg()
-    },
+
     methods: {
-      coedeBg() {  //  带海报的二维码
+        // 基本任务
+        basicTasks() {
+            this.$loginAjax.basicTasks({}).then((res) => {
+                if (res.data.code == 200) {
+                    this.$store.dispatch('userTasks',res.data.data)
+                }
+            })
+        },
+        // 获取用户积分
+        userIntegral() {
+            this.$loginAjax.userIntegral().then((res) => {
+                if (res.data.code == 200) {
+                    this.$store.dispatch('integral',res.data.data);
+                    this.coedeBg(res.config.baseURL + '/qrCode/create?' + 'content=' + this.taskData.inviteUrl);
+                }
+            })
+        },
+      coedeBg(coedUrl) {  //  带海报的二维码
         let canvas = document.createElement("canvas");
         let codeImg = new Image();
         let imgBg = new Image();
         codeImg.setAttribute("crossOrigin", 'anonymous');  // 跨域请求图片
-        imgBg.src = "./static/img/ceshi.jpg";
+        imgBg.src = ceshiImg;
         codeImg.onload = () => {
           canvas.width = 700;
           canvas.height = 1575;
@@ -310,18 +333,13 @@
           canvasBox.drawImage(imgBg, 0, 0, 700, 1575); //绘制图像进行拉伸
           canvasBox.drawImage(codeImg, 510, 1270, 150, 150);
           var dataURL = canvas.toDataURL('image/png');
-          this.imgVal = dataURL;
+            this.$store.dispatch('inviteUrl',dataURL);
         };
-        codeImg.src = this.imgUrl;
-      },
-      //显示海报
-      showImg() {
-        this.qrcode = true;
-        (this.imgVal != '' && this.imgUrl != '') ? this.loadingImg = false : this.loadingImg = true;
+        codeImg.src = coedUrl;
       },
       //对基本任务完成度排序:
       sortByKey(array, key) {
-          if(array.length != 0){ //如果基本任务为空，就不排序
+          if(array.length){ //如果基本任务为空，就不排序
               return array.sort(function (a, b) {
                   var x = a[key];
                   var y = b[key];
@@ -340,10 +358,10 @@
       unDone(index) {
         switch (index) {
           case 'SINGLE_PHONE_PERFECT':
-            this.phoneVisible = true
+            this.phoneVisible = true;
             break;
           case 'SINGLE_EMAIL_PERFECT':
-            this.emailVisible = true
+            this.emailVisible = true;
             break;
           case 'DAILY_SIGN':
             this.userSign();
@@ -388,7 +406,7 @@
           if (res.data.code == 200) {
             this.active = res.data.data
             this.singinTitle = '已连续签到' + this.active + '天';
-            this.$store.dispatch('activeDay', this.active)// 存储连续签到天数
+            this.$store.dispatch('activeDay', this.active);// 存储连续签到天数
             this.singInVisible = true;
           }
         }).catch((err) => {
@@ -399,7 +417,7 @@
       userSign() {
         this.$loginAjax.userSign({}).then((res) => {
           if (res.data.code == 200) {
-            this.$messageTitle(res.data.msg, "success")
+            this.$messageTitle(res.data.msg, "success");
             for (var i = 0; i < this.basicData.length; i++) {
               if (this.basicData[i].planType == "DAILY_SIGN") {
                 this.basicData[i].status = 1;

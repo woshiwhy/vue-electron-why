@@ -25,6 +25,7 @@ const store = new Vuex.Store({
     },//用户信息
     userTasks:[],//用户基本任务
     integral:{},//用户积分
+      inviteUrl:'',//二维码地址
     activeDay:'',//连续签到天数
     webSocket: '',//webSocket对象
     bazzer: [],//市场
@@ -44,6 +45,9 @@ const store = new Vuex.Store({
       }
   },
   mutations: {
+      inviteUrl(state, msg){
+    state.inviteUrl = msg;
+},
       orderList(state, msg){
           state.orderList = msg;
       },
@@ -81,6 +85,9 @@ const store = new Vuex.Store({
 
   },
   actions: {
+      inviteUrl(context, payload) {
+    context.commit('inviteUrl', payload)
+},
       orderList(context, payload) {
       context.commit('orderList', payload)
    },

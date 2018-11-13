@@ -79,7 +79,7 @@ const cn = {
         auto: '自动交易',
         international: '国际行情',
         binding: '授权绑定',
-        account: '账户设置'
+        account: '个人中心'
     },
     // tab导航
     tabname: {

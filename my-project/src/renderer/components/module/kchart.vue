@@ -245,7 +245,7 @@ export default {
             {
               type: 'inside',
               xAxisIndex: [0, 1],
-              start: 38,
+              start: 20,
               filterMode: 'empty', // 防止折线乱掉
               end: 100,
               minSpan: 50
