@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2018/10/30.
  */
-import { dealStatus,dealName,executeStatus,messageList,orderType,cancellations} from "./config"
+import { dealStatus,dealName,executeStatus,messageList,orderType,cancellations,direction} from "./config"
 export default {
     filters: {
         $_filterDealType: (value) => {
@@ -22,5 +22,8 @@ export default {
         $_cancellations:(value) => {
             return cancellations[value]
         },
+        $_direction:(value) => {
+            return direction[value]
+        }
     }
 }

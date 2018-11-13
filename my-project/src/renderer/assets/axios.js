@@ -4,18 +4,18 @@
 import axios from 'axios'
 import { Loading } from 'element-ui'
 
-const axiosLogin = 'http://api.bitbus.club:10000/upms';// 登录注册接口
+const axiosLogin = 'http://api.bitbus.club/upms';// 登录注册接口
 //const axiosLogin='http://127.0.0.1:10006/upms';//登录注册接口
 const webSocketOBj = {
    //url:'ws://47.75.110.132:10006/hub',//webSocket对象地址
     //url:'ws://127.0.0.1:10006/hub',//webSocket对象地址
-    url: 'ws://api.bitbus.club:10000/hub', // webSocket对象地址
+    url: 'ws://api.bitbus.club/hub', // webSocket对象地址
   OutTime: 60000// 心跳
 
 };
 //const axiosUrl='http://127.0.0.1:10006/api';//舒服
 //const axiosUrl='http://47.75.110.132:10006/api';//舒服
-const axiosUrl = 'http://api.bitbus.club:10000/api'// 服务器
+const axiosUrl = 'http://api.bitbus.club/api'// 服务器
 
 const $axios = axios.create({
   baseURL: axiosUrl,

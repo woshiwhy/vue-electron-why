@@ -3,8 +3,8 @@ import { app, BrowserWindow, Menu, Tray, shell, ipcMain } from 'electron';
 const { autoUpdater } = require('electron-updater');
 const path = require('path');
 const url = require('url');
-const feedUrl = `http://47.106.254.63:88` ;// 更新包位置
-// const feedUrl = `http://bitbus.club:80` // 更新包位置
+//const feedUrl = `http://47.106.254.63:88` ;// 更新包位置
+ const feedUrl = `http://bitbus.club:80` // 更新包位置
 let login_Window,webContents,childWindow;
 //托盘对象
 let appTray = null;

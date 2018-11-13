@@ -62,13 +62,13 @@
             tableName () { // 成交历史
                 return [
                     {name: '订单类型', val: 'type'},
+                    {name: '方向', val: 'tradeType'},
                     {name: '委托时间', val: 'createTime'},
                     {name: '方案名称', val: 'remark'},
                     {name: '交易所', val: 'siteName'},
                     {name: '币对', val: 'symbol'},
                     {name: '数量', val: 'amount'},
                     {name: '单价', val: 'price'},
-                    {name: '交易额', val: 'tradeVolume'},
                     {name: '状态', val: 'status'},
                     ]
             },
@@ -114,14 +114,13 @@
                         this.loadingType = false;
                         this.$messageTitle('网络错误，请稍后重试', 'error')
                     })
-                },500)
+                },2000)
 
             },
             handleCurrentChange(page){
                 this.orderList.current=page
             },
             tradeTypeFun(data){//交易类型选择
-                let type=data.val;
                 switch (data){
                     case '0'://现货
                       this.strategyShow=false;

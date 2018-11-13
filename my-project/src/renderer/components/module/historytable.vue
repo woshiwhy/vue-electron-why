@@ -28,10 +28,12 @@
                         <span v-else-if="item.val=='type'">
                               {{scope.row[item.val] | $_orderType}}
                         </span>
+                        <span v-else-if="item.val=='tradeType'" :style="{'color':scope.row.tradeType=='0'?'green':'red'}">
+                              {{scope.row[item.val] | $_direction}}
+                        </span>
                         <span v-else>
                              {{scope.row[item.val] || '/'}}
                         </span>
-
                     </div>
                 </template>
             </el-table-column>

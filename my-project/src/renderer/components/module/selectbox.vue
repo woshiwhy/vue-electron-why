@@ -70,10 +70,10 @@
                 for(let v of bazzerList){
                     if(v.id==data){
                         this.$store.dispatch('selectBazzer',v);
-                        break;
+                       return
                     }
                 }
-
+                this.$store.dispatch('selectBazzer', [])
             }
         }
 

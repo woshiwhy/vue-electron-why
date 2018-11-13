@@ -1,6 +1,6 @@
 {
   "name": "Bitbus",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "author": "449641576@qq.com",
   "description": "币币对冲软件",
   "license": null,
@@ -30,7 +30,7 @@
     "publish": [
       {
         "provider": "generic",
-        "url": "http://47.106.254.63:88"
+        "url": "http://bitbus.club:80"
       }
     ],
     "dmg": {

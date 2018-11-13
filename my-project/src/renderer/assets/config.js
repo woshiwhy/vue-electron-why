@@ -34,8 +34,12 @@ const orderType={
     2:'平衡交易'
 };
 const cancellations={
-  0:'下单失败',
+    0:'下单失败',
     1:'下单成功',
     2:'撤单'
 };
-export{dealStatus,dealName,executeStatus,messageList,orderType,cancellations}
+const direction={
+    0:'买',
+    1:'卖',
+};
+export{dealStatus,dealName,executeStatus,messageList,orderType,cancellations,direction}
