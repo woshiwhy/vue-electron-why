@@ -98,4 +98,40 @@ $task-col:#999999;
   .myUnexecute{
     color: rgb(153, 153, 153)
   }
+  .memberBox h1,.memberBox h2{
+    color: #354b5a!important;
+  }
+  .memberBox p,.set-price{
+    color: #c0c4cc!important;
+  }
+  .member-card-tip{
+    background-color: #fedb75;
+    color: #354b5a;
+  }
+  .member-card{
+    border: solid 1px #f0f0f0;
+    background-color: #f7f7f7;
+  }
+  .settle-dialog label,.settle-dialog p,.settle-dialog .checkset span{
+    color: #c0c4cc;
+  }
+  .settle-dialog li>span,.tip-box h2,.tip-box p{
+    color: #354b5a;
+  }
+
+  .settle-dialog .checkset  .el-checkbox__inner{
+    background-color:#c0c4cc ;
+    border-color:#c0c4cc ;
+  }
+
+  .balance-dialog .el-table th{
+    background:none!important;
+    color: #606266!important;
+  }
+  .balance-dialog  .el-table__body .el-table__row td{
+    background:none!important;
+  }
+  .balance-dialog .el-pager li,.balance-dialog .el-pagination .btn-prev,.balance-dialog .el-pagination .btn-next{
+    background: none!important;
+  }
 }

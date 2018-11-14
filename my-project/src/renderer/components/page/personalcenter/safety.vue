@@ -55,7 +55,7 @@
     }
     .edit-btn{
         float: right;
-        color: #0098ff;
+        color: #0098ff!important;
         cursor: pointer;
     }
     .content-list {

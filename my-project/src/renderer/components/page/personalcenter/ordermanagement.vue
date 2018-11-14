@@ -116,9 +116,6 @@
                     })
                 },1000)
             },
-            handleCurrentChange(page){
-                this.orderList.current=page
-            },
             tradeTypeFun(data){//交易类型选择
                 switch (data){
                     case '0'://现货

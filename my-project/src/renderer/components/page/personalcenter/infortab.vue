@@ -9,6 +9,9 @@
                 <!--个人中心资产-->
                 <asset-Box :is="assetContent"></asset-Box>
             </el-tab-pane>
+            <el-tab-pane label='会员中心' name="memberCenter">
+                <memberCenter-Box :is="memberContent"></memberCenter-Box>
+            </el-tab-pane>
             <el-tab-pane :label='$t("task.task")' name="task">
                 <!-- 任务中心模块 -->
                 <task-Box :is="taskContent"></task-Box>
@@ -44,7 +47,6 @@
 
 </style>
 <script>
-
     import safety from '~/personalcenter/safety'
     import userasset from '~/personalcenter/userasset'
 
@@ -56,7 +58,8 @@
                 imgUrl: '', // 下载二维码
                 ordermanagement:'',
                 taskContent:'',
-                assetContent:''
+                assetContent:'',
+                memberContent:''
             }
         },
         components: {
@@ -84,6 +87,11 @@
             case 'asset':
                 this.assetContent=() => ({//账户知产
                     component:import('~/personalcenter/userasset')
+            });
+                break;
+            case 'memberCenter':
+                this.memberContent=() => ({//会员中心
+                    component:import('~/personalcenter/membercenter')
             });
                 break;
                 }

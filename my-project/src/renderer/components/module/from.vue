@@ -305,7 +305,7 @@
     props: ['fromVal', 'fromListch', 'changeFrom', 'noLable', 'btnName', 'checkType', 'remember', 'resfort', 'disableBtn', 'disabledVerfy', 'disabled'],
     data () {
       var phone = (rule, value, callback) => {
-        const myreg = /^[1][3,4,5,7,8][0-9]{9}$/
+        const myreg = /^[1][3,4,5,7,8,9][0-9]{9}$/
         if (!value) {
           return callback(new Error('请输入手机号'))
         } else if (!myreg.test(value)) {
@@ -391,7 +391,7 @@
       }
       var account = (rule, value, callback) => {
         const myreg = /^[0-9]*$/// 纯数字就验证手机，不是就验证邮箱
-        const phone = /^[1][3,4,5,7,8][0-9]{9}$/
+        const phone = /^[1][3,4,5,7,8,9][0-9]{9}$/
         const email = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
         if (!value) {
           return callback(new Error('输入手机或邮箱'))
