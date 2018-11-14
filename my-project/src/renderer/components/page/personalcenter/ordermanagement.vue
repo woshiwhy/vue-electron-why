@@ -100,17 +100,18 @@
         methods:{
             orderPost(obj){
                 clearTimeout(obj.throttle);
-                this.tableVal=[];
                 this.loadingType=true;
                 obj.throttle = setTimeout(() => {
                     this.$postAxios.orderList(this.orderList).then((res) => {
                         let dataVal = res.data;
+                        this.tableVal=[];
                         this.loadingType = false;
                         if (dataVal.code == 200) {
                             this.total = dataVal.data.total;
                             this.tableVal = dataVal.data.records;
                         }
                     }).catch((err) => {
+                        this.tableVal=[];
                         this.loadingType = false;
                         this.$messageTitle('网络错误，请稍后重试', 'error')
                     })

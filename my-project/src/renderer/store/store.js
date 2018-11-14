@@ -42,9 +42,13 @@ const store = new Vuex.Store({
           current:1,//页码
           size:'15'//每页条数
 
-      }
+      },
+      memberList:[]
   },
   mutations: {
+      memberList(state, msg){
+          state.memberList = msg;
+      },
       inviteUrl(state, msg){
     state.inviteUrl = msg;
 },
@@ -85,6 +89,9 @@ const store = new Vuex.Store({
 
   },
   actions: {
+      memberList(context, payload) {
+    context.commit('memberList', payload)
+},
       inviteUrl(context, payload) {
     context.commit('inviteUrl', payload)
 },

@@ -13,7 +13,7 @@
             <ul>
                 <li>
                     <label>开通时长</label>
-                    <span>{{settleInfor.tip2}}</span>
+                    <span>{{settleInfor.title}}</span>
                 </li>
                 <li>
                     <label>支付方式</label>
@@ -21,11 +21,11 @@
                 </li>
                 <li>
                     <label>应付金额</label>
-                    <span style="text-decoration:line-through">{{settleInfor.ja1}} 元</span>
+                    <span style="text-decoration:line-through">{{settleInfor.originalPrice}} 元</span>
                 </li>
                 <li>
                     <label>实付金额</label>
-                    <span class="amount-color">{{payPost.amount}}</span> 元
+                    <span class="amount-color">{{payPost.price}}</span> 元
                 </li>
                 <li>
                     <label>支付宝账号</label>
@@ -54,7 +54,7 @@
                 top="25vh"
                 center>
             <img :src="payUrl" class="payImg">
-            <p class="paytip">实付金额 <span class="amount-color">{{payPost.amount}}</span> 元</p>
+            <p class="paytip">实付金额 <span class="amount-color">{{payPost.price}}</span> 元</p>
             <div class="pay-btn">
                 <el-button   type="primary" @click=onpay>已支付</el-button>
             </div>
@@ -129,24 +129,24 @@
 <script>
     import ceshiImg from "^/infor/pay.png";
     export default {
-        props: ['settleInfor'],
+        props: ['settleInfor','integral'],
         data () {
             return {
                 centerDialogVisible:true,
                 payType:false,
                 payPost:{
-                    type:'',
-                    amount:'0',//实付金额
+                    id:this.settleInfor.id,
+                    price:'0',//实付金额
                     account:'',//支付宝账号
                     checked:false
                 },
 
-                integral:'777',
+                integralVal:this.integral,
                 payUrl:ceshiImg
             }
         },
         created () {
-            this.payPost.amount=this.settleInfor.ja1
+            this.payPost.price=this.settleInfor.price
         },
         methods: {
             close () {
@@ -159,8 +159,8 @@
                     return
                 }
                 if(data){//true勾选
-                    let numberPay=this.payPost.amount-this.integral;
-                    this.payPost.amount=numberPay<=0?0:numberPay;
+                    let numberPay=this.payPost.price-this.integral;
+                    this.payPost.price=numberPay<=0?0:numberPay;
                     return
                 }
                 this.payPost.amount=this.settleInfor.ja1;
@@ -170,7 +170,12 @@
                     this.$messageTitle('请输入支付宝账号', 'error');
                     return
                 }
-                if(!this.payPost.amount){
+                 this.billSucceed()
+
+            },
+            billSucceed(){//订单生成成功
+                this.$emit('integralChange',this.integralVal);//订单生成成功减去积分
+                if(!this.payPost.price){// 积分抵扣完不然弹二维码；
                     this.$messageTitle('支付成功', 'success');
                     this.close();
                     return

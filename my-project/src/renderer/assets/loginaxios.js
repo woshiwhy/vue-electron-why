@@ -10,32 +10,26 @@ const $loginaxios = axios.create({
     auth: ''
   }
 }
-)
-let editUrl = '/user/edit'
-let resetUrl = '/user/resetPassword'
-let uploadUrl = '/user/upload'
-let queryUrl = '/user/log/login/query'
-let getUserInfo = '/user/getUserInfo'
-let editusername = '/user/edit/username'
-let userIntegral = '/userIntegral/query'
-let qrCodeCreate = '/qrCode/create'
-let basicTasks = '/userIntegral/query/basicTasks'
-let userSign = '/userSign/sign'
-let signInfo = '/userSign/query/signInfo'
+);
+const $axiosInfor= axios.create({ //  登录过后
+    baseURL: axiosLogin,
+    timeout: 10000,
+    headers: {
+         Authorization: 'Bearer ' + localStorage.getItem('userToken')
+
+    }
+});
+
 
 $loginaxios.interceptors.request.use(config => {
   // 验证码登录
   if (config.url == '/user/loginForCode') {
     config.headers.auth = 'Basic d2ViQXBwOndlYkFwcA=='
   }
-  // 用户修改接口 和上传 请求头加token
-  if (config.url == editUrl || config.url == resetUrl || config.url == uploadUrl || config.url == queryUrl || config.url == getUserInfo || config.url == editusername || config.url == userIntegral || config.url == qrCodeCreate || config.url == basicTasks || config.url == userSign || config.url == signInfo) {
-    config.headers.Authorization = 'Bearer ' + localStorage.getItem('userToken')
-  }
   return config
 }, (error) => {
   return Promise.reject(error)
-})
+});
 let loginAjax = {
   loginAxios: (data) => $loginaxios({
     method: 'post',
@@ -82,70 +76,83 @@ let loginAjax = {
     url: '/user/sendForgetVerifyCode/' + data
   }),
   // 修改密码
-  resetPassword: (data) => $loginaxios({
+  resetPassword: (data) => $axiosInfor({
     method: 'post',
     url: '/user/resetPassword',
     data: data
   }),
   // 修改用手机邮箱
-  editname: (data) => $loginaxios({
+  editname: (data) => $axiosInfor({
     method: 'post',
     url: '/user/edit/username',
     data: data
   }),
   // 修改用户信息
-  edit: (data) => $loginaxios({
+  edit: (data) => $axiosInfor({
     method: 'post',
     url: '/user/edit',
     data: data
   }),
   // 上传头像
-  setImage: (data) => $loginaxios({
+  setImage: (data) => $axiosInfor({
     method: 'post',
     url: '/user/upload',
     data: data
   }),
   // 获取用户信息
-  getUserIfor: (data) => $loginaxios({
+  getUserIfor: (data) => $axiosInfor({
     method: 'get',
     url: '/user/getUserInfo',
     data: data
   }),
   // 登录记录
-  loginQuery: (data) => $loginaxios({
+  loginQuery: (data) => $axiosInfor({
     method: 'post',
     url: '/user/log/login/query',
     data: data
   }),
   //  用户积分查询
-  userIntegral: (data) => $loginaxios({
+  userIntegral: (data) => $axiosInfor({
     method: 'get',
     url: '/userIntegral/query',
     data: data
   }),
   //  基本任务
-  basicTasks: (data) => $loginaxios({
+  basicTasks: (data) => $axiosInfor({
     method: 'get',
     url: '/userIntegral/query/basicTasks',
     data: data
   }),
   /// 每日签到
-  userSign: (data) => $loginaxios({
+  userSign: (data) => $axiosInfor({
     method: 'get',
     url: '/userSign/sign',
     data: data
   }), /// 每日签到
-  signInfo: (data) => $loginaxios({
+  signInfo: (data) => $axiosInfor({
     method: 'get',
     url: '/userSign/query/signInfo',
     data: data
   }),
   //  创造二维码
-  qrCodeCreate: (data) => $loginaxios({
+  qrCodeCreate: (data) => $axiosInfor({
     method: 'get',
     url: '/qrCode/create' + data,
     data: data
-  })
+  }),
+    memberInfo:(data) => $axiosInfor({  // 会员信息
+        method: 'get',
+        url: '/userState/query/memberInfo',
+    }),
 
-}
+    memberList:(data) => $axiosInfor({  //会员菜单
+        method: 'get',
+        url: '/memberPackage/query',
+    }),
+    expenseDetail:(data) => $axiosInfor({  //会员菜单
+        method: 'post',
+        url: '/userPaymentOrder/query/page',
+        data:data
+    }),
+};
 export {loginAjax}

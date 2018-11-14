@@ -55,7 +55,7 @@
     },
     methods: {
       onSubmit () {
-        this.$loginAjax.loginQuery({}).then((res) => {
+        this.$loginAjax.loginQuery().then((res) => {
           if (res.data.code == 200) {
             this.tableData = res.data.data
           } else {

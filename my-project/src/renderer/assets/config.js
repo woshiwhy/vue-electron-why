@@ -42,4 +42,7 @@ const direction={
     0:'买',
     1:'卖',
 };
-export{dealStatus,dealName,executeStatus,messageList,orderType,cancellations,direction}
+const memberType={
+    0:'会员开通'
+};
+export{dealStatus,dealName,executeStatus,messageList,orderType,cancellations,direction,memberType}

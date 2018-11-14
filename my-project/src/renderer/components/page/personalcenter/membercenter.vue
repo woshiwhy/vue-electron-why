@@ -3,7 +3,7 @@
            <div class="member-infor">
                 <ul>
                     <li>
-                        会员时效：{{time}}
+                        会员时效：{{memberInfor}}
                     </li>
                     <li style="margin: 0.1rem 0">
                         账户余额：{{balance}}
@@ -21,14 +21,14 @@
                 <div style="padding: 0 0.16rem;display:inline-block;" v-for="(item,index) in memberList" :key="index">
                     <div class="member-card" >
                         <h2>{{item.title}}</h2>
-                        <p>{{item.tip}}</p>
+                        <p>{{item.content}}</p>
                         <div style=" color: #ff415c">
-                            ￥<span class="actual-price">{{item.ja1}}</span>
-                            <span class="set-price">￥{{item.ja2}}</span>
+                            ￥<span class="actual-price">{{item.price}}</span>
+                            <span class="set-price">￥{{item.originalPrice}}</span>
                         </div>
                         <div class="member-card-tip">限时优惠</div>
                         <el-button   type="primary" @click="settle(item)">立即开通</el-button>
-                        <p>{{item.tip2}}</p>
+                        <p>有效期{{item.validMonth}}个月</p>
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
             <P>生效时间：会员到账时间可能会有延迟，一般1-2个工作日内到账。</P>
         </div>
         <balanceTable-box v-if="tableType" @close="tableType=false"></balanceTable-box>
-        <balancesettle-box :settleInfor="settleInfor" v-if="settleType" @close="settleType=false"></balancesettle-box>
+        <balancesettle-box :settleInfor="settleInfor" @integralChange="integralChange" :integral="integral" v-if="settleType" @close="settleType=false"></balancesettle-box>
     </div>
 </template>
 <style lang="scss" rel="stylesheet/scss">
@@ -147,35 +147,62 @@
             return {
                 tableType:false,
                 settleType:false,
-                time:'你嗨不是会员',
+                memberInfor:'未开通会员',
                 settleInfor:"",
                 balance:0,
-                integral:500,
-                memberList:[
-                    {
-                        title:'半年卡',
-                        tip:"w我是半年卡的告诉",
-                        ja1:'2000',
-                        ja2:'4000',
-                        tip2:'有效期8个月'
-                    },
-                    {
-                        title:'半年卡',
-                        tip:"w我是半年卡的告诉",
-                        ja1:'2000',
-                        ja2:'4000',
-                        tip2:'有效期8个月'
-                    }
-                ]
+                integral:0,
+                memberList:[]
             }
         },
         components: {
             'balanceTable-box':balancelaye,
             'balancesettle-box':membersettle
         },
+        computed:{
+            memberData(){
+                return this.$store.state.memberList
+            }
+        },
+        created(){
+                this.memberPost();
+                if(this.memberData.length){
+                    this.memberList=this.memberData;
+                    return
+                }
+            this.memberListPOst()
+        },
         methods:{
+            integralChange(data){
+                this.integral=this.integral-data
+            },
+            memberPost(){
+                this.$loginAjax.memberInfo ().then((res) => {
+                    let dataVal=res.data.data;
+                    if (res.data.code == 200) {
+                        this.balance=dataVal.balance;//账号余额；
+                        this.integral=dataVal.integral;//账号积分；
+                       switch (dataVal.validState){ //0未开通，1开通，2已过期
+                           case 1:
+                               this.memberInfor=dataVal.validDate;//开通时效
+                               break;
+                           case 2:
+                               this.memberInfor='会员已过期'
+                       }
+
+                    }
+                })
+            },
+            memberListPOst(){
+                this.$loginAjax.memberList ().then((res) => {
+                    let dataVal=res.data.data;
+                    if (res.data.code == 200) {
+                        this.$store.dispatch('memberList', dataVal);
+                        this.memberList=dataVal
+                    }
+                })
+            },
             settle(data){
-                console.log(data)
+                console.log(data);
                 this.settleInfor=data;
                 this.settleType=true;
             }
