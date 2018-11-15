@@ -40,7 +40,8 @@
             <P>生效时间：会员到账时间可能会有延迟，一般1-2个工作日内到账。</P>
         </div>
         <balanceTable-box v-if="tableType" @close="tableType=false"></balanceTable-box>
-        <balancesettle-box :settleInfor="settleInfor" @integralChange="integralChange" :integral="integral" v-if="settleType" @close="settleType=false"></balancesettle-box>
+        <balancesettle-box :settleInfor="settleInfor" @integralChange="integralChange" @blanceNumber="blanceNumber"
+                           :balance="balance" :integral="integral" v-if="settleType" @close="settleType=false"></balancesettle-box>
     </div>
 </template>
 <style lang="scss" rel="stylesheet/scss">
@@ -173,7 +174,10 @@
         },
         methods:{
             integralChange(data){
-                this.integral=this.integral-data
+                this.integral=data
+            },
+            blanceNumber(data){
+                this.balance=data
             },
             memberPost(){
                 this.$loginAjax.memberInfo ().then((res) => {
@@ -188,7 +192,6 @@
                            case 2:
                                this.memberInfor='会员已过期'
                        }
-
                     }
                 })
             },
@@ -202,7 +205,6 @@
                 })
             },
             settle(data){
-                console.log(data);
                 this.settleInfor=data;
                 this.settleType=true;
             }

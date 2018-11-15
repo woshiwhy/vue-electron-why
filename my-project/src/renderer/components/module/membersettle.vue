@@ -20,11 +20,15 @@
                     <span>支付宝</span>
                 </li>
                 <li>
-                    <label>应付金额</label>
-                    <span style="text-decoration:line-through">{{settleInfor.originalPrice}} 元</span>
+                    <label>账户余额</label>
+                    <span>{{balance}}元</span>
                 </li>
                 <li>
-                    <label>实付金额</label>
+                    <label>应付金额</label>
+                    <span style="text-decoration:line-through">{{settleInfor.price}} 元</span>
+                </li>
+                <li>
+                    <label>还需支付</label>
                     <span class="amount-color">{{payPost.price}}</span> 元
                 </li>
                 <li>
@@ -129,26 +133,36 @@
 <script>
     import ceshiImg from "^/infor/pay.png";
     export default {
-        props: ['settleInfor','integral'],
+        props: ['settleInfor','integral','balance'],//integral=积分;balance==余额
         data () {
             return {
                 centerDialogVisible:true,
                 payType:false,
                 payPost:{
                     id:this.settleInfor.id,
-                    price:'0',//实付金额
+                    payableAmount:'0',//实付金额
                     account:'',//支付宝账号
                     checked:false
                 },
 
-                integralVal:this.integral,
+                integralVal:this.integral,//积分
+                remainingSum:this.integral,//积分余额
+                balanceSum:this.balance,//账户余额
                 payUrl:ceshiImg
             }
         },
         created () {
-            this.payPost.price=this.settleInfor.price
+            this.createdSum()
         },
         methods: {
+            createdSum(){
+                let sum=this.settleInfor.price-this.balance; //  实付金额=应付金额-账户余额；
+                if(sum<=0){
+                    this.payPost.payableAmount=0;
+                    return
+                }
+                this.payPost.payableAmount=sum
+            },
             close () {
                 this.$emit('close')
             },
@@ -158,12 +172,26 @@
                     this.$messageTitle('积分不足500分，不能进行抵扣', 'error');
                     return
                 }
-                if(data){//true勾选
-                    let numberPay=this.payPost.price-this.integral;
-                    this.payPost.price=numberPay<=0?0:numberPay;
+                if(data){//true勾选，先扣积分，后扣余额
+                    let numberPay=this.settleInfor.price-this.integral;//使用积分。
+                    if(numberPay<0){//小于0，应付金额为0；积分还有剩余
+                        this.payPost.payableAmount=0;
+                        this.remainingSum=Math.abs(numberPay);//获取积分余额
+                        return
+                    }
+                    //大于等于0积分用完。扣除余额
+                    let payBlance=numberPay-this.balance;
+                    this.remainingSum=0;
+                    if(payBlance<0){//小于0，应付金额为0；余额还有剩余
+                        this.payPost.price=0;
+                        this.balanceSum=Math.abs(payBlance);//获取账户余额
+                        return
+                    }
+                    this.payPost.payableAmount=payBlance;
                     return
                 }
-                this.payPost.amount=this.settleInfor.ja1;
+                //不是用积分，实付余额=应付金额-账户余额；
+                this.createdSum()
             },
             settle(){   // 生成订单，显示二维码
                 if(!this.payPost.account){
@@ -171,11 +199,16 @@
                     return
                 }
                  this.billSucceed()
-
             },
             billSucceed(){//订单生成成功
-                this.$emit('integralChange',this.integralVal);//订单生成成功减去积分
-                if(!this.payPost.price){// 积分抵扣完不然弹二维码；
+                let balanceNumber=this.balanceSum;//账户余额
+                if(!this.payPost.checked){//未使用积分
+                    let balcnceVal=balanceNumber-this.settleInfor.price;//
+                    balanceNumber=balcnceVal>=0?balcnceVal:0
+                }
+                this.$emit('integralChange',this.remainingSum);//订单生成获取积分余额
+                this.$emit('blanceNumber',balanceNumber);//订单生成成功,获取账户
+                if(!this.payPost.payableAmount){// 积分加余额抵扣完直接开通，价格为0时；
                     this.$messageTitle('支付成功', 'success');
                     this.close();
                     return

@@ -78,8 +78,8 @@
                         "data":'type'
                     },
                     {
-                        "name":'金额',
-                        "data":'payMoney'
+                        "name":'实付金额',
+                        "data":'payAmount'
                     },
                     {
                         'name':'消耗积分',
