@@ -154,5 +154,15 @@ let loginAjax = {
         url: '/userPaymentOrder/query/page',
         data:data
     }),
+    openMember:(data) => $axiosInfor({  //订单生成
+        method: 'post',
+        url: '/userPaymentOrder/openMember',
+        data:data
+    }),
+    confirmPayment:(data) => $axiosInfor({  //已支付
+        method: 'get',
+        url: '/userPaymentOrder/confirmPayment/'+data,
+    }),
+
 };
 export {loginAjax}

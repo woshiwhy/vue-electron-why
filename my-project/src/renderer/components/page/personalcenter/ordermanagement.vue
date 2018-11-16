@@ -97,6 +97,17 @@
                 deep: true
             }
         },
+        beforeDestroy(){
+            this.$store.dispatch('orderList', { //  订单管理
+                siteId:'',//站点
+                strategyName:'',//方案名称
+                symbol:'',//币种
+                type:'',//订单类型
+                current:1,//页码
+                size:'15'//每页条数
+
+            })
+        },
         methods:{
             orderPost(obj){
                 clearTimeout(obj.throttle);

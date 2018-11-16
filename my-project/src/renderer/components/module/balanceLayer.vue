@@ -18,10 +18,14 @@
                         show-overflow-tooltip
                         type="item.val"
                         :prop="item.data"
+                        :width="item.width"
                         :label="item.name">
                     <template slot-scope="scope">
                         <span slot="reference" v-if="item.data=='type'">
                            {{scope.row[item.data] | $_memberType}}
+                        </span>
+                        <span slot="reference" v-else-if="item.data=='status'">
+                           {{scope.row[item.data] | $_balanceType}}
                         </span>
                         <span v-else>
                              {{scope.row[item.data]}}
@@ -34,7 +38,7 @@
                 style="text-align: center;"
                 layout="prev, pager, next"
                 :page-size="tablePost.size"
-                :current-page.sync="tablePost.current"
+                :current-page.sync="tablePost.page.current"
                 :total="total">
         </el-pagination>
     </el-dialog>
@@ -62,28 +66,45 @@
         data () {
             return {
                 tablePost:{
-                    size:10,
-                    current:1
+                    page:{
+                        current: 1,
+                        size: 10
+                    }
                 },
                 total:0,
                 tableValInfor:[],
                 loadingType:false,
                 centerDialogVisible: true,
-                tableName:[{
+                tableName:[
+                    {
+                        "name":'类型',
+                        "data":'type',
+                        width:'100'
+                    },
+                    {
                     "name":'时间',
                     "data":'createTime'
                 },
+
                     {
-                        "name":'类型',
-                        "data":'type'
+                        "name":'实付金额',
+                        "data":'payableAmount',
+                        width:'80'
                     },
                     {
                         "name":'实付金额',
-                        "data":'payAmount'
+                        "data":'payAmount',
+                        width:'80'
                     },
                     {
                         'name':'消耗积分',
-                        "data":'consumeIntegral'
+                        "data":'consumeIntegral',
+                        width:'80'
+                    },
+                    {
+                        'name':'状态',
+                        "data":'status',
+                        width:'100'
                     }
                 ]
             }

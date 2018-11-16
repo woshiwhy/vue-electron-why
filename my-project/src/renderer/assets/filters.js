@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2018/10/30.
  */
-import { dealStatus,dealName,executeStatus,messageList,orderType,cancellations,direction,memberType} from "./config"
+import { dealStatus,dealName,executeStatus,messageList,orderType,cancellations,direction,memberType,balanceType} from "./config"
 export default {
     filters: {
         $_filterDealType: (value) => {
@@ -27,6 +27,9 @@ export default {
         },
         $_memberType:(value) => {
             return memberType[value]
-        }
+        },
+        $_balanceType:(value) => {
+         return balanceType[value]
+       },
     }
 }

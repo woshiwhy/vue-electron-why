@@ -45,4 +45,10 @@ const direction={
 const memberType={
     0:'会员开通'
 };
-export{dealStatus,dealName,executeStatus,messageList,orderType,cancellations,direction,memberType}
+const balanceType={
+    0:'未支付',
+    1:'未审核',
+    2:'已通过',
+    3:'未通过',
+}
+export{dealStatus,dealName,executeStatus,messageList,orderType,cancellations,direction,memberType,balanceType}

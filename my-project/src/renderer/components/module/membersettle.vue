@@ -29,16 +29,16 @@
                 </li>
                 <li>
                     <label>还需支付</label>
-                    <span class="amount-color">{{payPost.price}}</span> 元
+                    <span class="amount-color">{{payPost.payableAmount}}</span> 元
                 </li>
                 <li>
                     <label>支付宝账号</label>
-                    <el-input  v-model="payPost.account" placeholder="请输入支付宝账号">
+                    <el-input  v-model="payPost.payAccount" placeholder="请输入支付宝账号">
                     </el-input>
                 </li>
             </ul>
             <div class="checkbox">
-                <el-checkbox  v-model="payPost.checked" class="checkset" @change="checkChange"  >&nbsp;可用{{integral}}积分抵扣{{integral}}现金</el-checkbox>
+                <el-checkbox  v-model="payPost.useIntegral" class="checkset" @change="checkChange"  >&nbsp;可用{{integral}}积分抵扣{{integral}}现金</el-checkbox>
                 <el-button   type="primary" @click="settle">立即开通</el-button>
             </div>
 
@@ -58,7 +58,7 @@
                 top="25vh"
                 center>
             <img :src="payUrl" class="payImg">
-            <p class="paytip">实付金额 <span class="amount-color">{{payPost.price}}</span> 元</p>
+            <p class="paytip">实付金额 <span class="amount-color">{{payPost.payableAmount}}</span> 元</p>
             <div class="pay-btn">
                 <el-button   type="primary" @click=onpay>已支付</el-button>
             </div>
@@ -139,12 +139,13 @@
                 centerDialogVisible:true,
                 payType:false,
                 payPost:{
-                    id:this.settleInfor.id,
+                    memberPackageId:this.settleInfor.id,
                     payableAmount:'0',//实付金额
-                    account:'',//支付宝账号
-                    checked:false
+                    payAccount:'',//支付宝账号
+                    useIntegral:false,
+                    payMode:0,//支付类型0支付宝
                 },
-
+                memberId:'',//订单ID
                 integralVal:this.integral,//积分
                 remainingSum:this.integral,//积分余额
                 balanceSum:this.balance,//账户余额
@@ -168,7 +169,7 @@
             },
             checkChange(data){
                 if(this.integral<500&&data){
-                    this.payPost.checked=false;
+                    this.payPost.useIntegral=false;
                     this.$messageTitle('积分不足500分，不能进行抵扣', 'error');
                     return
                 }
@@ -183,7 +184,7 @@
                     let payBlance=numberPay-this.balance;
                     this.remainingSum=0;
                     if(payBlance<0){//小于0，应付金额为0；余额还有剩余
-                        this.payPost.price=0;
+                        this.payPost.payableAmount=0;
                         this.balanceSum=Math.abs(payBlance);//获取账户余额
                         return
                     }
@@ -194,15 +195,25 @@
                 this.createdSum()
             },
             settle(){   // 生成订单，显示二维码
-                if(!this.payPost.account){
+                if(!this.payPost.payAccount){
                     this.$messageTitle('请输入支付宝账号', 'error');
                     return
                 }
-                 this.billSucceed()
+
+                this.$loginAjax.openMember(this.payPost).then((res) => {
+                    if(res.data.code==200){
+                        this.billSucceed();
+                        this.memberId=res.data.data;//积分和余额够就直接开通，不够获取订单ID~
+                        return
+                    }
+                    this.$messageTitle(res.data.msg, 'error');
+                }).catch((err) => {
+                    this.$messageTitle('网络错误，请稍后再试', 'error')
+                })
             },
             billSucceed(){//订单生成成功
                 let balanceNumber=this.balanceSum;//账户余额
-                if(!this.payPost.checked){//未使用积分
+                if(!this.payPost.useIntegral){//未使用积分
                     let balcnceVal=balanceNumber-this.settleInfor.price;//
                     balanceNumber=balcnceVal>=0?balcnceVal:0
                 }
@@ -217,8 +228,17 @@
                 this.payType=true;
             },
             onpay(){//支付完成
-                this.$messageTitle('订单已生成，请耐心等待审核', 'success');
-                this.close();
+                this.$loginAjax.confirmPayment(this.memberId).then((res) => {
+                    if(res.data.code==200){
+                        this.$messageTitle('订单已生成，请耐心等待审核', 'success');
+                        this.close();
+                        return
+                    }
+                    this.$messageTitle(res.data.msg, 'error');
+                }).catch((err) => {
+                    this.$messageTitle('网络错误，请稍后再试', 'error')
+                });
+
             }
         }
     }
