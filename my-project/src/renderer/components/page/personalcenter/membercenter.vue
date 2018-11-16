@@ -40,7 +40,7 @@
             <P>生效时间：会员到账时间可能会有延迟，一般1-2个工作日内到账。</P>
         </div>
         <balanceTable-box v-if="tableType" @close="tableType=false"></balanceTable-box>
-        <balancesettle-box :settleInfor="settleInfor" @integralChange="integralChange" @blanceNumber="blanceNumber"
+        <balancesettle-box :settleInfor="settleInfor" @integralChange="integralChange" @blanceNumber="blanceNumber" @openmembersettle="openmembersettle"
                            :balance="balance" :integral="integral" v-if="settleType" @close="settleType=false"></balancesettle-box>
     </div>
 </template>
@@ -194,6 +194,9 @@
                        }
                     }
                 })
+            },
+            openmembersettle(){//直接开通
+                this.memberPost()
             },
             memberListPOst(){
                 this.$loginAjax.memberList ().then((res) => {

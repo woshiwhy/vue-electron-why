@@ -28,11 +28,6 @@
                 selectVal:''
             }
         },
-        created(){
-            if(this.type=='id'){
-                this.$store.dispatch('selectBazzer',this.selectOption[0])
-            }
-        },
         computed:{
             orderList(){
                 return this.$store.state.orderList;
@@ -72,6 +67,5 @@
                 this.$store.dispatch('selectBazzer', [])
             }
         }
-
     }
 </script>

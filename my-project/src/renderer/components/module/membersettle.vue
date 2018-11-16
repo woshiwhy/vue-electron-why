@@ -217,13 +217,14 @@
                     let balcnceVal=balanceNumber-this.settleInfor.price;//
                     balanceNumber=balcnceVal>=0?balcnceVal:0
                 }
-                this.$emit('integralChange',this.remainingSum);//订单生成获取积分余额
-                this.$emit('blanceNumber',balanceNumber);//订单生成成功,获取账户
                 if(!this.payPost.payableAmount){// 积分加余额抵扣完直接开通，价格为0时；
                     this.$messageTitle('支付成功', 'success');
+                    this.$emit('openmembersettle');
                     this.close();
                     return
                 }
+                this.$emit('integralChange',this.remainingSum);//订单生成获取积分余额
+                this.$emit('blanceNumber',balanceNumber);//订单生成成功,获取账户
                 this.centerDialogVisible=false;
                 this.payType=true;
             },
