@@ -5,7 +5,7 @@
       <li :class="{'active':item.active}" @click="navClick(item.href,index)">{{item.name}}</li>
     </template>
   </ul>
-  <router-view/>
+  <router-view />
 </div>
 
 </template>

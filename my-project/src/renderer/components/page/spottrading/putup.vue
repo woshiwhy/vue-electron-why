@@ -23,7 +23,7 @@ export default {
           {name: this.$t('tableheder.wtwtjg'), val: 'price'},
           {name: this.$t('tableheder.turnover'), val: 'fieldAmount'},
           {name: this.$t('tableheder.type'), val: 'status'},
-          {name: this.$t('tableheder.operation'), val: 'operation'}
+          {name: this.$t('tableheder.operation'), val: 'operation',width:'100'}
         ]
       },
       selectCurrenty () {

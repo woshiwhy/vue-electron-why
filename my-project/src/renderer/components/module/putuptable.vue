@@ -5,11 +5,13 @@
     :data="tableValInfor"
     height="7rem"
     v-loading="loadingType"
+    style="width: 100%"
     element-loading-background="rgba(0, 0, 0, 0)"
     stripe
   >
     <template v-for="(item,index) in tableName">
       <el-table-column
+              show-overflow-tooltip
         :width="item.width"
         :label="item.name">
         <template slot-scope="scope">

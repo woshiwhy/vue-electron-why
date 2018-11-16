@@ -51,7 +51,7 @@
                 </div>
             </div>
         </el-aside>
-        <main-box :is="mainCompent"></main-box>
+        <main-box :is="mainCompent" style=" overflow: auto!important;"></main-box>
     </el-container>
 </template>
 <style lang="scss" rel="stylesheet/scss" scoped>

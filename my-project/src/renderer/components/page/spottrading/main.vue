@@ -11,7 +11,7 @@
         <search-Box class="search-box"    @searchData="searchData"></search-Box>
       </div>
     </div>
-    <div class="small-box skin-bg bottom-box">
+    <div class="small-box skin-bg bottom-box" style="margin-bottom: 0">
       <tabcat-box style=" padding: 0 0.15rem;"></tabcat-box>
     </div>
   </el-main>
