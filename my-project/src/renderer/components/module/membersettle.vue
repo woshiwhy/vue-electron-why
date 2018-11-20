@@ -13,7 +13,7 @@
             <ul>
                 <li>
                     <label>开通时长</label>
-                    <span>{{settleInfor.title}}</span>
+                    <span>{{settleInfor.validMonth}}个月</span>
                 </li>
                 <li>
                     <label>支付方式</label>
@@ -177,15 +177,12 @@
                     let numberPay=this.settleInfor.price-this.integral;//使用积分。
                     if(numberPay<0){//小于0，应付金额为0；积分还有剩余
                         this.payPost.payableAmount=0;
-                        this.remainingSum=Math.abs(numberPay);//获取积分余额
                         return
                     }
                     //大于等于0积分用完。扣除余额
                     let payBlance=numberPay-this.balance;
-                    this.remainingSum=0;
                     if(payBlance<0){//小于0，应付金额为0；余额还有剩余
                         this.payPost.payableAmount=0;
-                        this.balanceSum=Math.abs(payBlance);//获取账户余额
                         return
                     }
                     this.payPost.payableAmount=payBlance;
@@ -199,7 +196,6 @@
                     this.$messageTitle('请输入支付宝账号', 'error');
                     return
                 }
-
                 this.$loginAjax.openMember(this.payPost).then((res) => {
                     if(res.data.code==200){
                         this.billSucceed();
@@ -212,19 +208,13 @@
                 })
             },
             billSucceed(){//订单生成成功
-                let balanceNumber=this.balanceSum;//账户余额
-                if(!this.payPost.useIntegral){//未使用积分
-                    let balcnceVal=balanceNumber-this.settleInfor.price;//
-                    balanceNumber=balcnceVal>=0?balcnceVal:0
-                }
+                this.$emit('openmembersettle');
                 if(!this.payPost.payableAmount){// 积分加余额抵扣完直接开通，价格为0时；
                     this.$messageTitle('支付成功', 'success');
-                    this.$emit('openmembersettle');
+
                     this.close();
                     return
                 }
-                this.$emit('integralChange',this.remainingSum);//订单生成获取积分余额
-                this.$emit('blanceNumber',balanceNumber);//订单生成成功,获取账户
                 this.centerDialogVisible=false;
                 this.payType=true;
             },
