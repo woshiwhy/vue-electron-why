@@ -98,21 +98,21 @@
       background-color: #262a4a;
     }
     .setClr-btn {
-      background-image: url("../../../static/img/shezhi_white.svg");
+      background-image: $setClr-btn;
     }
     .min-btn {
-      background-image: url("../../../static/img/sx_white.svg");
+      background-image: $min-btn;
     }
     .max-btn {
-      background-image: url("../../../static/img/sf_white-01.svg");
+      background-image: $max-btn;
     }
 
     .back-btn {
-      background-image: url("../../../static/img/sx2_white.svg");
+      background-image: $back-btn;
     }
 
     .close-btn {
-      background-image: url("../../../static/img/gb_white.svg");
+      background-image: $close-btn;
     }
     .personal-bg, .personal-active {
       background-size: 0.22rem !important;

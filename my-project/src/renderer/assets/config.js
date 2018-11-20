@@ -1,7 +1,6 @@
 /**
  * Created by Administrator on 2018/10/30.
  */
-import i18n from './../i18n/i18n';
  const dealStatus = {
     0: "待成交",
     1: "部分成交",
@@ -46,8 +45,8 @@ const memberType={
     0:'会员开通'
 };
 const balanceType={
-    0:'未支付',
-    1:'未审核',
+    0:'审核中',
+    1:'审核中',
     2:'已通过',
     3:'未通过',
 }

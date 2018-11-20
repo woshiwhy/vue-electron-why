@@ -1,5 +1,35 @@
-'use strict'
 
+let allBgimg=`
+$logo_Img:url("../../../static/img/headerlogo.png");//登录logo
+$down:url("../../static/img/down.png");//更新图片
+//登录最小,关闭按钮
+$narrow_white:url("../../../../static/img/narrow_white.svg");
+$Close_white:url("../../../../static/img/Close_white.svg");
+$member_Img:url("../../../../../static/img/infor/memberimg.png");
+//导航图片
+$personal:url("../../../static/img/personal.svg");
+$personal_hover:url("../../../static/img/personal_hover.svg");
+$home:url("../../../static/img/home.svg");
+$home_hover:url("../../../static/img/home_hover.svg");
+$xhjy:url("../../../static/img/xhjy.svg");
+$xhjy_hover:url("../../../static/img/xhjy_hover.svg");
+$zdjy:url("../../../static/img/zdjy.svg");
+$zdjy_hover:url("../../../static/img/zdjy_hover.svg");
+$GJHQ:url("../../../static/img/GJHQ.svg");
+$gjhq_hover:url("../../../static/img/gjhq_hover.svg");
+$sqbd:url("../../../static/img/sqbd.svg");
+$sqbd_hover:url("../../../static/img/sqbd_hover.svg");
+$zhsz:url("../../../static/img/zhsz.svg");
+$zhsz_hover:url("../../../static/img/zhsz_hover.svg");
+$GD:url("../../../static/img/GD.svg");
+$gd_hover:url("../../../static/img/gd_hover.svg");
+//内容窗口最小化大话按钮
+$setClr-btn:url("../../../static/img/shezhi_white.svg");
+$min-btn:url("../../../static/img/sx_white.svg");
+$max-btn:url("../../../static/img/sf_white-01.svg");
+$back-btn:url("../../../static/img/sx2_white.svg");
+$close-btn:url("../../../static/img/gb_white.svg");
+`;
 process.env.BABEL_ENV = 'renderer'
 
 const path = require('path')
@@ -31,20 +61,16 @@ let rendererConfig = {
   ],
   module: {
     rules: [
-      // {
-      //   test: /\.(js|vue)$/,
-      //   enforce: 'pre',
-      //   exclude: /node_modules/,
-      //   use: {
-      //     loader: 'eslint-loader',
-      //     options: {
-      //       formatter: require('eslint-friendly-formatter')
-      //     }
-      //   }
-      // },
       {
         test: /\.scss$/,
-        use: ['vue-style-loader', 'css-loader', 'sass-loader']
+        use: ['vue-style-loader', 'css-loader',
+            {
+                loader: 'sass-loader',
+                options: {
+                    data: allBgimg
+                }
+            }
+        ]
       },
       {
         test: /\.sass$/,
@@ -78,8 +104,8 @@ let rendererConfig = {
           options: {
             extractCSS: process.env.NODE_ENV === 'production',
             loaders: {
-              sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax=1',
-              scss: 'vue-style-loader!css-loader!sass-loader',
+               sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax=1',
+                scss: 'vue-style-loader!css-loader!sass-loader',
               less: 'vue-style-loader!css-loader!less-loader'
             }
           }

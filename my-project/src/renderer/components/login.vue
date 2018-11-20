@@ -40,9 +40,9 @@
 
   </div>
 </template>
-<style>
+<style lang="scss" rel="stylesheet/scss">
   .title-box{
-    background: url("../../../static/img/headerlogo.png")no-repeat center ;
+    background:$logo_Img;
   }
   .verify-input {
     width: 220px!important;
@@ -90,7 +90,7 @@
 
 </style>
 <script>
-  const { ipcRenderer,remote } = require('electron');
+  const { ipcRenderer} = require('electron');
   import minmax from '&/minmax'
 import formMound from '&/from'
 

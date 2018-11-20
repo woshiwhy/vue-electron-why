@@ -87,7 +87,7 @@
                 },
 
                     {
-                        "name":'实付金额',
+                        "name":'应付金额',
                         "data":'payableAmount',
                         width:'80'
                     },

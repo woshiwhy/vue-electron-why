@@ -75,7 +75,7 @@
       <div class="imgBox">
         <a :href="imgUrl" download>
           <el-tooltip class="item" effect="light" content="点击下载海报" placement="left">
-            <img :src="imgUrl" alt="" width="400">
+            <img :src="imgUrl" alt="" width="500">
           </el-tooltip>
         </a>
       </div>
@@ -327,11 +327,11 @@
         codeImg.setAttribute("crossOrigin", 'anonymous');  // 跨域请求图片
         imgBg.src = ceshiImg;
         codeImg.onload = () => {
-          canvas.width = 700;
-          canvas.height = 1575;
+          canvas.width = 800;
+          canvas.height = 1336;
           var canvasBox = canvas.getContext("2d");
-          canvasBox.drawImage(imgBg, 0, 0, 700, 1575); //绘制图像进行拉伸
-          canvasBox.drawImage(codeImg, 510, 1270, 150, 150);
+          canvasBox.drawImage(imgBg, 0, 0, 800, 1336); //绘制图像进行拉伸
+          canvasBox.drawImage(codeImg, 550, 740, 150, 150);
           var dataURL = canvas.toDataURL('image/png');
             this.$store.dispatch('inviteUrl',dataURL);
         };

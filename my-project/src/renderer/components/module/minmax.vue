@@ -5,7 +5,6 @@
   </div>
 </template>
 <style lang="scss" rel="stylesheet/scss" scoped>
-  @import "@/assets/scss/app.scss";
   span{
     cursor: pointer;
     display: inline-block;

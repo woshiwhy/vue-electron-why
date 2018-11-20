@@ -56,7 +56,6 @@
   }
 </script>
 <style lang="scss" rel="stylesheet/scss">
-    @import "@/assets/scss/app.scss";
     .visit-box{
         position: relative;
         text-align: center;
