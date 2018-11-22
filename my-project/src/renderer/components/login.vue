@@ -15,7 +15,7 @@
       :fromVal="register">
     </form-box>
     <div style="width: 415px;margin: auto">
-      <!--<span class="forgin-btn forgin-hover" @click="forgetPWd('/register')">注册账号</span>-->
+      <span class="forgin-btn forgin-hover" @click="forgetPWd('/register')">注册账号</span>
     </div>
     <el-dialog
       class="login-dialog verify-Login"
