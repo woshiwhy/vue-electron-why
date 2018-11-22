@@ -55,7 +55,7 @@
   color: rgba(255, 255, 255, 0.3);
 }
 .register-btn:hover{
-  background: #52a7ff;
+  background: #52a7ff ;
   border: none;
 }
 </style>
