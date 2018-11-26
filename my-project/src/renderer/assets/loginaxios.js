@@ -134,6 +134,12 @@ let loginAjax = {
     url: '/userSign/query/signInfo',
     data: data
   }),
+    //  策略执行签到
+    strategySign: (data) => $axiosInfor({
+        method: 'get',
+        url: '/userSign/strategySign',
+        data: data
+    }),
   //  创造二维码
   qrCodeCreate: (data) => $axiosInfor({
     method: 'get',

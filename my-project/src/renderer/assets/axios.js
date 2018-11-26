@@ -4,8 +4,8 @@
 import axios from 'axios'
 import { Loading } from 'element-ui'
 
-const axiosLogin = 'http://api.bitbus.club/upms';// 登录注册接口
-//const axiosLogin='http://192.168.2.57:10000/upms';//登录注册接口
+// const axiosLogin = 'http://api.bitbus.club/upms';// 登录注册接口
+const axiosLogin='http://192.168.2.57:10000/upms';//登录注册接口
 const webSocketOBj = {
    //url:'ws://47.75.110.132:10006/hub',//webSocket对象地址
     //url:'ws://192.168.2.57:10000/hub',//webSocket对象地址
