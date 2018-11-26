@@ -135,6 +135,7 @@ export default {
         this.tableData = [];
         this.loadingType = true;
         this.selectVal='';
+          this.ungeMarket();
         this.changeWebVal()
       },
         wsObj (n, o) {
@@ -197,6 +198,11 @@ export default {
         }
         this.currtent()
       },
+       ungeMarket(){
+           if (this.wsObj.readyState == 1) { // 1，链接成功。
+               this.wsObj.send(JSON.stringify({event: "UNSUB_ALL"}))
+           }
+       } ,
       getMarket () {
         this.websocketSend.site = this.activeBazzer.sysMark;
         this.websocketSend.event = 'sub';
@@ -214,9 +220,7 @@ export default {
     },
     beforeDestroy () {
       // 离开国际行情时取消订阅，
-        if (this.wsObj.readyState == 1) { // 1，链接成功。
-            this.wsObj.send(JSON.stringify({event: "UNSUB_ALL"}))
-        }
+     this.ungeMarket()
   },
     destroyed: function () {
       this.$store.dispatch('activeBazzer', '')

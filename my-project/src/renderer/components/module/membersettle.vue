@@ -162,7 +162,8 @@
                     this.payPost.payableAmount=0;
                     return
                 }
-                this.payPost.payableAmount=sum
+
+                this.payPost.payableAmount=sum.toFixed(2)
             },
             close () {
                 this.$emit('close')
@@ -185,7 +186,7 @@
                         this.payPost.payableAmount=0;
                         return
                     }
-                    this.payPost.payableAmount=payBlance;
+                    this.payPost.payableAmount=payBlance.toFixed(2);
                     return
                 }
                 //不是用积分，实付余额=应付金额-账户余额；

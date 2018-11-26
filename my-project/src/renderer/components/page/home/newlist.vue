@@ -1,15 +1,26 @@
 <template>
   <div class="small-box skin-bg">
     <h3 class="title-name">{{$t("headline.news")}}</h3>
-    <ul>
+    <ul style="height: 90%; overflow: auto;" ref="sollerBox" @scroll="sollerFun">
       <li class="new-list" v-for="(item,index) in newList">
-        <div class="ellipsis-2" @click="openNew(item.href)" :title="item.content">{{item.content}}</div>
-        <div class="list-time">{{item.time}}</div>
+        <div class="ellipsis-2" @click="openNew(item)" :title="item.content">{{item.article}}</div>
+        <div class="list-time">{{$timecycle(item.releaseDate)}}</div>
+      </li>
+      <li style="text-align: center;">
+        <i class="el-icon-loading" v-if="loadingType" ></i>
+        <span v-else style="color:#4e5b85;font-size: 0.12rem">没有更多</span>
       </li>
     </ul>
   </div>
 </template>
 <style scoped>
+  .el-icon-loading{
+    font-size: 0.2rem;
+    color:#0098ff
+  }
+  .small-box{
+    height: 3.9rem;
+  }
   .new-list {
     padding: 0 0.3rem 0 0.15rem;
     margin-bottom: 0.15rem;
@@ -17,7 +28,6 @@
 
   .ellipsis-2 {
     cursor: pointer;
-    height: 0.35rem;
   }
 
   .ellipsis-2:hover {
@@ -42,40 +52,54 @@
   export default {
     data () {
       return {
-        newList: [
-
-          {
-            content: '纽约大学已开始在美国开设第一个区块链课程',
-            href: 'https://www.ccn.com/nyu-offers-first-crypto-major-in-us-sees-exponential-increase-in-interest/'
-          },
-
-          {
-            content: '于以太坊的Brave浏览器被列为谷歌浏览器可行替代品',
-            href: 'https://www.ccn.com/ethereum-based-brave-already-considered-as-viable-alternative-to-chrome/'
-          },
-
-          {
-            content: '西反垄断监管机构—经济防卫行政委员会(CADE)最近发起了一项调查，调查该国的银行是否有意通过限制其业务来损害加密货币交易所',
-            href: 'https://www.ccn.com/brazils-antitrust-watchdog-probes-banks-for-restricting-crypto-exchanges/'
-          },
-
-          {
-            content: '球市场观察(Global market Insights)报告称：到2024年市场将达到160亿美元。报告指出，风险投资家对区块链技术的大量投资推动了亚太地区的增长',
-            href: 'https://www.entrepreneur.com/article/320312/'
-          },
-
-          {
-            content: '大利亚金融监管机构严厉打击“误导”ICO和加密基金',
-            href: 'https://www.ccn.com/australias-financial-watchdog-cracks-down-on-misleading-icos-crypto-funds/'
+        newList: [],
+          loadingType:false,
+          pages:1,//总页数
+          listPost:{
+              eq: {journalism_classify:"1000-1005"},
+              page: {
+                  current: 0,
+                  size:8
+              }
           }
-        ]
       }
     },
+      created(){
+        this.newListPost();
+      },
     methods: {
-      openNew (href) {
+          newListPost(){
+              this.listPost.page.current++;
+              if(this.listPost.page.current>this.pages){//当前页面大于总页数禁止请求
+                 this.loadingType=false;
+                  return
+              }
+              this.loadingType=true;
+              this.$postAxios.newList(this.listPost).then((res) => {
+                  if(res.data.code==200){
+                      this.loadingType=false;
+                      this.pages=res.data.data.pages;//总页数
+                      if(this.listPost.page.current==1){//如果是第一页直接赋值
+                          this.newList=res.data.data.records;
+                          return
+                      }
+                      this.newList=this.newList.concat(res.data.data.records);//不是就合并
+                  }
+              })
+          },
+        sollerFun(data){
+            let tagerObj=data.target;
+            let clientOBj=tagerObj.clientHeight;//滑动条高度
+            let offsetOBj=tagerObj.scrollHeight;//可视区域高度
+            let offsetTop=tagerObj.scrollTop;//滑动条距离顶部距离
+          if(clientOBj+offsetTop>=offsetOBj){
+             this.newListPost();
+          }
+        },
+      openNew (data) {
         if (window.require) {
-          const {shell} = window.require('electron').remote
-          shell.openExternal(href)
+            const {shell} = window.require('electron').remote;
+            shell.openExternal(data.links+'?id='+data.id)
         }
       }
     }

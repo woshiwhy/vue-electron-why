@@ -1,7 +1,7 @@
 <template>
-  <el-carousel class="home-carousel" trigger="click" height="1.95rem">
+  <el-carousel class="home-carousel skin-bg" trigger="click" height="1.95rem">
     <el-carousel-item v-for="(item ,index) in carouselList"  :key="index">
-     <img :src="item.src">
+     <img :src="item.bannerImg">
     </el-carousel-item>
   </el-carousel>
 </template>
@@ -43,15 +43,33 @@
   export default {
     data () {
       return {
-        carouselList: [
-          {
-            src: './static/img/carousel/one.jpg'
-          },
-          {
-            src: './static/img/carousel/two.jpg'
+          listPost:{
+              "eq": {"source":"web端"},
+              page: {
+                  current: 1,
+                  size:3
+              }
           }
-        ]
       }
-    }
+    },
+      computed: { //  监听选中值
+          carouselList () {
+             return this.$store.state.home.bannerList
+          }
+      },
+      created(){
+        if(!this.carouselList.length){
+            this.bannerPost();
+        }
+      },
+      methods: {
+          bannerPost(){
+              this.$postAxios.banner(this.listPost).then((res) => {
+                  if (res.data.code == 200) {
+                      this.$store.dispatch('bannerList', res.data.data.records);
+                  }
+              })
+          }
+      }
   }
 </script>

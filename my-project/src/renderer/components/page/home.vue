@@ -21,6 +21,7 @@
     </el-aside>
     <el-main class="main-width" style="margin-right: 0.1rem">
       <!--套利-->
+
       <transition name="fade">
         <straddle-box v-show="boxShow"></straddle-box>
       </transition>
@@ -93,6 +94,10 @@ export default {
       'author-box': Author,
       'arbitrage-box': Arbitragetable,
       'straddle-box': Straddle
+    },
+    created(){
+
+
     },
     methods: {
       navClick (href, index) {

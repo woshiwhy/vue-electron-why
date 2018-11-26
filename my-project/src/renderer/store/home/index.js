@@ -8,9 +8,21 @@ const state={
   recommendCurrent:{
       innovate:'',
       potential:'',
-  }//推荐币种
+  },//推荐币种
+    bannerList:[],//轮播
+    listcarousel:[],//空投
+    authosList:[],//大咖
 };
 const  mutations= {
+    authosList(state, msg){
+        state.authosList = msg;
+    },
+    listcarousel(state, msg){
+        state.listcarousel = msg;
+    },
+    bannerList(state, msg){
+        state.bannerList = msg;
+    },
   recommendCurrent(state, msg){
     state.recommendCurrent = msg;
   },
@@ -19,6 +31,15 @@ const  mutations= {
   }
 };
 const actions = {
+    authosList(context, payload) {
+        context.commit('authosList', payload)
+    },
+    listcarousel(context, payload) {
+        context.commit('listcarousel', payload)
+    },
+    bannerList(context, payload) {
+        context.commit('bannerList', payload)
+    },
   recommendCurrent(context, payload) {
     context.commit('recommendCurrent', payload)
   },

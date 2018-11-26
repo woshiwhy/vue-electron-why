@@ -1,10 +1,11 @@
 <template>
-  <div class="small-box skin-bg">
+  <div class="small-box skin-bg" v-loading="loadingType"
+       element-loading-background="rgba(0, 0, 0, 0)">
     <h3 class="title-name">{{$t("headline.master")}}</h3>
     <ul>
-      <li v-for="(item,index) in authorList" @click="openNew(item.href)" :key="index">
-        <img :src="item.src">
-        <div class="author-name">{{item.name}}</div>
+      <li v-for="(item,index) in authosList" @click="openNew(item)" :key="index">
+        <img :src="item.bannerImg" alt="大咖头像">
+        <div class="author-name">{{item.title}}</div>
       </li>
     </ul>
   </div>
@@ -36,6 +37,14 @@
   export default {
     data () {
       return {
+          listPost:{
+              eq: {"journalism_classify":"1000-1001"},
+              page: {
+                  current: 1,
+                  size:6
+              }
+          },
+          loadingType:false,
         authorList: [
           {
             name: 'BTC资本',
@@ -70,11 +79,30 @@
         ]
       }
     },
+      computed: { //  监听选中值
+          authosList () {
+              return this.$store.state.home.authosList
+          }
+      },
+      created(){
+          if(!this.authosList.length){
+              this.newListPost();
+          }
+      },
     methods: {
-      openNew (href) {
+        newListPost(){
+            this.loadingType=true;
+            this.$postAxios.newList(this.listPost).then((res) => {
+                if(res.data.code==200){
+                    this.loadingType=false;
+                    this.$store.dispatch('authosList', res.data.data.records);
+                }
+            })
+        },
+      openNew (data) {
         if (window.require) {
-          const {shell} = window.require('electron').remote
-          shell.openExternal(href)
+          const {shell} = window.require('electron').remote;
+          shell.openExternal(data.links)
         }
       }
     }

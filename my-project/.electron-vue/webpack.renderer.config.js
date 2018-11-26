@@ -1,4 +1,4 @@
-
+'use strict'
 let allBgimg=`
 $logo_Img:url("../../../static/img/headerlogo.png");//登录logo
 $down:url("../../static/img/down.png");//更新图片

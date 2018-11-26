@@ -1,10 +1,7 @@
 <template>
-
-
     <ul  ref="box"   @mouseleave="Up()" class="stope-anmion"  @mouseenter="clearInterval()">
-      <li class="ellipsis-2 hove-list"   v-for='(item,index) in items' :key="index" @click="openWind(item.href)">{{item.name}}</li>
+      <li class="ellipsis-2 hove-list"   v-for='(item,index) in items' :key="index" @click="openWind(item)">{{item.title}}</li>
     </ul>
-
 </template>
 <style scoped>
   ::-webkit-scrollbar
@@ -30,7 +27,7 @@
 </style>
 <script>
   export default {
-    props: ['items', 'refName'],
+    props: ['items'],
     data () {
       return {
         setTimeObj: '',
@@ -45,7 +42,7 @@
     },
     methods: {
       ScrollUp () {
-        let boxObj = this.$refs.box
+        let boxObj = this.$refs.box;
         if (boxObj.scrollTop + boxObj.clientHeight >= boxObj.scrollHeight) {
           boxObj.scrollTop = 0
         } else {
@@ -60,11 +57,10 @@
       clearInterval () {
         clearInterval(this.setTimeObj)
       },
-
-      openWind (href) {
+      openWind (data) {
         if (window.require) {
-          const {shell} = window.require('electron').remote
-          shell.openExternal(href)
+          const {shell} = window.require('electron').remote;
+            shell.openExternal(data.links+'?id='+data.id)
         }
       }
 

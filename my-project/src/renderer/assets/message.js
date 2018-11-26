@@ -12,6 +12,10 @@ let messageTitle = (title_Tip, type) => {
     type: typeChange
   })
 };
+    //时间转换,几小时之前。
+let timecycle=(data) =>{
+    return Vue.prototype.$moment(Vue.prototype.$moment(data).format(), "YYYYMMDDhhmm").fromNow()
+};
 // 将html标签转义。
 let escapeHTML = (a) => {
   a = '' + a;
@@ -86,4 +90,4 @@ let currentyBalance=(obj)=>{ // 存储货币可用余额值。
         }
     }
 };
-export {messageTitle, escapeHTML, unescapeHTML,balancePost,currentyBalance}
+export {messageTitle, escapeHTML, unescapeHTML,balancePost,currentyBalance,timecycle}

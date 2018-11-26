@@ -21,7 +21,11 @@
 <script>
   export default {
     props: ['navType', 'searchVal'], // searchVal搜索框选中的值
-
+    data(){
+      return{
+          oldsSysMark:'',//取消的站点
+      }
+    },
     computed: {
       depth () {
         return {
@@ -51,14 +55,20 @@
         balanceSet(n,o){
             this.balancePost()
         },
-      activeBazzer () {
+      activeBazzer (n,o) {
+            if(o){
+                this.oldsSysMark=o.sysMark;//获取上一个站点的ID;
+            }
         this.$refs.sollerBox.scrollLeft = 0;
       },
       searchVal (n, o) {
         this.$refs.sollerBox.scrollLeft = this.$refs[n.uniteSymbol][0].offsetLeft - 20
       },
-        activeCurrenty (n, o) {
-
+        activeCurrenty (n,o) {
+         if(o){
+             this.unsubPost(o.name)
+         }
+        this.oldsSysMark=this.activeBazzer.sysMark;
         if (n) { // 监控被选中的币对ID.
           this.socketPost();
           this.navActive();
@@ -90,6 +100,18 @@
    }
     },
     methods: {
+        unsubPost(symbol){//取消深度
+            if (this.wsObj.readyState == 1) { // 1，链接成功。
+                this.wsObj.send(
+                    JSON.stringify( {
+                        'site': this.oldsSysMark, // 站点
+                        'event': 'unsub', // subscribe(订阅)/unsubscribe(取消订阅)
+                        'channel': 'depth', // depth50请求50条
+                        'symbol': symbol/// 币对
+                    } )
+                )
+            }
+        },
       socketPost () {
         this.webSocket();
           setTimeout(()=>{

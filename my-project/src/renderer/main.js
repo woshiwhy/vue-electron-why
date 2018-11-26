@@ -4,19 +4,21 @@ import App from './App'
 import router from './router'
 import store from './store/store'
 import md5 from 'js-md5';
-import {messageTitle,balancePost,currentyBalance} from "./assets/message";
-import {postObj} from "./assets/axios";
-import {loginAjax} from "./assets/loginaxios";
-import 'element-ui/lib/theme-chalk/index.css';
-import ElementUI from 'element-ui';
+import {messageTitle,balancePost,currentyBalance,timecycle} from "./assets/message"
+import {postObj} from "./assets/axios"
+import {loginAjax} from "./assets/loginaxios"
+import 'element-ui/lib/theme-chalk/index.css'
+import ElementUI from 'element-ui'
 import moment from 'moment'
-import i18n from './i18n/i18n';
+import i18n from './i18n/i18n'
 import filter from "./assets/filters"
+moment.locale('zh-cn')
 Vue.mixin(filter);
 Vue.use(ElementUI);
 Vue.prototype.$messageTitle = messageTitle;
 Vue.prototype.$balancePost = balancePost;
 Vue.prototype.$currentyBalance = currentyBalance;
+Vue.prototype.$timecycle = timecycle;
 Vue.prototype.$postAxios = postObj;
 Vue.prototype.$loginAjax = loginAjax;
 Vue.prototype.$ajax = axios;
