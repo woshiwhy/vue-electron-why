@@ -408,9 +408,8 @@
                 this.type = '1'
                 for (var i = 0; i < this.basicData.length; i++) {
                     if (this.basicData[i].planType == "DAILY_SIGN") {
-                        this.$store.dispatch('activeDay', this.basicData[i].conSignDay);
-                        this.active = this.basicData[i].conSignDay;
-                        this.singinTitle = '已连续签到' + this.activeDay + '天';
+                        this.active = this.basicData[i].conSignDay ;
+                        this.singinTitle = '已连续签到' + this.basicData[i].conSignDay + '天';
                         this.singInVisible = true;
                     }
                 }
@@ -424,13 +423,13 @@
                 this.type = '2'
                 this.$loginAjax.strategySign({}).then(res=>{
                     if(res.data.code ==200){
+                        this.basicTasks();
                         for (var i = 0; i < this.basicData.length; i++) {
                             if (this.basicData[i].planType == "STRATEGY_EXECUTE_SIGN") {
                                 this.basicData[i].status = 1;
                                 this.taskData.myIntegral += Number(this.basicData[i].rewardValue);
-                                    this.$store.dispatch('activeDay', this.basicData[i].conSignDay);
-                                    this.active = this.basicData[i].conSignDay;
-                                    this.singinTitle = '已连续签到' + this.activeDay + '天';
+                                    this.active = this.basicData[i].conSignDay +1;
+                                    this.singinTitle = '已连续签到' + this.active + '天';
                                     this.activeDay == 7 ? this.basicData[i].rewardValue = 1 : this.basicData[i].rewardValue = Number(this.basicData[i].rewardValue) + 5;
                                     this.singInVisible = true;
                             }
@@ -449,13 +448,14 @@
                     this.type = '1';
                     if (res.data.code == 200) {
                         this.$messageTitle(res.data.msg, "success");
+                        this.basicTasks();
                         for (var i = 0; i < this.basicData.length; i++) {
                             if (this.basicData[i].planType == "DAILY_SIGN") {
-                                this.$store.dispatch('activeDay', this.basicData[i].conSignDay);
+                                this.active = this.basicData[i].conSignDay + 1;
+                                this.singinTitle = '已连续签到' + this.active + '天';
                                 this.basicData[i].status = 1;
                                 this.taskData.myIntegral += Number(this.basicData[i].rewardValue);
                                 this.activeDay == 7 ? this.basicData[i].rewardValue = 1 : this.basicData[i].rewardValue = Number(this.basicData[i].rewardValue) + 3;
-                                this.signInfo();
                                 this.singInVisible = true;
                             }
                         }
@@ -481,9 +481,8 @@
                     this.type = '2';
                     for (var i = 0; i < this.basicData.length; i++) {
                         if (this.basicData[i].planType == "STRATEGY_EXECUTE_SIGN") {
-                            this.$store.dispatch('activeDay', this.basicData[i].conSignDay);
                             this.active = this.basicData[i].conSignDay;
-                            this.singinTitle = '已连续签到' + this.activeDay + '天';
+                            this.singinTitle = '已连续签到' + this.basicData[i].conSignDay + '天';
                             this.singInVisible = true;
                         }
                     }
