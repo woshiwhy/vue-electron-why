@@ -3,11 +3,12 @@
     :title="boxObj.title"
     :visible.sync="setClrBox"
     :before-close="handleClose"
-    width="4.21rem"
+    :width="boxObj.width || '4.21rem'"
     class="center-dialog"
     center>
     <p class="setingBg">
-      <el-radio-group v-model="skinType" >
+      <img src="../../../../static/img/infor/weChat.jpg" alt="" v-if="boxObj.type=='weChat'">
+      <el-radio-group v-model="skinType" v-else>
         <el-radio v-for="(item,index) in boxObj.radioArry" :key="index" :label="item.val">{{item.name}}</el-radio>
       </el-radio-group>
     </p>
@@ -22,7 +23,7 @@
     data () {
       return {
           skinType: 1,
-          setClrBox:true
+          setClrBox:true,
       }
   },
       mounted (){
@@ -45,11 +46,10 @@
               this.$store.dispatch('skinType', this.skinType)
               localStorage.setItem('skinType', this.skinType)
           }
-          else {
+          else if(this.boxObj.type=='lang'){
               localStorage.setItem('languageType', this.skinType)
               this.$emit('langchat', this.skinType)
           }
-
           this.handleClose()
       },
       handleClose () {

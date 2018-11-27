@@ -27,22 +27,37 @@
 </style>
 <script>
   export default {
-    props: ['singinTitle', 'active'],
+    props: ['singinTitle', 'active','type'],
     data () {
       return {
         singInVisible: true,
-        week: [
-          {title: '+05', description: '第一天'},
-          {title: '+10', description: '第二天'},
-          {title: '+15', description: '第三天'},
-          {title: '+20', description: '第四天'},
-          {title: '+25', description: '第五天'},
-          {title: '+30', description: '第六天'},
-          {title: '+35', description: '第七天'}
-        ]
+        week1: [
+          {title: '+01', description: '第一天'},
+          {title: '+04', description: '第二天'},
+          {title: '+07', description: '第三天'},
+          {title: '+10', description: '第四天'},
+          {title: '+13', description: '第五天'},
+          {title: '+16', description: '第六天'},
+          {title: '+19', description: '第七天'}
+        ],
+         week2 : [
+          {title: '+20', description: '第一天'},
+          {title: '+25', description: '第二天'},
+          {title: '+30', description: '第三天'},
+          {title: '+35', description: '第四天'},
+          {title: '+40', description: '第五天'},
+          {title: '+55', description: '第六天'},
+          {title: '+65', description: '第七天'}
+      ],
+          week:[]
       }
   },
     created () {
+        if(this.type == 1){
+            this.week = this.week1
+        }else {
+            this.week = this.week2
+        }
     },
     methods: {
       close () {

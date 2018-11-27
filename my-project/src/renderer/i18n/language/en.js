@@ -38,7 +38,8 @@ const en = {
         bind: 'Verifications',
         help:'Help',
         themeSet:'Theme Set',
-        languageSet:'Language Set'
+        languageSet:'Language Set',
+        weChat:'Customer service'
     },
     // 提示语
     tip: {

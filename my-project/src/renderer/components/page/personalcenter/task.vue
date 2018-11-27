@@ -81,7 +81,7 @@
                 </a>
             </div>
         </el-dialog>
-        <singIn-box v-if="singInVisible" :active="active" :singinTitle="singinTitle"
+        <singIn-box v-if="singInVisible" :active="active" :type="type" :singinTitle="singinTitle"
                     @closeSingin="closeSingin"></singIn-box>
         <mailMound-box v-if="emailVisible" @closeEmail="closeEmail"></mailMound-box>
         <PhoneMound-box v-if="phoneVisible" @closePhone="closePhone"></PhoneMound-box>
@@ -265,6 +265,7 @@
                 singInVisible: false,
                 singinTitle: '',
                 active: 0,
+                type:'',
             }
         },
         created() {
@@ -402,7 +403,9 @@
                 }
                 this.phoneVisible = false
             },
-            signInfo() { //获取本周签到记录
+            //查询本周签到记录
+            signInfo() {
+                this.type = '1'
                 for (var i = 0; i < this.basicData.length; i++) {
                     if (this.basicData[i].planType == "DAILY_SIGN") {
                         this.$store.dispatch('activeDay', this.basicData[i].conSignDay);
@@ -412,16 +415,24 @@
                     }
                 }
             },
-            singBind(){ //授权绑定
+            //授权绑定
+            singBind(){
                 this.$router.push('binding');
             },
-            strategySign(){ //策略执行签到
+            //策略执行签到
+            strategySign(){
+                this.type = '2'
                 this.$loginAjax.strategySign({}).then(res=>{
                     if(res.data.code ==200){
                         for (var i = 0; i < this.basicData.length; i++) {
                             if (this.basicData[i].planType == "STRATEGY_EXECUTE_SIGN") {
                                 this.basicData[i].status = 1;
                                 this.taskData.myIntegral += Number(this.basicData[i].rewardValue);
+                                    this.$store.dispatch('activeDay', this.basicData[i].conSignDay);
+                                    this.active = this.basicData[i].conSignDay;
+                                    this.singinTitle = '已连续签到' + this.activeDay + '天';
+                                    this.activeDay == 7 ? this.basicData[i].rewardValue = 1 : this.basicData[i].rewardValue = Number(this.basicData[i].rewardValue) + 5;
+                                    this.singInVisible = true;
                             }
                         }
                         this.$messageTitle(res.data.msg,'success')
@@ -435,6 +446,7 @@
             //  用户每日签到
             userSign() {
                 this.$loginAjax.userSign({}).then((res) => {
+                    this.type = '1';
                     if (res.data.code == 200) {
                         this.$messageTitle(res.data.msg, "success");
                         for (var i = 0; i < this.basicData.length; i++) {
@@ -442,7 +454,7 @@
                                 this.$store.dispatch('activeDay', this.basicData[i].conSignDay);
                                 this.basicData[i].status = 1;
                                 this.taskData.myIntegral += Number(this.basicData[i].rewardValue);
-                                this.activeDay == 7 ? this.basicData[i].rewardValue = 5 : this.basicData[i].rewardValue = Number(this.basicData[i].rewardValue) + 5;
+                                this.activeDay == 7 ? this.basicData[i].rewardValue = 1 : this.basicData[i].rewardValue = Number(this.basicData[i].rewardValue) + 3;
                                 this.signInfo();
                                 this.singInVisible = true;
                             }
@@ -455,12 +467,29 @@
                     this.$messageTitle('网络错误请稍后重试', "error")
                 })
             },
+            // 查看签到
             singin(status) {
                 if (status == 'DAILY_SIGN') {
                     this.signInfo()
+                };
+                if (status == 'STRATEGY_EXECUTE_SIGN') {
+                    this.signInStrategy()
                 }
             },
-            close() { //关闭
+            //查看策略执行签到记录
+                signInStrategy(){
+                    this.type = '2';
+                    for (var i = 0; i < this.basicData.length; i++) {
+                        if (this.basicData[i].planType == "STRATEGY_EXECUTE_SIGN") {
+                            this.$store.dispatch('activeDay', this.basicData[i].conSignDay);
+                            this.active = this.basicData[i].conSignDay;
+                            this.singinTitle = '已连续签到' + this.activeDay + '天';
+                            this.singInVisible = true;
+                        }
+                    }
+                },
+            //关闭
+            close() {
                 this.singInVisible = false;
             },
             closeSingin() {

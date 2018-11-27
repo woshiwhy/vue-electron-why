@@ -16,6 +16,7 @@
         <el-dropdown-menu slot="dropdown" style=" -webkit-app-region: no-drag;">
           <el-dropdown-item command="theme">{{$t('headline.themeSet')}}</el-dropdown-item>
           <el-dropdown-item command="lang">{{$t('headline.languageSet')}}</el-dropdown-item>
+          <el-dropdown-item command="weChat">{{$t('headline.weChat')}}</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
       <span class="hoverbtn min-btn" @click="maxMin(1)"></span>
@@ -402,6 +403,10 @@
                             val:"en"
                         }
                     ];
+                    break
+                case 'weChat':
+                    this.boxObj.title=this.$t('headline.weChat');
+                    this.boxObj.width = '360px';
                     break
 
             }

@@ -37,7 +37,8 @@ const cn = {
         bind: '安全绑定',
         help:'帮助',
         themeSet:'主题设置',
-        languageSet:'语言设置'
+        languageSet:'语言设置',
+        weChat:'联系客服'
     },
     // 提示语
     tip: {
