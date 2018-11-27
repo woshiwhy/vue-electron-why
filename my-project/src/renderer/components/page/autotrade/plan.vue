@@ -30,7 +30,7 @@
            </div>
          </template>
        </el-table-column>
-      <el-table-column :label='$t("tableheder.operation")'>
+      <el-table-column :label='$t("tableheder.operation")' widt="70">
         <template slot-scope="scope">
           <div slot="reference">
             <span class="btn-color" @click="freeTrial(scope.$index,scope.row)">{{$t("btnname.tryOut ")}}</span>
@@ -57,11 +57,11 @@
 <style>
   .hot-bg{
     background: url("../../../../../static/img/hot.png")no-repeat;
-    background-position: left center;
+    background-position: 0.3rem center;
   }
   .bgset{
-    width:0.82rem;
-    padding-left: 0.2rem;
+    width:1.2rem;
+    padding-left: 0.5rem;
     display: inline-block;
     text-align: left!important;
   }
