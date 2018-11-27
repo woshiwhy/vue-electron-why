@@ -265,7 +265,7 @@
                 singInVisible: false,
                 singinTitle: '',
                 active: 0,
-                type:'',
+                type: '',
             }
         },
         created() {
@@ -408,35 +408,36 @@
                 this.type = '1'
                 for (var i = 0; i < this.basicData.length; i++) {
                     if (this.basicData[i].planType == "DAILY_SIGN") {
-                        this.active = this.basicData[i].conSignDay ;
+                        this.active = this.basicData[i].conSignDay;
                         this.singinTitle = '已连续签到' + this.basicData[i].conSignDay + '天';
                         this.singInVisible = true;
                     }
                 }
             },
             //授权绑定
-            singBind(){
+            singBind() {
                 this.$router.push('binding');
             },
             //策略执行签到
-            strategySign(){
+            strategySign() {
                 this.type = '2'
-                this.$loginAjax.strategySign({}).then(res=>{
-                    if(res.data.code ==200){
+                this.$loginAjax.strategySign({}).then(res => {
+                    if (res.data.code == 200) {
                         this.basicTasks();
                         for (var i = 0; i < this.basicData.length; i++) {
                             if (this.basicData[i].planType == "STRATEGY_EXECUTE_SIGN") {
+                                this.active = this.basicData[i].conSignDay + 1;
                                 this.basicData[i].status = 1;
                                 this.taskData.myIntegral += Number(this.basicData[i].rewardValue);
-                                    this.active = this.basicData[i].conSignDay +1;
-                                    this.singinTitle = '已连续签到' + this.active + '天';
-                                    this.activeDay == 7 ? this.basicData[i].rewardValue = 1 : this.basicData[i].rewardValue = Number(this.basicData[i].rewardValue) + 5;
-                                    this.singInVisible = true;
+                                this.active >= 7 ? this.basicData[i].rewardValue = 1 : this.basicData[i].rewardValue = Number(this.basicData[i].rewardValue) + 5;
+                                this.active >= 7 ? this.active = 1 : this.active = this.active;
+                                this.singinTitle = '已连续签到' + this.active + '天';
+                                this.singInVisible = true;
                             }
                         }
-                        this.$messageTitle(res.data.msg,'success')
-                    }else {
-                        this.$messageTitle(res.data.msg,'error')
+                        this.$messageTitle(res.data.msg, 'success')
+                    } else {
+                        this.$messageTitle(res.data.msg, 'error')
                     }
                 }).catch((err) => {
                     this.$messageTitle('网络错误请稍后重试', "error")
@@ -452,10 +453,11 @@
                         for (var i = 0; i < this.basicData.length; i++) {
                             if (this.basicData[i].planType == "DAILY_SIGN") {
                                 this.active = this.basicData[i].conSignDay + 1;
-                                this.singinTitle = '已连续签到' + this.active + '天';
                                 this.basicData[i].status = 1;
                                 this.taskData.myIntegral += Number(this.basicData[i].rewardValue);
-                                this.activeDay == 7 ? this.basicData[i].rewardValue = 1 : this.basicData[i].rewardValue = Number(this.basicData[i].rewardValue) + 3;
+                                this.active >= 7 ? this.basicData[i].rewardValue = 1 : this.basicData[i].rewardValue = Number(this.basicData[i].rewardValue) + 3;
+                                this.active >= 7 ? this.active = 1 : this.active = this.active;
+                                this.singinTitle = '已连续签到' + this.active + '天';
                                 this.singInVisible = true;
                             }
                         }
@@ -471,22 +473,23 @@
             singin(status) {
                 if (status == 'DAILY_SIGN') {
                     this.signInfo()
-                };
+                }
+                ;
                 if (status == 'STRATEGY_EXECUTE_SIGN') {
                     this.signInStrategy()
                 }
             },
             //查看策略执行签到记录
-                signInStrategy(){
-                    this.type = '2';
-                    for (var i = 0; i < this.basicData.length; i++) {
-                        if (this.basicData[i].planType == "STRATEGY_EXECUTE_SIGN") {
-                            this.active = this.basicData[i].conSignDay;
-                            this.singinTitle = '已连续签到' + this.basicData[i].conSignDay + '天';
-                            this.singInVisible = true;
-                        }
+            signInStrategy() {
+                this.type = '2';
+                for (var i = 0; i < this.basicData.length; i++) {
+                    if (this.basicData[i].planType == "STRATEGY_EXECUTE_SIGN") {
+                        this.active = this.basicData[i].conSignDay;
+                        this.singinTitle = '已连续签到' + this.basicData[i].conSignDay + '天';
+                        this.singInVisible = true;
                     }
-                },
+                }
+            },
             //关闭
             close() {
                 this.singInVisible = false;
