@@ -269,14 +269,14 @@
             }
         },
         created() {
-            this.basicTasks();
-            // if (!this.basicData.length) {
-            //     this.basicTasks();
-            // };
-            this.userIntegral();
-            // if (!this.taskData.myIntegral) {
-            //     this.userIntegral();
-            // }
+            // this.basicTasks();
+            if (!this.basicData.length) {
+                this.basicTasks();
+            };
+            // this.userIntegral();
+            if (!this.taskData.myIntegral) {
+                this.userIntegral();
+            }
         },
         computed: {
             imgUrl() {//二维码地址
@@ -416,6 +416,7 @@
             },
             //授权绑定
             singBind() {
+                this.$store.dispatch('navType', '4')
                 this.$router.push('binding');
             },
             //策略执行签到
