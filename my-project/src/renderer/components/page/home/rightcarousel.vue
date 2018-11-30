@@ -1,7 +1,7 @@
 <template>
   <el-carousel class="home-carousel skin-bg" trigger="click" height="1.95rem">
     <el-carousel-item v-for="(item ,index) in carouselList"  :key="index">
-     <img :src="item.bannerImg">
+     <img :src="'http://bitbus.club'+item.bannerImg">
     </el-carousel-item>
   </el-carousel>
 </template>

@@ -166,7 +166,7 @@ export default {
         this.timOBj = setTimeout(() => {
           this.heartSend();
           this.$store.state.webSocket.send('{ "event":"ping"}')
-        }, webSocketOBj.OutTime)
+        },webSocketOBj.OutTime)
       }
     }
   }

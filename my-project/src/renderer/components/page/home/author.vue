@@ -4,7 +4,7 @@
     <h3 class="title-name">{{$t("headline.master")}}</h3>
     <ul>
       <li v-for="(item,index) in authosList" @click="openNew(item)" :key="index">
-        <img :src="item.bannerImg" alt="大咖头像">
+        <img :src="'http://bitbus.club'+item.bannerImg" alt="大咖头像">
         <div class="author-name">{{item.title}}</div>
       </li>
     </ul>

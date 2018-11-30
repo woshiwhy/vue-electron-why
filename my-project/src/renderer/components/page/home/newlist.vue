@@ -56,7 +56,7 @@
           loadingType:false,
           pages:1,//总页数
           listPost:{
-              eq: {journalism_classify:"1000-1005"},
+              eq: {journalism_classify:"1000-1003"},
               page: {
                   current: 0,
                   size:8
